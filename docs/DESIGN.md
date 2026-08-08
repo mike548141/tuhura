@@ -26,6 +26,10 @@ rifle sling. NZ English throughout; te reo Māori names with correct tohutō
 - **Battery honesty**: recording shows expected drain (~10–20%/h screen-on)
   and recommends brightness-down + power bank; a recording that pauses
   (screen lock) says so with a banner, never silently loses data.
+- **User data is precious, tiles are not**: waypoints and tracks are the
+  only copy until sync exists — backup/export is a prominent first-class
+  flow, and the UI never implies recorded data survives "Clear History
+  and Website Data" or icon deletion (it does not).
 - **Safety-adjacent data is hedged in the UI**: land boundaries are
   "indicative — not legal certainty"; every layer carries source + currency
   on its attribution card.
@@ -50,10 +54,23 @@ research + design pass is queued, ROADMAP):
 - **Contextual controls**: a layer's own options live on the layer (long
   press), not in a distant settings tree.
 - **Sensitive layers are explicit choices**: layers with cultural or
-  privacy weight — Māori land status included (owner ruled 2026-08-08:
-  show it) — ship with a clear settings toggle, respectful naming and
-  framing (te reo names with tohutō, no reductive styling), and their
-  source/currency visible on the layer card.
+  privacy weight ship **off by default** behind a clear settings toggle
+  with a first-enable explanation. Māori land status (owner ruled
+  2026-08-08: ship it) additionally runs its governance track: labels use
+  LINZ's legal categories, disclaimer modelled on Te Kāhui Māngai's
+  "indicative only" wording, and Te Kōti Whenua Māori + mana whenua
+  engagement holds authority over the layer's **shape and existence**
+  (status-on-tap vs area fill in hunting profiles is theirs to call) —
+  the specific harm faced in writing: an offline area-styled Māori-land
+  layer in a hunting app can be a targeting aid for trespass; labelling
+  alone cannot mitigate that (founding review).
+- **Exports respect privacy**: before any share/export ships — near-home
+  trim prompt (tracks start at the house), EXIF GPS strip by default,
+  optional coordinate fuzzing. A shared track must not doxx a home or
+  burn a mate's spot by accident.
+- **ID never means legal-to-take** (standing rule, founding review): any
+  species-ID output (sound or photo) carries an in-feature warning that
+  it is an aid, never confirmation for a shoot/take decision.
 
 ## Screens (v1 sketch)
 

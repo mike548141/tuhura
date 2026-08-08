@@ -50,14 +50,28 @@ E2E-encrypted blobs for cross-device sync and sharing.
   elevation comes from the DEM, not GPS altitude (no barometer on the web).
 - **Sync (future): E2E-encrypted, accountless.** Identity is
   `(groupID, rootKey)` — random, generated on-device; HKDF derives data/index/
-  auth keys; AES-GCM via WebCrypto; QR/URL-fragment device pairing (the key
-  never reaches a server by construction). Per-object last-write-wins with
-  hybrid logical clocks (waypoints/tracks are append-mostly; tracks immutable
+  auth keys; AES-GCM via WebCrypto; QR/URL-fragment device pairing.
+  Per-object last-write-wins with hybrid logical clocks (tracks immutable
   once recorded — no CRDT library needed). Server: Cloudflare Worker + R2,
-  content-addressed encrypted segments + one CAS'd index object; the server
-  sees sizes and timing, never plaintext. Faves ADR 0017 is the design
-  precedent; per-user keypair from day one so person-to-person sharing is
-  key-wrapping later, not a redesign.
+  content-addressed encrypted segments + one CAS'd index object. Faves ADR
+  0017 is the design *shape* — but the founding review binds the future
+  sync ADR to a stronger threat model than Faves' (hunting-location data,
+  not restaurant hearts): **rootKey ≥ 128 bits CSPRNG (Faves' ~44-bit
+  bearer code rejected); per-device keypairs wrapping a rotatable group
+  key + a revocation flow; a device-signed, version-chained index
+  (rollback/fork resistance); GCM nonce discipline + object-identity AAD;
+  Worker rate limits/quotas/GC; HLC skew caps before any shared groups**.
+  Honest limits carried in writing: the origin that stores ciphertext
+  also ships the JS holding the keys (deploy-integrity posture: CSP,
+  reviewed deploys); server/host still sees IP, sizes, cadence — a
+  pre-trip provisioning burst is trip-pattern inference; pairing links
+  pasted into chat/screenshots leak the key regardless of transport (the
+  pairing UX must say so); and on-device at-rest encryption remains the
+  platform's job — waypoints/tracks in IndexedDB are readable on an
+  unlocked device and seizable; passphrase-wrapped *exports* are the one
+  real at-rest protection the web can add. Export-privacy rules
+  (near-home trim, EXIF strip, optional fuzzing) ship before any share
+  feature.
 - **Hosting: Cloudflare Pages** (static, push-to-main deploy), same shape as
   Faves ADR 0004; tile archives served from R2 (zero egress).
 
@@ -76,8 +90,8 @@ permits it, with attribution carried in-app. Current audit (2026-08-08):
 | Bathymetry base | GEBCO 2025 | public domain | ✅ |
 | Hydro vectors (depths, soundings) | LINZ LDS | CC-BY + "not for navigation" condition | ✅ with in-app disclaimer |
 | Bathymetry 250 m | NIWA | non-commercial + share-alike | 🚩 skip/separable |
-| Tides | derived: constituents fitted from LINZ open CSVs, predicted on-device | our derivation (CC-BY source) | ✅ "not for navigation" |
-| Dive sites | own curated layer (OSM seed + manual) | ours | ✅ |
+| Tides | constituents fitted from LINZ CSVs, predicted on-device (design) | LINZ CSV licence **unstated** — derivation inherits it | ⏳ blocked pending written LINZ confirmation |
+| Dive sites | curated layer (OSM seed + manual) | ODbL if OSM-seeded (share-alike attaches) | ✅ as ODbL |
 | Māori land status | Māori Land Court / LINZ indicators | CC-BY; governance track applies (see DESIGN + research) | ✅ after MLC engagement |
 | Hunting blocks, F&G seasons | DOC / Fish & Game | PDF-only, no open data | ❌ — outreach queued |
 | River flow, sea temp | NIWA/MetService | redistribution banned | ❌ — outreach queued |
@@ -85,30 +99,43 @@ permits it, with attribution carried in-app. Current audit (2026-08-08):
 
 ## Offline data lifecycle
 
-- **Cache tiering** (owner directive: whole-NZ floor, user-scalable): an
-  always-on national base (~1 GB — vector z0–12, hillshade z0–10, hydro
-  vectors, reserves) plus user-selected regions for detail zooms; aerial
-  imagery per-region opt-in only (full-NZ aerial is 50 GB–1 TB; everything
-  else ≈ 8–12 GB, inside installed-PWA quota). Honest sizes +
-  `storage.estimate()` in the UI.
-- **Delta updates** (owner directive): the go-pmtiles `makesync` model —
-  tileID-aligned block hashes in a small `.sync` sidecar; the client
-  fetches only changed blocks and rebuilds the regional archive in OPFS
-  (2× transient space per region), falling back to resumable full
-  download on layout epochs. R2 keys are immutable per version; one small
-  mutable manifest. Detail: `research/2026-08-08-delta-sync-marine-ux.md`.
+- **Cache tiering**: an always-on national base (~1 GB — vector z0–12,
+  hillshade z0–10, hydro vectors, reserves) is the true floor; user-
+  selected regions add detail zooms. **Whole-of-NZ is the post-v1
+  ceiling, device-permitting** (≈8–12 GB *before* the access layer, which
+  still needs sizing — founding review), gated on a real-device
+  provision test. Aerial per-region opt-in only (full-NZ is 50 GB–1 TB).
+  UI shows honest sizes and **free space** (writes fail against free
+  space, not quota). Note: `persist()` on iOS is a heuristic grant that
+  *reduces* eviction odds — never treat the cache as exempt. Tiles are
+  rebuildable; **user data is not** (see Phase 1 durability).
+- **Updates**: v1 ships **versioned resumable full re-downloads**
+  (immutable R2 version keys + small mutable manifest, ETag/If-Range).
+  The delta mechanism (go-pmtiles `makesync`-style block sync — the
+  owner's end-state requirement) is post-v1, gated on measured update
+  pain; verify OPFS `move()` support and format stability first, and note
+  2× transient space per region while patching. A multi-archive
+  tile-router (national base + regional archives per layer) is a design
+  note owed before Phase 3. Detail:
+  `research/2026-08-08-delta-sync-marine-ux.md`.
+- **Elevation**: hillshade is *rendering*, not queryable elevation — an
+  on-device DEM tile layer must be added (and sized) before any feature
+  claims "elevation from the DEM"; until then track profiles use GPS
+  altitude with its error stated.
 
-## Platform posture (current truth; under the founding review)
+## Platform posture (decided — ADR 2026-08-08-0545)
 
-tūhura is a PWA. The web platform ceiling is measured and documented
-(`research/2026-08-08-sensors-audio-companion.md`): no background/screen-off
-execution (pocket track logging, locked-screen listening), no barometer, no
-Bluetooth accessories, no NFC, no CarPlay. Everything foreground —
-maps, offline archives, GPS, compass, pitch/roll, camera, mic + on-device
-ML — is web-viable. Whether a Capacitor-wrapped hybrid joins the PWA (one
-codebase, native sensor plugins, App Store costs + review friction) and
-when, is a founding-review question; companion-mode hardware (MFi GNSS
-puck / cellular iPad) needs no app change either way.
+The `site/` PWA is canonical: sole codebase, zero-build, push-to-deploy.
+A **thin Capacitor shell is a committed post-Phase-3 packaging track**
+scoped to the native ceiling that earns it — background GNSS logging and
+barometer (BLE if marine revives) — gated on a real field failure of
+screen-on recording. CarPlay parked entitlement-permitting; locked-screen
+listening cut. Two obligations bought now: the Phase 1 recorder sits
+behind a capability seam, and a **storage-migration path** (backup/export
+bridge + re-provisioning) is specified before Phase 3 ships gigabytes —
+installed-PWA and wrapper are separate storage silos. Companion-mode
+hardware (MFi GNSS puck / cellular iPad) needs no app change either way.
+Web ceiling detail: `research/2026-08-08-sensors-audio-companion.md`.
 
 ## Layout
 

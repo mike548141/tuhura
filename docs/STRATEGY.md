@@ -25,13 +25,13 @@ until properly licensed).
    Robust, free, offline-by-default is the single biggest open lane in the
    category — and the hardest to retrofit, so it is the founding constraint,
    not a feature.
-2. **Answer "am I allowed to be here?"** Public-vs-private land, DOC
-   conservation land, access points and paper roads — from authoritative
-   CC-BY government data (LINZ parcels' `parcel_intent`, DOC, Herenga ā
-   Nuku). The onX land-ownership layer is the most-loved feature in the US
-   category; nobody has built its NZ equivalent on the open data that makes
-   it free here. Presented honestly: boundaries are indicative, never legal
-   certainty.
+2. **Answer "am I allowed to be here?"** Access status — DOC conservation
+   land, Herenga ā Nuku access points and paper roads — with LINZ parcel
+   tenure as context (tenure is not permission; founding review). The onX
+   land layer is the most-loved feature in the US category; nobody has
+   built its NZ equivalent on the open data that makes it free here.
+   Presented honestly: access, not ownership; default-deny; boundaries
+   indicative, never legal certainty.
 
 ## Positioning
 
@@ -57,14 +57,20 @@ as the proving ground. People burnt by subscription fatigue and apps that
 die in the bush. Tablets are first-class, including the vehicle-mounted
 older iPad backed by a phone's sensors (companion mode, ROADMAP).
 
-## Success measures
+## Success measures (these gate spends — founding review)
 
 - A trip's whole map life — plan, navigate, record, review — completed in
   flight mode after one provisioning session in coverage.
-- Installed PWA passes: Lighthouse mobile Perf ≥ 95, A11y 100, installable;
-  offline region render on real iPhone + Android with the radio dead.
+- Installed PWA: A11y 100 and installable are hard gates; performance is
+  an honest first-load budget (interactive fast on mid-tier hardware,
+  measured truthfully — a WebGL map app is not gamed to a Lighthouse 95).
 - The owner reaches for tūhura over the stitched-together app pile on a
-  real hunting/fishing/4WD weekend.
+  real hunting/fishing/4WD weekend — and a screen-on recording failure on
+  such a weekend is the gate that starts the hybrid track.
+- Audience stays owner-household until data-refresh automation exists
+  (stale safety-adjacent layers must be impossible before strangers rely
+  on them). The "trust with your life" framing is internal engineering
+  posture — it never appears in user-facing copy.
 
 ## Non-goals (v1)
 
@@ -74,9 +80,10 @@ older iPad backed by a phone's sensors (companion mode, ROADMAP).
   (link out; revisit as a later phase with proper licensing).
 - **Not a community POI database** — crowdsourcing needs critical mass and
   moderation; parked until the personal tool is proven.
-- **No native app** — the PWA constraint is deliberate (one codebase, no
-  stores, estate conventions); its honest limits (screen-off recording) are
-  designed around, not fought.
+- **No native rewrite** — the PWA is the canonical product (one codebase,
+  push-to-deploy). A thin Capacitor packaging shell is a committed
+  post-v1 track for exactly background GPS + barometer (ADR
+  2026-08-08-0545) — packaging, never a second product.
 
 ## Future direction (parked, in order)
 

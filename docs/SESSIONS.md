@@ -14,3 +14,15 @@ entry before finishing a session.
   features; NZ data sources + licensing; offline PWA map tech + E2E sync) and
   grounded the first ADRs and docs. Next: work `docs/WORKPLAN.md` Phase 0 —
   vendor MapLibre + pmtiles, prove an offline LINZ vector basemap on a phone.
+
+- **2026-08-08 (second session, same day)**: Owner directive sweep —
+  sensors, sound ID, companion mode, CarPlay, delta sync, whole-NZ cache,
+  marine verticals, Māori land ruling (ship it, toggleable), settings
+  architecture. Seven research agents; two new research records. Then the
+  **founding cold review** (three independent reviewers; brief + verdict
+  in `reviews/2026-08-08-0516-…`): platform ruled — PWA-canonical + thin
+  Capacitor channel (ADR 0545); dependency rule superseded (ADR 0546);
+  ROADMAP re-tiered v1/post-v1/icebox with evidence gates; tide-licence
+  and whole-NZ honesty fixes; parcels reframed access-not-ownership;
+  Māori land layer off-by-default with engagement authority; personal-data
+  durability pulled into Phase 1. Next: Phase 0 with its scale/soak rider.
