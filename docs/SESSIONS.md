@@ -62,11 +62,23 @@ entry before finishing a session.
   credential registry (metadata only) and validated. The hostname exists
   deliberately ahead of the app: a service worker's cache scope is bound
   to its origin, so moving origin after devices hold gigabytes of tiles
-  would be a migration, and moving it now is free. The GitHub webhook did
-  not fire on the provisioning push, so the first deployment was triggered
-  explicitly — worth knowing for the next repo: the connection was correct
-  (Cloudflare had resolved the repo id), it just needed one manual kick.
+  would be a migration, and moving it now is free.
   Verified live: `tuhura.pages.dev` and `tuhura.myspot.nz` both 200 with a
   valid certificate. `dig` against 1.1.1.1 resolves; only the owner's Mac
   held a stale negative DNS entry, which a local cache flush clears.
+
+  **Auto-deploy is not wired, and the first write-up here got it wrong.**
+  It recorded the missed webhook as a one-off that "just needed a manual
+  kick", on the strength of the provisioning push alone. A second push
+  also produced no deployment, which falsified that: the project has one
+  deployment and it is the one triggered by hand. The actual cause is that
+  Cloudflare's GitHub App does not have this repo in its installation —
+  Pages can still clone, because a public repo needs no grant to read,
+  which is exactly what made a broken webhook look like a working
+  connection. Grant is browser-only and outstanding. `deploy.py` gained
+  `deploy` and `status` subcommands so publishing is not blocked meanwhile,
+  and README/CONTRIBUTING/DEPLOY/CHANGELOG were corrected — they had all
+  claimed push-deploys on the strength of the provisioning step succeeding.
+  The lesson worth keeping: a deploy path is not proven by the deploy you
+  triggered yourself.
   Next: Phase 0 with its scale/soak rider.

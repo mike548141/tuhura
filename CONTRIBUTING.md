@@ -14,11 +14,17 @@ python3 tools/serve.py        # serves site/ on laptop + phone (same Wi-Fi)
 python3 tools/check_links.py  # doc link integrity
 ```
 
-**`main` auto-deploys.** Hosting is Cloudflare Pages, git-connected, so a
-push to `main` publishes to <https://tuhura.myspot.nz> with no separate
-release step. Branches and PRs get their own preview URLs — the cheap way
-to check a change on a real phone before it reaches the live hostname.
-See [`docs/DEPLOY.md`](docs/DEPLOY.md).
+**Publishing is a second step, for now.** Hosting is Cloudflare Pages at
+<https://tuhura.myspot.nz>, but the push webhook is not wired yet, so a
+push does *not* deploy — trigger it:
+
+```sh
+/usr/bin/python3 tools/deploy.py deploy   # then `status` until success
+```
+
+One browser-only grant turns that back into a plain auto-deploy;
+[`docs/DEPLOY.md`](docs/DEPLOY.md) has it, and says what to delete here
+once it is done.
 
 Once per clone. The hook itself is **tracked** (`.githooks/pre-commit`, so it
 travels with the repo and never goes stale), but git does not transport

@@ -22,8 +22,9 @@ scaffolding that never ships.
 | `docs/` | Strategy, architecture, roadmap, decisions, session log |
 | `tools/` | Dev/CI helpers (stdlib-only Python 3), incl. the Pages deploy |
 
-Hosting is **Cloudflare Pages**, git-connected: a push to `main` is a
-deploy. Setup and the token story are in
+Hosting is **Cloudflare Pages**. Deploys are currently triggered by hand
+(`tools/deploy.py deploy`) — one outstanding GitHub App grant turns that
+into auto-deploy-on-push. Setup, the token story and that step are in
 [docs/DEPLOY.md](docs/DEPLOY.md).
 
 ## Run it / Setup

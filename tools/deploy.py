@@ -245,13 +245,74 @@ def ensure_cname(cfg, domain, project_name, apply):
         print("    created")
 
 
+def trigger_deploy(acct, cfg):
+    """Kick a production deployment by hand.
+
+    Needed while the Cloudflare GitHub App does not have this repo in its
+    installation: Pages can still CLONE the source (the repo is public, so
+    that needs no grant) but receives no push webhook, so nothing deploys
+    on its own. Grant the repo and this becomes redundant — see
+    docs/DEPLOY.md.
+
+    The endpoint takes multipart/form-data, not JSON, so it does not go
+    through cf().
+    """
+    name = cfg["pages_project"]
+    branch = cfg["production_branch"]
+    boundary = "----tuhura-deploy-boundary"
+    body = (
+        f"--{boundary}\r\n"
+        f'Content-Disposition: form-data; name="branch"\r\n\r\n'
+        f"{branch}\r\n"
+        f"--{boundary}--\r\n"
+    ).encode()
+    req = urllib.request.Request(
+        f"{API}/accounts/{acct}/pages/projects/{name}/deployments",
+        data=body, method="POST")
+    req.add_header("Authorization", f"Bearer {token()}")
+    req.add_header("Content-Type",
+                   f"multipart/form-data; boundary={boundary}")
+    try:
+        with urllib.request.urlopen(req) as r:
+            payload = json.load(r)
+    except urllib.error.HTTPError as e:
+        payload = json.load(e)
+    if not payload.get("success", False):
+        errs = "; ".join(
+            f"[{m.get('code')}] {m.get('message')}"
+            for m in payload.get("errors", []))
+        raise CFError(f"deploy trigger: {errs}")
+    d = payload["result"]
+    print(f"  deployment {d['id']} queued from {branch}")
+    print(f"    preview: {d.get('url')}")
+    print("  Poll `status` until it reads success.")
+
+
+def show_status(acct, cfg):
+    name = cfg["pages_project"]
+    deps = cf("GET",
+              f"/accounts/{acct}/pages/projects/{name}/deployments?per_page=5")
+    if not deps:
+        print("  no deployments yet — run `deploy` to create the first one.")
+        return
+    for d in deps:
+        stage = d["latest_stage"]
+        print(f"  {d['created_on'][:19]}  {stage['name']:<8} "
+              f"{stage['status']:<8}  {d.get('url')}")
+
+
 def main():
     cmd = sys.argv[1] if len(sys.argv) > 1 else "plan"
-    if cmd not in ("plan", "apply"):
-        sys.exit(f"usage: python3 tools/deploy.py [plan|apply]")
-    apply = cmd == "apply"
+    if cmd not in ("plan", "apply", "deploy", "status"):
+        sys.exit("usage: /usr/bin/python3 tools/deploy.py "
+                 "[plan|apply|deploy|status]")
     cfg = load_config()
     acct = resolve_account_id(cfg)
+    if cmd in ("deploy", "status"):
+        print(f"account: {acct}   mode: {cmd.upper()}")
+        (trigger_deploy if cmd == "deploy" else show_status)(acct, cfg)
+        return
+    apply = cmd == "apply"
     print(f"account: {acct}   mode: {cmd.upper()}")
     project = ensure_project(acct, cfg, apply)
     ensure_domains(acct, cfg, apply, project)
