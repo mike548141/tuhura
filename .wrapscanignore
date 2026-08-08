@@ -1,0 +1,6 @@
+# wrapscan path allowances — root-relative globs.
+# docs/research/ holds verbatim founding-research records: wide markdown
+# tables and source URLs that cannot wrap without breaking table syntax or
+# mangling quoted material. The house 85-column limit binds everywhere else
+# — keep this glob exactly this narrow.
+docs/research/**

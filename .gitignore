@@ -1,0 +1,27 @@
+# macOS litter
+.DS_Store
+
+# Editor cruft
+*.swp
+*~
+
+# Claude Code session settings — NEITHER file is committed (Mike ruled
+# 2026-07-29). The allowlist names the commands a session runs UNPROMPTED;
+# published, it maps an agent's unattended reach to anyone who can open an
+# issue or a PR. The rule is uniform rather than public-only, because a
+# visibility-conditional rule becomes silently wrong the day a repo flips.
+# Seed a clone from atelier's templates/claude/settings.json.
+.claude/settings.json
+.claude/settings.local.json
+
+# --- add language litter as needed ---
+# Python:
+# __pycache__/
+# *.pyc
+# .venv/
+# *.egg-info/
+# .pytest_cache/
+# .ruff_cache/
+# .mypy_cache/
+# Node:
+# node_modules/
