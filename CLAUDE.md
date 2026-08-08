@@ -49,8 +49,10 @@ in atelier and is read on demand — never wholesale.
   never re-derive them locally or copy its contents down. If **this** repo is
   public, reference the root by local-path convention, never by name — a public
   repo naming the estate's credential/inventory root is reconnaissance.
-- **This repo's visibility:** PRIVATE — a push is not publication; making it
-  public is a floor action. Verify:
+- **This repo's visibility:** PUBLIC (Mike's decision, 2026-08-08) — every push
+  is publication, instantly and irreversibly: assume anything committed is
+  mirrored and archived the moment it lands. Narrowing back to private is a
+  floor action and does not un-publish what already went out. Verify:
   `gh repo view mike548141/tuhura --json visibility`.
 <!-- stamp:end -->
 

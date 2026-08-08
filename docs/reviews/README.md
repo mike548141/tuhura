@@ -1,7 +1,7 @@
 <!--
   STAMPED POINTER, NOT A SECOND SOURCE. The canonical review doctrine — the
   trigger, the calibration, the lifecycle, the independence rules — lives in
-  atelier's docs/method/REVIEW.md. What follows is a thin floor (enough to act
+  atelier's REVIEW.md (linked below). What follows is a thin floor (enough to act
   on without opening atelier) plus a pointer up. Do NOT restate atelier's
   trigger list here: an unmarked local copy is how this file drifted from its
   parent once already (2026-07-18 — it still carried a diff-shaped trigger, and
@@ -25,7 +25,7 @@ can reach it, the floor under the lens, never a discharge of it, and never at
 a brief carrying deferred material; a work the scanner can't reach, or with
 no such surface, says so explicitly, with grounds). The builder (usually
 Opus) then applies the findings. Canonical doctrine, and anything this file
-doesn't answer: `../atelier/docs/method/REVIEW.md`.
+doesn't answer: atelier's [review doctrine][review].
 
 ## When to write one
 
@@ -52,8 +52,8 @@ call, not this file's: see *Whether work earns a review at all* in `REVIEW.md`.
 
 One file per review, `<YYYY-MM-DD>-<HHMM>-<slug>.md` (start time, 24-hour, in
 UTC — `date -u`, atelier ADR 2026-07-15; coordination-free, per atelier's
-`method/CONCURRENCY.md` record-identifier rule). Keep it a brief the reviewer can
-act on, not a transcript. Every field takes work that isn't built yet:
+[record-identifier rule][concurrency]). Keep it a brief the reviewer can act
+on, not a transcript. Every field takes work that isn't built yet:
 
 - **Subject** — what is under review, in what state (designed / built / shipped),
   by which model and date.
@@ -80,6 +80,13 @@ durably written, then fold it into the brief below the verdict and delete it.
 on `deferred`/`seeded` heading vocabulary — name the section with those
 words; a renamed section escapes the net).
 
-Keep Fable sessions short and pre-scoped
-(`../atelier/docs/method/ECONOMICS.md`): hand it the scoped subject,
-ask for findings, apply fixes back on Opus.
+Keep Fable sessions short and pre-scoped (atelier's
+[session economics][economics]): hand it the scoped subject, ask for
+findings, apply fixes back on Opus.
+
+<!-- Cross-repo pointers into atelier (public), as full URLs so they resolve
+     for a reader who has no sibling checkout. -->
+
+[review]: https://github.com/mike548141/atelier/blob/main/docs/method/REVIEW.md
+[concurrency]: https://github.com/mike548141/atelier/blob/main/docs/method/CONCURRENCY.md
+[economics]: https://github.com/mike548141/atelier/blob/main/docs/method/ECONOMICS.md

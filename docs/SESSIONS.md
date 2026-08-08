@@ -34,3 +34,19 @@ entry before finishing a session.
   safety-gated); owner confirmed full-feature-set outranks PWA purity —
   ADR 0545's ruling stands with the wider scope. Session closed clean.
   Next: Phase 0 with its scale/soak rider.
+
+- **2026-08-08 (third session, same day)**: Publication. Audited the repo's
+  atelier wiring end to end — hooks path, `hooks.atelierTools`,
+  `.atelier-floor.json`, the floor + CI workflows, doctrine pin (no drift),
+  commit signing (all history born-signed) — all sound and proven green on
+  the last four pushes, so no remedial wiring was needed. Two real gaps
+  closed before the flip: `SECURITY.md` written (absent entirely; it is a
+  publish-time artefact, and its scope leads with safety-adjacent data
+  rendered wrongly rather than the usual web surfaces), and the twelve
+  `pathscan` findings fixed properly — cross-repo pointers into atelier
+  converted from bare relative paths to reference-style URLs, so they
+  resolve for a reader with no sibling checkout. Mike gave informed
+  authorisation and the repo went **public**. Reviews: none were due —
+  `reviewscan` and `pointerscan` both clean, and the two `review: queued`
+  lines are gated on artefacts that don't exist yet, so nothing was blocked
+  on a Fable session. Next: Cloudflare Pages deploy, then Phase 0.

@@ -3,7 +3,7 @@
 **Status**: <draft | accepted> • **Date**: <YYYY-MM-DD>
 **Review**: <queued — docs/reviews/YYYY-MM-DD-HHMM-slug.md · or · not
 warranted — grounds> <!-- a stated judgement, never a blank: omission is the
-bug (atelier method/REVIEW.md); reviewscan reds a record without this line -->
+bug (atelier's REVIEW.md); reviewscan reds a record without this line -->
 
 ## Context
 

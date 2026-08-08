@@ -13,7 +13,8 @@ a live `[ ]`/`[~]`/`⏳` item there reds the floor).
 An entry that records **design or direction** (a chosen approach, a scoped
 feature, a decision that forecloses alternatives) carries a review line —
 `review: queued (docs/reviews/<file>)` or `review: not warranted — <grounds>`
-(atelier `method/REVIEW.md`: omission is the bug). Plain work items don't.
+(atelier's [review doctrine][review]: omission is the bug). Plain work items
+don't.
 
 **Structure (founding review, 2026-08-08): three tiers.** v1 is the
 committed spine; post-v1 items are **evidence-gated** (each names the gate

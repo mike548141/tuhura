@@ -81,7 +81,7 @@ other; claims cite sources; the Faves repo exists at `../faves`.
 directive layer around it needed a knife, gates, and three honesty
 corrections. Nothing blocks Phase 0/1.** Findings condensed below with
 dispositions; the full reviewer reports live in the session transcript and
-their substance is folded into the docs/ADRs cited.
+their substance is folded into the docs and ADRs cited.
 
 **Blockers (2, both resolved this session):**
 - **Tides licence contradiction** (security + feasibility, independently):
