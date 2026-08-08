@@ -1,0 +1,22 @@
+{
+  "$comment": "Desired hosting state, reconciled by deploy.py. Identifiers are configuration, not secrets (they address; they don't authenticate) — but this repo is public, so it carries only what the code actually reads. The token is never here: it comes from the environment.",
+
+  "account_id": "87c187accff4fd6d1d8e3148762b4f55",
+
+  "pages_project": "tuhura",
+  "production_branch": "main",
+
+  "github": {
+    "owner": "mike548141",
+    "repo": "tuhura"
+  },
+
+  "build": {
+    "build_command": "",
+    "destination_dir": "site",
+    "root_dir": ""
+  },
+
+  "custom_domains": ["tuhura.myspot.nz"],
+  "zone": "myspot.nz"
+}

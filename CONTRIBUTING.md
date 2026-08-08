@@ -14,6 +14,12 @@ python3 tools/serve.py        # serves site/ on laptop + phone (same Wi-Fi)
 python3 tools/check_links.py  # doc link integrity
 ```
 
+**`main` auto-deploys.** Hosting is Cloudflare Pages, git-connected, so a
+push to `main` publishes to <https://tuhura.myspot.nz> with no separate
+release step. Branches and PRs get their own preview URLs — the cheap way
+to check a change on a real phone before it reaches the live hostname.
+See [`docs/DEPLOY.md`](docs/DEPLOY.md).
+
 Once per clone. The hook itself is **tracked** (`.githooks/pre-commit`, so it
 travels with the repo and never goes stale), but git does not transport
 *config* — so a fresh clone commits **unscanned** until these two lines are run.

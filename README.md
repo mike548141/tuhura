@@ -1,5 +1,8 @@
 # tūhura
 
+**Live at <https://tuhura.myspot.nz>** — an "under construction" shell for
+now; the map arrives with Phase 0.
+
 tūhura (te reo Māori: *to explore, discover*) is an offline-first mobile web
 app (PWA) for the New Zealand outdoors — a map for off-road driving, hunting,
 fishing, birding, and tramping that keeps working perfectly when there is no
@@ -17,7 +20,11 @@ scaffolding that never ships.
 |---|---|
 | `site/` | **The deployable artefact** — vanilla HTML/CSS/JS, no build step |
 | `docs/` | Strategy, architecture, roadmap, decisions, session log |
-| `tools/` | Dev/CI helpers (stdlib-only Python 3) |
+| `tools/` | Dev/CI helpers (stdlib-only Python 3), incl. the Pages deploy |
+
+Hosting is **Cloudflare Pages**, git-connected: a push to `main` is a
+deploy. Setup and the token story are in
+[docs/DEPLOY.md](docs/DEPLOY.md).
 
 ## Run it / Setup
 
