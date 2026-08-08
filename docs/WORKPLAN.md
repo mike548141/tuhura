@@ -56,7 +56,14 @@ land each side is, offline, with its source and date visible.
 
 - [ ] Region download manager: pmtiles extract pipeline (R2-hosted
       archives), progress, resume, storage budget UI, `persist()` flow,
-      cache-repair manifest.
+      cache-repair manifest. **User-scalable from one region to all of
+      NZ** — whole-of-NZ offline is a supported floor, not an edge case
+      (owner directive 2026-08-08); the UI presents honest per-layer sizes
+      and lets the user dial coverage up or down.
+- [ ] **Delta updates**: when server-side tiles/metadata change, clients
+      fetch only changed tiles + manifest deltas, never the full archive
+      (owner directive 2026-08-08; mechanism per the delta-sync research
+      and founding review).
 - [ ] Open-Meteo forecast fetch-before-you-go, cached with timestamp;
       sunrise/set computed locally.
 - [ ] Lighthouse pass + a11y sweep; deploy to Cloudflare Pages.

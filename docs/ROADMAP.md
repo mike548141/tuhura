@@ -24,12 +24,72 @@ feature, a decision that forecloses alternatives) carries a review line —
 - [ ] **Phase 0 — offline map proof** (WORKPLAN): vendor MapLibre + pmtiles,
   LINZ `topographic-v2` regional PMTiles in OPFS, installed-PWA render in
   flight mode on a real iPhone + Android. The riskiest assumption first.
-- [ ] Data outreach — DOC (hunting-block GIS), NIWA (tide/river commercial
-  licence), MPI (Fishing Rules app data; contacts in `research/`): these
-  determine whether the activity layers ride on open data or negotiated
-  agreements. Drafts are a session's work; Mike sends.
+- [ ] Data/licence outreach — DOC (hunting-block GIS), NIWA (tide/river
+  commercial licence), MPI (Fishing Rules app data), Cornell (BirdNET
+  NC-licence clearance), Te Kōti Whenua Māori (Māori land layer
+  engagement). Contacts in `research/`. These determine whether the
+  activity layers ride on open data or negotiated agreements. Drafts are
+  a session's work; Mike sends.
 
-## Backlog
+## Backlog — owner directives 2026-08-08
+
+Scope set by Mike; mechanics land from the sensor/companion/delta/marine/UX
+research records and the founding review.
+
+- [ ] Sensor features (foreground, web-viable now): compass bearing,
+  4WD pitch/roll HUD (`devicemotion`), camera waypoint photos, voice
+  notes. Sensor matrix: `research/2026-08-08-sensors-audio-companion.md`.
+  review: queued (founding review covers the platform question)
+- [ ] Native-ceiling sensor features (need the hybrid/native call first):
+  background track logging, barometer (elevation/weather-trend/dive),
+  BLE accessories (AIS, fishfinders), CarPlay, locked-screen listening.
+  review: queued (founding review — the PWA vs hybrid decision)
+- [ ] Sound ID: BirdNET-based (NZ species incl.; kea + 4/5 kiwi absent —
+  gap), TF.js on-device per Cornell's own BirdNET-Live PWA precedent;
+  foreground listening like Merlin-in-use. Game **birds** ride the same
+  model; game **mammals** (deer/pig) have no model anywhere — parked as a
+  data-collection programme. ⏳ Blocked on Cornell NC-licence clearance
+  (contact in `research/`); fallback Google Perch (Apache-2.0, verify NZ
+  labels); AviaNZ kiwi/morepork filters (GPL, legal care).
+  review: queued (founding review)
+- [ ] Companion mode (old iPad on the dash): document + recommend the
+  zero-code paths — MFi GNSS puck (Garmin GLO 2, ~NZ$219) or cellular
+  iPad; hotspot GPS pass-through is a debunked myth (drive-test protocol
+  in research). A software bridge incl. barometer = native both ends —
+  folded into the platform question.
+  review: queued (founding review)
+- [ ] CarPlay support (owner directive 2026-08-08): the map + live
+  position on the head unit for the on-road legs. Web content cannot
+  render on CarPlay — this needs a native Swift `CPMapTemplate` scene
+  (viable inside a Capacitor-wrapped app) plus Apple's discretionary
+  `carplay-maps` entitlement — so it rides the platform decision and is a
+  strong argument for the hybrid track.
+  review: queued (founding review — platform question)
+- [ ] Weather & marine feeds cached before-you-go: Open-Meteo forecast +
+  Marine API (CC-BY, cacheable); satellite/radar imagery only if a
+  licence-clean source is found (MetService imagery terms hostile).
+- [ ] Delta sync for map/data updates — makesync-style block-hash sync,
+  changed blocks only (ARCHITECTURE § Offline data lifecycle).
+  review: queued (founding review)
+- [ ] Whole-of-NZ offline as supported floor; user-scalable regions with
+  honest per-layer sizes (≈8–12 GB all-layers-minus-aerial; aerial
+  per-region opt-in).
+- [ ] Marine verticals: GEBCO bathy + LINZ hydro vectors (not-for-nav
+  disclaimer) + marine reserves + curated dive-sites layer + offline
+  tides from self-derived constituents fitted on LINZ open CSVs.
+  Chart-grade navigation stays out until properly licensed.
+- [ ] Māori land status layer — **ship it** (owner ruled 2026-08-08),
+  settings-toggleable, governance track per research (LINZ legal
+  categories as labels, "indicative only" disclaimer, link to Pātaka
+  Whenua). ⏳ Engage Te Kōti Whenua Māori as data authority + mana whenua
+  consultation before build; current dataset (2017) needs the live source.
+  Default on/off state: review question.
+- [ ] UX + settings architecture: deep design pass — activity profiles,
+  progressive disclosure, field-condition UI; research seeded in
+  `research/`, then a DESIGN.md rewrite.
+  review: queued (design commitment — own brief when the pass runs)
+
+## Backlog — founding set
 
 - [ ] Waypoints + tracks: record (screen-on, wake lock), GPX import/export,
   IndexedDB store — the personal layer.

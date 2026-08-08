@@ -72,10 +72,43 @@ permits it, with attribution carried in-app. Current audit (2026-08-08):
 | OSM overlay | Protomaps/OSM extract | ODbL | ✅ (self-hosted, never the public tile server) |
 | Conservation land | DOC | CC-BY 4.0 | ✅ |
 | Marine reserves / fisheries layers | MPI | CC-BY 4.0 (verify per-layer) | ✅ |
-| Weather | Open-Meteo | CC-BY 4.0 (commercial tier if app commercialises) | ✅ |
+| Weather incl. marine (waves/swell/SST) | Open-Meteo | CC-BY 4.0 (commercial tier if app commercialises) | ✅ |
+| Bathymetry base | GEBCO 2025 | public domain | ✅ |
+| Hydro vectors (depths, soundings) | LINZ LDS | CC-BY + "not for navigation" condition | ✅ with in-app disclaimer |
+| Bathymetry 250 m | NIWA | non-commercial + share-alike | 🚩 skip/separable |
+| Tides | derived: constituents fitted from LINZ open CSVs, predicted on-device | our derivation (CC-BY source) | ✅ "not for navigation" |
+| Dive sites | own curated layer (OSM seed + manual) | ours | ✅ |
+| Māori land status | Māori Land Court / LINZ indicators | CC-BY; governance track applies (see DESIGN + research) | ✅ after MLC engagement |
 | Hunting blocks, F&G seasons | DOC / Fish & Game | PDF-only, no open data | ❌ — outreach queued |
-| Tides, river flow, sea temp | LINZ/NIWA/MetService | unstated / redistribution banned | ❌ — outreach queued |
-| Marine charts | LINZ hydro | NOT CC-BY (ENC/IC-ENC) | ❌ — link out only |
+| River flow, sea temp | NIWA/MetService | redistribution banned | ❌ — outreach queued |
+| Marine charts (ENC) | LINZ hydro | NOT CC-BY (ENC/IC-ENC) | ❌ — link out only |
+
+## Offline data lifecycle
+
+- **Cache tiering** (owner directive: whole-NZ floor, user-scalable): an
+  always-on national base (~1 GB — vector z0–12, hillshade z0–10, hydro
+  vectors, reserves) plus user-selected regions for detail zooms; aerial
+  imagery per-region opt-in only (full-NZ aerial is 50 GB–1 TB; everything
+  else ≈ 8–12 GB, inside installed-PWA quota). Honest sizes +
+  `storage.estimate()` in the UI.
+- **Delta updates** (owner directive): the go-pmtiles `makesync` model —
+  tileID-aligned block hashes in a small `.sync` sidecar; the client
+  fetches only changed blocks and rebuilds the regional archive in OPFS
+  (2× transient space per region), falling back to resumable full
+  download on layout epochs. R2 keys are immutable per version; one small
+  mutable manifest. Detail: `research/2026-08-08-delta-sync-marine-ux.md`.
+
+## Platform posture (current truth; under the founding review)
+
+tūhura is a PWA. The web platform ceiling is measured and documented
+(`research/2026-08-08-sensors-audio-companion.md`): no background/screen-off
+execution (pocket track logging, locked-screen listening), no barometer, no
+Bluetooth accessories, no NFC, no CarPlay. Everything foreground —
+maps, offline archives, GPS, compass, pitch/roll, camera, mic + on-device
+ML — is web-viable. Whether a Capacitor-wrapped hybrid joins the PWA (one
+codebase, native sensor plugins, App Store costs + review friction) and
+when, is a founding-review question; companion-mode hardware (MFi GNSS
+puck / cellular iPad) needs no app change either way.
 
 ## Layout
 

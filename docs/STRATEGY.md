@@ -7,10 +7,14 @@ Grounded in the founding competitor/data research (2026-08-08,
 ## Purpose
 
 One map app for the NZ outdoors — off-road driving, hunting, fishing,
-birding, tramping — that you can trust with your life **when there is no
-coverage at all**. Plan in coverage, then go dark for days: maps, land
-boundaries, waypoints, tracks, tides and forecasts all keep working from
-the device.
+birding, tramping, boating and diving — that you can trust with your life
+**when there is no coverage at all**. Plan in coverage, then go dark for
+days: maps, land boundaries, waypoints, tracks, tides and forecasts all
+keep working from the device. On the water the same bones serve the marine
+verticals: coastal layers, marine reserves, dive spots, sea conditions
+(owner directive 2026-08-08; data licensing constraints in
+`ARCHITECTURE.md` still apply — chart-grade navigation stays a non-goal
+until properly licensed).
 
 ## The two jobs it must nail
 
@@ -48,8 +52,10 @@ the device.
 ## Audience
 
 NZ outdoors people on phones and tablets: 4WD tourers, hunters, fishers,
-birders, trampers — starting with the owner's own trips as the proving
-ground. People burnt by subscription fatigue and apps that die in the bush.
+birders, trampers, boaties and divers — starting with the owner's own trips
+as the proving ground. People burnt by subscription fatigue and apps that
+die in the bush. Tablets are first-class, including the vehicle-mounted
+older iPad backed by a phone's sensors (companion mode, ROADMAP).
 
 ## Success measures
 

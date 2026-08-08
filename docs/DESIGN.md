@@ -34,6 +34,27 @@ rifle sling. NZ English throughout; te reo Māori names with correct tohutō
   by colour alone (grade/status = icon + colour + text). Shared `el()` DOM
   helper from day one (hyphen-aware attributes — the Faves a11y lesson).
 
+## Settings & adaptability (owner directive 2026-08-08)
+
+The app adapts deeply — per activity, per person, per situation — without
+ever presenting a hundred dials. Working principles (a dedicated UX
+research + design pass is queued, ROADMAP):
+
+- **Profiles over dials**: activity profiles (4WD, hunt, fish, bird, tramp,
+  boat, dive) bundle layers, units, and UI emphasis; switching profile is
+  one tap on the map screen, not a settings trek.
+- **Sensible defaults, discoverable overrides**: everything works untouched;
+  every layer and behaviour has a home in settings for the user who wants
+  it different. Progressive disclosure — common toggles surface, depth on
+  demand.
+- **Contextual controls**: a layer's own options live on the layer (long
+  press), not in a distant settings tree.
+- **Sensitive layers are explicit choices**: layers with cultural or
+  privacy weight — Māori land status included (owner ruled 2026-08-08:
+  show it) — ship with a clear settings toggle, respectful naming and
+  framing (te reo names with tohutō, no reductive styling), and their
+  source/currency visible on the layer card.
+
 ## Screens (v1 sketch)
 
 - **Map** — the app. Layer switcher, locate-me, compass/heading, scale.
