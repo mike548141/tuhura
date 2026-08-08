@@ -50,3 +50,23 @@ entry before finishing a session.
   `reviewscan` and `pointerscan` both clean, and the two `review: queued`
   lines are gated on artefacts that don't exist yet, so nothing was blocked
   on a Fable session. Next: Cloudflare Pages deploy, then Phase 0.
+
+- **2026-08-08 (fourth session, same day)**: Went live. Cloudflare Pages
+  wired the same way as the sibling faves repo — git-connected project
+  provisioned as code (`tools/deploy.py` + `tools/deploy.json`), custom
+  domain `tuhura.myspot.nz`, proxied CNAME created by the script (the API
+  attach does not create it; only the dashboard flow does). Its own
+  least-privilege token minted from the estate root via the estate's mint
+  tool: Pages Edit on the account, DNS Edit + Zone Read on the one zone,
+  auto-tightened from all-zones in the same run; registered in the estate
+  credential registry (metadata only) and validated. The hostname exists
+  deliberately ahead of the app: a service worker's cache scope is bound
+  to its origin, so moving origin after devices hold gigabytes of tiles
+  would be a migration, and moving it now is free. The GitHub webhook did
+  not fire on the provisioning push, so the first deployment was triggered
+  explicitly — worth knowing for the next repo: the connection was correct
+  (Cloudflare had resolved the repo id), it just needed one manual kick.
+  Verified live: `tuhura.pages.dev` and `tuhura.myspot.nz` both 200 with a
+  valid certificate. `dig` against 1.1.1.1 resolves; only the owner's Mac
+  held a stale negative DNS entry, which a local cache flush clears.
+  Next: Phase 0 with its scale/soak rider.
