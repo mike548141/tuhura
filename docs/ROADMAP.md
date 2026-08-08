@@ -42,8 +42,13 @@ records *when*, the gate records *why then*.
 - [ ] **Phase 4 — activity heroes** (zero-dependency versions): 4WD
   track grades; hunting blood-trail mode; fishing catch log + moon
   (tides join when licensed); birding checklist.
-- [ ] Foreground sensor features as they fit phases: compass bearing,
-  4WD pitch/roll HUD, camera waypoint photos, voice notes.
+- [ ] Foreground sensor features as they fit phases, all via the sensor
+  seams (ADR 2026-08-08-0555): on-screen compass widget, 4WD vehicle
+  level (pitch/roll in degrees), camera waypoint photos, voice notes.
+- [ ] Land-status presentation study (overlay vs crossing alerts vs
+  tap-for-status, per layer) — inside Phase 2's design work.
+  review: not warranted — an open design question recorded, not a
+  decision; the Phase 2 accept-when carries the review.
 
 ## Post-v1 — evidence-gated (owner directives staged here by the review)
 
@@ -83,6 +88,11 @@ records *when*, the gate records *why then*.
   verticals have real layers to bundle. review: queued (own brief then)
 - [ ] Companion-mode docs page: recommend MFi GNSS puck / cellular iPad
   (zero-code paths); native sensor bridge folds into the hybrid channel.
+- [ ] Vehicle telemetry (owner directive 2026-08-08): OBD-II/CAN read-only
+  via BLE adapters (ELM327-class) on the native channel — engine temp,
+  RPM, tyre pressures as a `vehicle-telemetry` seam backend; boundary-
+  crossing alerts join once continuous position + land layers coexist.
+  Gate: the hybrid channel exists. review: done — ADR 2026-08-08-0555
 
 ## Icebox — externally gated
 
@@ -95,6 +105,9 @@ records *when*, the gate records *why then*.
   class).
 - [ ] Offline peer-to-peer waypoint share; community POI layers;
   satellite messaging (Apple API unreleased).
+- [ ] Vehicle **control** via CAN (owner mused 2026-08-08): safety-
+  critical actuation — own ADR + full review before any design; never
+  rides in on telemetry (ADR 2026-08-08-0555).
 
 ## Standing threads (options that may never open — off every critical path)
 

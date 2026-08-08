@@ -127,9 +127,16 @@ permits it, with attribution carried in-app. Current audit (2026-08-08):
 
 The `site/` PWA is canonical: sole codebase, zero-build, push-to-deploy.
 A **thin Capacitor shell is a committed post-Phase-3 packaging track**
-scoped to the native ceiling that earns it — background GNSS logging and
-barometer (BLE if marine revives) — gated on a real field failure of
-screen-on recording. CarPlay parked entitlement-permitting; locked-screen
+hosting the native-only sensor backends — background GNSS, barometer,
+BLE (GNSS receivers, OBD-II/CAN telemetry adapters, marine instruments),
+native TCP bridges (ADR 2026-08-08-0555 widened this from 0545's
+original scope; owner confirmed the full feature set outranks PWA purity,
+2026-08-08) — first shell release still gated on a real field failure of
+screen-on recording. **Every sensor consumer reads a seam, never a
+platform API** (position / altitude / heading / attitude /
+vehicle-telemetry; the ros/tiki pluggable-backend pattern) — so device,
+puck, paired phone, and car sources are interchangeable backends, and
+the UI always shows which source is live. CarPlay parked entitlement-permitting; locked-screen
 listening cut. Two obligations bought now: the Phase 1 recorder sits
 behind a capability seam, and a **storage-migration path** (backup/export
 bridge + re-provisioning) is specified before Phase 3 ships gigabytes —

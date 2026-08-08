@@ -12,6 +12,22 @@ rifle sling. NZ English throughout; te reo Māori names with correct tohutō
 
 ## Rules
 
+- **Right information at the right time** (owner directive 2026-08-08):
+  feature-rich never means screen-rich — information surfaces when the
+  situation calls for it (source quality when it degrades, tide window
+  when near the coast in a fishing profile, incline when off-road and
+  tilted) and stays out of the way otherwise. The UX bar is
+  exceptional-and-intuitive; density lives one tap below the surface.
+- **On-screen compass** is a first-class map widget across activities;
+  the 4WD profile adds a **vehicle level**: live pitch/roll in degrees
+  ("20° nose-down, 15° right lean") from the attitude seam.
+- **Land-status presentation is an open design question** (owner,
+  2026-08-08): visible overlay vs boundary-crossing alert vs
+  tap-a-spot-for-status — likely different answers per layer (access vs
+  tenure vs Māori land, where the engagement holds authority). Decide in
+  the Phase 2 design pass with field trials; don't default to
+  paint-everything.
+
 - **390 px first**, then tablet (~34 rem breakpoint), then desktop. Every
   interactive target ≥ 44 px; primary actions reachable one-handed in the
   bottom third; `100dvh` + `env(safe-area-inset-*)` for fixed elements.
