@@ -150,3 +150,17 @@ entry before finishing a session.
   section, and a floor change to boundary checks, any of which may bind this
   repo's own CLAUDE.md. Flagged to Mike 2026-08-09; wants its own short
   session before the next substantive one.
+
+  **Record audit (Mike asked, same session).** The first close-out claim
+  that nothing was uncaptured was **wrong**, and checking rather than
+  asserting found it: the research existed but the docs a future session
+  actually reads at start still stated the old posture as settled. STRATEGY
+  presented the non-goal with no hint it had been challenged, ARCHITECTURE
+  § Platform posture still said "decided" and "post-Phase-3", and the ADR
+  carried a bare "accepted" status. A session reading the prescribed order
+  would have taken stale truth and never reached the research. Fixed at all
+  three, plus the ADR gained a Challenged section recording what held, what
+  broke, and what it had missed; ROADMAP's data-ops thread gained the
+  recurring platform tax (US$99/yr plus the annual SDK march) that ECONOMICS
+  owes. Lesson worth keeping: a finding is not recorded because a document
+  exists — it is recorded when the documents that get *read* point at it.

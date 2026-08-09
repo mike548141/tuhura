@@ -99,8 +99,13 @@ mode, ROADMAP).
   moderation; parked until the personal tool is proven.
 - **No native rewrite** — the PWA is the canonical product (one codebase,
   push-to-deploy). A thin Capacitor packaging shell is a committed
-  post-v1 track for exactly background GPS + barometer (ADR
-  2026-08-08-0545) — packaging, never a second product.
+  track for the native-only sensor set (ADR 2026-08-08-0545) — packaging,
+  never a second product. Re-examined 2026-08-09 when Mike re-opened the
+  question: this non-goal **held** (native-first buys no capability the
+  shell doesn't), but the shell's *tier* is contested and the ruling is
+  outstanding — see `research/2026-08-09-0449-platform-pwa-vs-native.md`
+  and ARCHITECTURE § Platform posture. "Post-v1" is no longer safe to
+  assume here.
 
 ## Future direction (parked, in order)
 

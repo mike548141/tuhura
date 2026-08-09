@@ -1,6 +1,7 @@
 # Platform posture: PWA-canonical + a committed thin Capacitor channel
 
-**Status**: accepted • **Date**: 2026-08-08
+**Status**: accepted; **timing challenged 2026-08-09, ruling outstanding**
+• **Date**: 2026-08-08
 **Review**: this decision *is* a review outcome — founding cold review
 (`../reviews/2026-08-08-0516-founding-architecture-and-directives.md`),
 platform reviewer's ruling, adopted
@@ -61,3 +62,29 @@ corner case.
   the track starts; the web side's zero-build doctrine is unchanged.
 - The hybrid track starts only on its gate: a real field failure of
   screen-on recording (owner's weekend test), not speculation.
+
+## Challenged 2026-08-09 — timing, not shape (ruling outstanding)
+
+Mike re-opened the platform question. Researched against current sources:
+`../research/2026-08-09-0449-platform-pwa-vs-native.md`.
+
+- **What held**: every rejection above survives. Native-first (including
+  the cross-platform options — React Native, Flutter, KMP — which this ADR
+  never separately examined) buys **no capability** a Capacitor shell does
+  not, while forfeiting the zero-build core, push-to-deploy, and the free
+  web surface, and adding a permanent annual toolchain-upgrade tax.
+- **What broke**: the gate. This ADR deferred BLE explicitly — *"BLE
+  accessories join if/when the marine verticals revive"* — and they revived
+  the next day, when Mike ruled maritime a first-class half of the product.
+  Marine instruments (BLE, NMEA-over-TCP) are permanently unreachable from
+  iOS Safari, so the shell is now a certainty rather than a contingency on
+  a field failure, and "post-Phase-3" is contested.
+- **What was missed**: an embedded WebView's origin quota is 15% of disk
+  against Safari's 60%, so the "separate storage silos" consequence is
+  sharper than recorded — a wrap that keeps tiles in OPFS *shrinks*
+  capacity. The obligations this ADR bought early were the right *kind*;
+  there was one more to buy (a storage seam), now folded into WORKPLAN
+  Phase 3.
+
+Superseding this ADR is deliberately **not** done here: re-tiering a
+review-outcome ruling is the owner's call, flagged on ROADMAP.

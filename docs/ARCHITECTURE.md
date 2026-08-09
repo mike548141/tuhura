@@ -123,7 +123,7 @@ permits it, with attribution carried in-app. Current audit (2026-08-08):
   claims "elevation from the DEM"; until then track profiles use GPS
   altitude with its error stated.
 
-## Platform posture (decided — ADR 2026-08-08-0545)
+## Platform posture (ADR 2026-08-08-0545 — ⏳ tier re-opened 2026-08-09)
 
 The `site/` PWA is canonical: sole codebase, zero-build, push-to-deploy.
 A **thin Capacitor shell is a committed post-Phase-3 packaging track**
@@ -142,6 +142,32 @@ behind a capability seam, and a **storage-migration path** (backup/export
 bridge + re-provisioning) is specified before Phase 3 ships gigabytes —
 installed-PWA and wrapper are separate storage silos. Companion-mode
 hardware (MFi GNSS puck / cellular iPad) needs no app change either way.
+
+**⏳ What 2026-08-09 changed** (`research/2026-08-09-0449-platform-pwa-vs-native.md`;
+Mike re-opened the question, ruling outstanding — the *shape* above is
+unchanged and survived the challenge, the **timing** is what is contested).
+Three consequences are current truth regardless of how he rules:
+
+- **The shell is a certainty, not a contingency.** Marine instruments speak
+  BLE and NMEA-over-TCP; both are permanently closed to iOS Safari (WebKit
+  has no Web Bluetooth implementation and no plans for one). With maritime
+  ruled first-class, that half of the product cannot ship on the web at
+  all — so "gated on a field failure of screen-on recording" is no longer
+  the binding gate, whatever the tier ends up being.
+- **An embedded WebView's origin quota is 15% of disk against Safari's
+  60%** (WebKit storage policy). A wrap that leaves tile archives in OPFS
+  therefore *shrinks* capacity roughly fourfold — the storage-silo problem
+  is worse than "separate silos" implies. Archives belong behind a
+  **storage seam**: OPFS backend now, native filesystem later. PMTiles only
+  needs a source answering `getBytes(offset, length)`, so the native
+  backend is a small `Source` adapter, not a re-architecture.
+- **That native backend is also the durability answer.** Native filesystem
+  storage is guaranteed and never evicted, where `persist()` is a heuristic
+  grant with no specification contract (see Offline data lifecycle above).
+- Native-first (React Native / Flutter / Swift+Kotlin) was re-examined and
+  **buys no capability the shell doesn't**, while forfeiting zero-build,
+  push-to-deploy, the web surface, and paying a permanent annual
+  toolchain-upgrade tax. Not a live option; recorded so it stays closed.
 Web ceiling detail: `research/2026-08-08-sensors-audio-companion.md`.
 
 ## Layout
