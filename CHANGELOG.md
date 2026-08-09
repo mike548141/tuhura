@@ -21,6 +21,16 @@ under _Unreleased_ until there's a reason to cut a tagged version.
   of the conventional web surfaces.
 - Initial repository scaffolded to the house conventions.
 
+### Added
+- Platform research — **PWA vs native vs the other options**
+  ([docs/research/2026-08-09-0449-platform-pwa-vs-native.md](docs/research/2026-08-09-0449-platform-pwa-vs-native.md)),
+  commissioned when Mike re-opened the question. Verifies the web's real
+  2026 ceiling on iOS, discredits two widely-repeated storage myths that
+  would have pushed the call the wrong way, and finds a quota asymmetry
+  that changes how offline storage must be built well before any shell
+  exists. Conclusion: the PWA-canonical ADR's shape holds, its timing
+  doesn't.
+
 ### Changed
 - **Maritime use is first-class, equal to land** (owner directive
   2026-08-09). Boating, diving and fishing on the water sit alongside

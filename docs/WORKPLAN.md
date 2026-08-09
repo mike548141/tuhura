@@ -21,6 +21,12 @@ topo on a phone, installed, in flight mode. Prove it before anything else.
 - [ ] Minimal app shell + service worker (shell precache only, Faves ADR
       0015 split-version pattern); manifest; installable.
 - [ ] Handle WebGL context loss (recreate map); WebGL feature gate.
+- [ ] **WKWebView spike** (platform research 2026-08-09): render the same
+      archive inside a bare WKWebView, not just Safari. Two things it
+      settles cheaply — whether MapLibre performs the same behind the
+      shell boundary (the one assumption that could still favour a native
+      rewrite), and the 15%-vs-60% origin-quota asymmetry an embedded
+      WebView is subject to. An hour now, or a re-architecture later.
 - [ ] **Scale/soak rider** (founding review): ≥5 GB of archives written to
       OPFS, device left 7+ days dormant, then cold-start offline render —
       on a real iPhone AND an older iPad. This is the hard half of the
@@ -82,7 +88,13 @@ and the hedge wording has had a legal read-over.
       cache-repair manifest, honest per-layer sizes, user-scalable
       coverage. Whole-of-NZ is the post-v1 *ceiling*, device-permitting;
       the ~1 GB national base is the floor. Multi-archive tile-routing
-      design note written before build.
+      design note written before build. Archives sit behind a **storage
+      seam** (platform research 2026-08-09) — OPFS backend now, native
+      filesystem later: an embedded WebView's origin quota is a quarter of
+      Safari's, so a shell that keeps tiles in OPFS *shrinks* capacity, and
+      the native side is the durability guarantee `persist()` only
+      heuristically approximates. Same discipline as the recorder's
+      location-stream seam; cheap now, a rewrite later.
 - [ ] **Trip check** (founding review): a pre-departure readiness screen
       run while in coverage — archive integrity, persist() status,
       free-space headroom, layer currency. Discovery at the trailhead is
