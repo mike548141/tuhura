@@ -141,3 +141,12 @@ entry before finishing a session.
   a rewrite, and an hour to test.
   Next: Phase 0, plus two owner rulings outstanding (marine staging, shell
   tier).
+
+  **Owed, not done — doctrine drift is unread.** `atelier` has moved 27
+  commits past this repo's pin (`320f9b1`); the session-start rule is to read
+  the drift and bump the pin deliberately, and this session did neither,
+  staying in the lane Mike set. Unread, so the risk is unpriced rather than
+  known — the log alone shows changes to propagation rules, a new PRINCIPLES
+  section, and a floor change to boundary checks, any of which may bind this
+  repo's own CLAUDE.md. Flagged to Mike 2026-08-09; wants its own short
+  session before the next substantive one.
