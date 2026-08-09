@@ -55,45 +55,44 @@ verification. Use the system interpreter: `/usr/bin/python3`.
 
 ## Everyday deploys
 
-**Right now deploys are manual.** Push does not yet publish:
-
 ```sh
-git push origin main
-/usr/bin/python3 tools/deploy.py deploy    # trigger the build
-/usr/bin/python3 tools/deploy.py status    # poll until `success`
+git push origin main    # Cloudflare builds and deploys
 ```
 
-### Why, and how to fix it once
+A push to `main` **is** a deploy — there is no separate release step, and
+no gate between a merge and production beyond CI. Branches and PRs get
+their own preview URLs, which is the cheap way to look at a change on a
+real phone before it reaches the live hostname.
 
-Cloudflare can *read* this repo without any grant — it is public, so the
-clone is anonymous, which is why `apply` succeeded and a triggered deploy
-builds the right commit. What it does not get for free is the **push
-webhook**: that is delivered by Cloudflare's GitHub App, and only for
-repos inside the App's installation. This repo is not in it yet, so
-pushes land in GitHub and nothing downstream hears about them.
+Two useful checks:
 
-This is the one step that cannot be scripted — OAuth and App grants are
-browser-only, and widening an App's repo access is a trust decision the
-owner makes, not one a script takes:
+```sh
+/usr/bin/python3 tools/deploy.py status    # recent deployments and outcomes
+/usr/bin/python3 tools/deploy.py deploy    # force a rebuild of main
+```
 
-1. GitHub → **Settings → Applications → Cloudflare Pages → Configure**
-2. Under *Repository access*, add **`mike548141/tuhura`**, and save.
+`deploy` re-runs the current `main` without a new commit — handy when a
+build failed on something transient. A deployment's `type` tells you
+which path produced it: `github:push` is the webhook, `ad_hoc` is a
+manual trigger.
 
-Then confirm it took, rather than assuming:
+### If a push stops deploying
+
+The likeliest cause is the GitHub App grant, because Cloudflare reads
+this repo *anonymously* — it is public — so a broken webhook still looks
+like a healthy connection: `apply` succeeds, manual deploys build the
+right commit, and only the automatic path is dead. That exact symptom
+cost this repo a wrong diagnosis on 2026-08-08.
+
+Check **Settings → Applications → Cloudflare Workers and Pages →
+Configure**, and make sure `mike548141/tuhura` is under *Repository
+access*. Grants are browser-only; they cannot be scripted. Then confirm
+it took rather than trusting the settings page:
 
 ```sh
 git commit --allow-empty -m "chore: confirm auto-deploy" && git push
-/usr/bin/python3 tools/deploy.py status    # a new deployment, unprompted
+/usr/bin/python3 tools/deploy.py status    # expect a new, unprompted deployment
 ```
-
-Once a push deploys on its own, delete the manual step from this section
-and drop the `deploy` subcommand's reason-for-existing note — leaving a
-workaround documented after it stops being needed is how a doc starts
-lying.
-
-Branches and PRs get their own preview URLs, which is the cheap way to
-look at a change on a real phone before it reaches the live hostname —
-those also depend on the App grant.
 
 ## Re-provisioning
 

@@ -7,12 +7,9 @@ under _Unreleased_ until there's a reason to cut a tagged version.
 ## [Unreleased]
 
 ### Added
-- **The site is live** at <https://tuhura.myspot.nz>, on Cloudflare Pages,
-  with `https://tuhura.pages.dev` as the always-works default. Deploys are
-  **manual for now** (`tools/deploy.py deploy`): Cloudflare can clone this
-  public repo without a grant, but push webhooks need the repo added to
-  its GitHub App, which is a browser-only step still outstanding.
-  Provisioning is
+- **The site is live.** tūhura publishes on Cloudflare Pages: every push
+  to `main` deploys to <https://tuhura.myspot.nz>, with
+  `https://tuhura.pages.dev` as the always-works default. Provisioning is
   config-as-code (`tools/deploy.json` + `tools/deploy.py`); the flow and
   the token story are in [docs/DEPLOY.md](docs/DEPLOY.md). What is live
   today is the "under construction" shell — the hostname exists early

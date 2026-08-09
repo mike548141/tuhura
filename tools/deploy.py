@@ -246,13 +246,13 @@ def ensure_cname(cfg, domain, project_name, apply):
 
 
 def trigger_deploy(acct, cfg):
-    """Kick a production deployment by hand.
+    """Rebuild the production branch without pushing a commit.
 
-    Needed while the Cloudflare GitHub App does not have this repo in its
-    installation: Pages can still CLONE the source (the repo is public, so
-    that needs no grant) but receives no push webhook, so nothing deploys
-    on its own. Grant the repo and this becomes redundant — see
-    docs/DEPLOY.md.
+    Pushes deploy on their own via the GitHub App webhook, so this is for
+    the cases a push cannot express: re-running a build that failed on
+    something transient, or reviving the automatic path after a grant
+    lapses. A deployment's `type` distinguishes them — `github:push` for
+    the webhook, `ad_hoc` for this.
 
     The endpoint takes multipart/form-data, not JSON, so it does not go
     through cf().
