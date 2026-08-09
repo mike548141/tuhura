@@ -61,9 +61,11 @@ in atelier and is read on demand — never wholesale.
 # tūhura — session onramp
 
 tūhura (te reo Māori: to explore, discover) is an offline-first mobile PWA map
-app for the New Zealand outdoors — off-road driving, hunting, fishing, birding,
-tramping. It must work **perfectly with zero connectivity** for days in the
-backcountry, and take opportunistic advantage of a connection when one appears.
+app for the New Zealand outdoors, **on land and on the water in equal measure**
+(owner directive 2026-08-09) — off-road driving, tramping, mountaineering,
+hunting, birding, fishing, boating, diving. It must work **perfectly with zero
+connectivity** for days in the backcountry or offshore, and take opportunistic
+advantage of a connection when one appears.
 Accountless, like its sibling `../faves`; a future end-to-end-encrypted backend
 syncs and shares waypoints, tracks, and preferences between a user's own devices
 and with other users — the server must never be able to read user data.
@@ -84,8 +86,8 @@ and with other users — the server must never be able to read user data.
 - **Offline is the primary mode, not a degraded one.** Every feature is
   designed no-coverage-first: full functionality — maps, waypoints, tracks,
   recorded data — with the radio dead for days. Connectivity is the
-  enhancement. A feature that needs the network to be useful in the bush does
-  not ship.
+  enhancement. A feature that needs the network to be useful in the bush or
+  out of VHF range does not ship.
 - **Zero build step, one sanctioned dependency class.** `site/` is served
   as-is: vanilla HTML + CSS + ES-module JavaScript, no bundlers, no
   frameworks, no CDN dependencies, no npm at runtime. The one deliberate

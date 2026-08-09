@@ -6,15 +6,24 @@ Grounded in the founding competitor/data research (2026-08-08,
 
 ## Purpose
 
-One map app for the NZ outdoors — off-road driving, hunting, fishing,
-birding, tramping, boating and diving — that you can trust with your life
-**when there is no coverage at all**. Plan in coverage, then go dark for
-days: maps, land boundaries, waypoints, tracks, tides and forecasts all
-keep working from the device. On the water the same bones serve the marine
-verticals: coastal layers, marine reserves, dive spots, sea conditions
-(owner directive 2026-08-08; data licensing constraints in
-`ARCHITECTURE.md` still apply — chart-grade navigation stays a non-goal
-until properly licensed).
+One map app for the NZ outdoors — **on land and on the water in equal
+measure** — that you can trust with your life **when there is no coverage at
+all**. Plan in coverage, then go dark for days: maps, boundaries, waypoints,
+tracks, tides and forecasts all keep working from the device.
+
+- **On land**: off-road driving, tramping, mountaineering, hunting, birding.
+- **On the water**: boating, diving, fishing (fishing spans both — off the
+  rocks and off the boat).
+
+**Maritime is a first-class half of the product, not a vertical bolted on**
+(owner directive 2026-08-09, restating and strengthening 2026-08-08). The
+same bones carry it: coastal and bathymetric layers, marine reserves and
+fishing rules, dive sites, tides and sea state, a track that is a wake.
+Where the two differ they differ honestly — a boat has no tracks to follow
+and no cell coverage two headlands out, and a diver's day is planned around
+tide and slack water, not daylight. Data licensing constraints in
+`ARCHITECTURE.md` still apply: chart-grade navigation stays a non-goal until
+properly licensed, and that is a licence limit, not a statement of priority.
 
 ## The two jobs it must nail
 
@@ -41,21 +50,25 @@ until properly licensed).
   E2E-encrypted and optional (we never learn who you are).
 - **Private by default.** No feed, no leaderboard, no bots. Your spots are
   yours; sharing is deliberate (export, link, QR — later E2E share grants).
-- **Multi-activity on shared bones.** Map, offline regions, waypoints,
-  tracks, land-access layer are common infrastructure; hunting blocks,
-  tides, bird checklists are thin overlays on top. Competitors are siloed
-  per activity; NZ users stitch four or five apps together today.
+- **Multi-activity on shared bones, land and sea.** Map, offline regions,
+  waypoints, tracks, access layer are common infrastructure; hunting blocks,
+  tides, dive sites, bird checklists are thin overlays on top. Competitors
+  are siloed per activity and, more sharply, split at the shoreline — the
+  land apps stop at the coast and the marine apps start there. NZ users
+  stitch four or five apps together today; a weekend that tows a boat to a
+  DOC camp needs two of those piles at once.
 - **NZ-first, global-quality bar.** The structural advantage is NZ open
   data (LINZ CC-BY topo/parcels, DOC, MPI, Herenga ā Nuku); the UX bar is
   onX/Merlin, not the dated NZ incumbents.
 
 ## Audience
 
-NZ outdoors people on phones and tablets: 4WD tourers, hunters, fishers,
-birders, trampers, boaties and divers — starting with the owner's own trips
-as the proving ground. People burnt by subscription fatigue and apps that
-die in the bush. Tablets are first-class, including the vehicle-mounted
-older iPad backed by a phone's sensors (companion mode, ROADMAP).
+NZ outdoors people on phones and tablets: 4WD tourers, trampers and
+mountaineers, hunters, birders, fishers, boaties and divers — starting with
+the owner's own trips as the proving ground. People burnt by subscription
+fatigue and apps that die in the bush. Tablets are first-class, including the
+vehicle- or helm-mounted older iPad backed by a phone's sensors (companion
+mode, ROADMAP).
 
 ## Success measures (these gate spends — founding review)
 
@@ -65,8 +78,9 @@ older iPad backed by a phone's sensors (companion mode, ROADMAP).
   an honest first-load budget (interactive fast on mid-tier hardware,
   measured truthfully — a WebGL map app is not gamed to a Lighthouse 95).
 - The owner reaches for tūhura over the stitched-together app pile on a
-  real hunting/fishing/4WD weekend — and a screen-on recording failure on
-  such a weekend is the gate that starts the hybrid track.
+  real weekend — hunting, 4WD, or a day on the boat — and a screen-on
+  recording failure on such a weekend is the gate that starts the hybrid
+  track.
 - Audience stays owner-household until data-refresh automation exists
   (stale safety-adjacent layers must be impossible before strangers rely
   on them). The "trust with your life" framing is internal engineering
@@ -76,8 +90,11 @@ older iPad backed by a phone's sensors (companion mode, ROADMAP).
 
 - **Not a social network** — no public feed, comments, or follower graph.
 - **Not turn-by-turn road navigation** — Apple/Google/CarPlay own that.
-- **Not a marine chart plotter** — hydro chart licensing is restrictive
-  (link out; revisit as a later phase with proper licensing).
+- **Not a marine chart plotter** — a *licensing* limit, not a priority
+  call: LINZ ENC terms forbid the redistribution offline caching requires
+  (link out; revisit with proper licensing). Everything the open marine
+  data does allow — bathymetry, reserves, fishing rules, dive sites, sea
+  state — is in scope, badged not-for-navigation.
 - **Not a community POI database** — crowdsourcing needs critical mass and
   moderation; parked until the personal tool is proven.
 - **No native rewrite** — the PWA is the canonical product (one codebase,

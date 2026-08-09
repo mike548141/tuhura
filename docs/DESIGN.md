@@ -60,9 +60,11 @@ The app adapts deeply — per activity, per person, per situation — without
 ever presenting a hundred dials. Working principles (a dedicated UX
 research + design pass is queued, ROADMAP):
 
-- **Profiles over dials**: activity profiles (4WD, hunt, fish, bird, tramp,
-  boat, dive) bundle layers, units, and UI emphasis; switching profile is
-  one tap on the map screen, not a settings trek.
+- **Profiles over dials**: activity profiles (4WD, tramp, alpine, hunt,
+  bird, fish, boat, dive) bundle layers, units, and UI emphasis; switching
+  profile is one tap on the map screen, not a settings trek. Land and marine
+  profiles are peers — the water set is not a second-class branch of the
+  land set (owner directive 2026-08-09).
 - **Sensible defaults, discoverable overrides**: everything works untouched;
   every layer and behaviour has a home in settings for the user who wants
   it different. Progressive disclosure — common toggles surface, depth on

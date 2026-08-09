@@ -73,12 +73,22 @@ records *when*, the gate records *why then*.
   signed index chain, web-delivery caveat, nonce/AAD, quotas, HLC skew
   cap); then sharing (key-wrapping), then export-privacy rules ship
   BEFORE any share feature. review: queued (the sync ADR when written)
-- [ ] **Marine verticals — boating & diving** (owner directive, staged
-  after the land verticals prove out): GEBCO + LINZ hydro vectors with
+- [ ] **Marine layers — boating & diving**: GEBCO + LINZ hydro vectors with
   first-enable modal + persistent not-for-navigation badge, no
   route-planning over water; dive-sites layer ODbL if OSM-seeded;
   offline tides ⏳ blocked on LINZ written licence confirmation.
   review: done — founding review (staging is its recommendation)
+  ⏳ **Staging contested, owner's call outstanding.** Mike directed
+  2026-08-09 that maritime use is first-class, equal to land — STRATEGY and
+  CLAUDE.md now say so. The founding review's "stage marine after the land
+  verticals prove out" was a *sequencing* recommendation on delivery risk,
+  not a statement of worth, so the two are not strictly contradictory — but
+  leaving marine as the only post-v1 vertical does read as second-class, and
+  Phase 4's activity heroes (WORKPLAN) currently have no water hero. Open:
+  does a marine hero (dive-site/anchorage log with tide context, or a
+  drift/wake track) join v1 Phase 4, and do bathymetry + reserves join the
+  Phase 2/3 layer work? Not decided here — the tier is unchanged until Mike
+  rules.
 - [ ] **Māori land status layer** — ship per owner ruling **subject to
   engagement**: Te Kōti Whenua Māori + mana whenua hold authority over
   the layer's shape and existence (status-on-tap vs area fill in hunting

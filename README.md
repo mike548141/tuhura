@@ -4,9 +4,10 @@
 now; the map arrives with Phase 0.
 
 tūhura (te reo Māori: *to explore, discover*) is an offline-first mobile web
-app (PWA) for the New Zealand outdoors — a map for off-road driving, hunting,
-fishing, birding, and tramping that keeps working perfectly when there is no
-coverage at all, and quietly takes advantage of a connection when one appears.
+app (PWA) for the New Zealand outdoors, on land and on the water alike — a map
+for off-road driving, tramping, mountaineering, hunting, birding, fishing,
+boating and diving that keeps working perfectly when there is no coverage at
+all, and quietly takes advantage of a connection when one appears.
 Accountless by design; a future end-to-end-encrypted sync shares your spots
 between your own devices — and with your mates — without the server ever being
 able to read them.

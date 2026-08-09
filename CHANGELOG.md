@@ -22,6 +22,14 @@ under _Unreleased_ until there's a reason to cut a tagged version.
 - Initial repository scaffolded to the house conventions.
 
 ### Changed
+- **Maritime use is first-class, equal to land** (owner directive
+  2026-08-09). Boating, diving and fishing on the water sit alongside
+  off-road driving, tramping, mountaineering, hunting and birding in every
+  statement of what tūhura is — strategy, onramp, README, the live shell.
+  Mountaineering is newly named; the "not a chart plotter" non-goal is
+  restated as the licensing limit it always was, not a ranking. Roadmap
+  staging for the marine layers is flagged as contested and left unchanged
+  pending a ruling.
 - **The repository is public.** Doctrine stamp in `CLAUDE.md` updated to
   match: every push is now publication, and narrowing back does not
   un-publish.
