@@ -67,10 +67,14 @@ records *when*, the gate records *why then*.
   ruling and are folded into the phases — the WKWebView storage-quota
   asymmetry (15% vs 60% of disk) means Phase 3 needs a storage seam, and a
   MapLibre-in-WKWebView spike belongs in Phase 0.
-  review of the challenge: queued
-  (`docs/reviews/2026-08-15-1033-platform-tier-and-marine-staging.md`) — a
-  cold pass before Mike rules, so the ruling is made on a tested finding,
-  not a fresh one.
+  review of the challenge: done 2026-08-15
+  (`docs/reviews/2026-08-15-1033-platform-tier-and-marine-staging.md`) —
+  native-first stays closed; "the shell is a certainty" overreaches (F1),
+  the shell's over-the-air update claim is unexamined (F3); recommendation
+  R2: keep post-Phase-3, widen the gate to two arms (field failure OR the
+  owner naming a native-only feature as the next deliverable after Phase
+  3), name the trigger. 🎯 Mike rules; this item and the marine item below
+  are decoupled — neither waits on the other.
 - [ ] **Delta sync** (makesync-style, changed blocks only — the owner's
   end-state requirement). Gate: real users + measured update pain from
   full re-downloads; verify OPFS `move()` + makesync format stability
@@ -104,9 +108,15 @@ records *when*, the gate records *why then*.
   drift/wake track) join v1 Phase 4, and do bathymetry + reserves join the
   Phase 2/3 layer work? Not decided here — the tier is unchanged until Mike
   rules.
-  review of the staging question: queued — same brief as the shell tier
-  (`docs/reviews/2026-08-15-1033-platform-tier-and-marine-staging.md`); the
-  two rulings are coupled and the brief asks whether they should be.
+  review of the staging question: done 2026-08-15
+  (`docs/reviews/2026-08-15-1033-platform-tier-and-marine-staging.md`) —
+  decoupled from the shell (F11): every marine layer STRATEGY names is
+  web-reachable and licence-clear bar tides. Recommendation R1: marine into
+  v1 on the web side — MPI reserves + fishing rules into Phase 2 (they are
+  the access layer at sea, F10), GEBCO + LINZ hydro into Phase 3 behind the
+  not-for-navigation modal and badge, one water hero into Phase 4 (F9);
+  instrument integration stays post-v1 on the native channel and STRATEGY
+  says so. 🎯 Mike rules.
 - [ ] **Māori land status layer** — ship per owner ruling **subject to
   engagement**: Te Kōti Whenua Māori + mana whenua hold authority over
   the layer's shape and existence (status-on-tap vs area fill in hunting
@@ -140,12 +150,8 @@ records *when*, the gate records *why then*.
 
 ## Queued reviews (refs only — the brief carries the ask)
 
-- [ ] ⏳ Cold pass on the platform-tier challenge + marine staging, before the
-  owner's two rulings — brief
-  `docs/reviews/2026-08-15-1033-platform-tier-and-marine-staging.md`
-  (delta: `research/2026-08-09-0449-…`, ADR 0545 § Challenged, the
-  STRATEGY/ROADMAP marine changes of 2026-08-09). Needs a fresh Fable
-  session that did not write the brief.
+- (none open — the platform-tier + marine-staging pass ran 2026-08-15;
+  see ROADMAP-DONE.md and the two ⏳ items above for what it left with Mike)
 
 ## Standing threads (options that may never open — off every critical path)
 

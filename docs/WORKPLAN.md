@@ -21,12 +21,22 @@ topo on a phone, installed, in flight mode. Prove it before anything else.
 - [ ] Minimal app shell + service worker (shell precache only, Faves ADR
       0015 split-version pattern); manifest; installable.
 - [ ] Handle WebGL context loss (recreate map); WebGL feature gate.
-- [ ] **WKWebView spike** (platform research 2026-08-09): render the same
-      archive inside a bare WKWebView, not just Safari. Two things it
-      settles cheaply — whether MapLibre performs the same behind the
-      shell boundary (the one assumption that could still favour a native
-      rewrite), and the 15%-vs-60% origin-quota asymmetry an embedded
-      WebView is subject to. An hour now, or a re-architecture later.
+- [ ] **WKWebView spike** (platform research 2026-08-09; sharpened by the
+      2026-08-15 cold review, F8): render the same archive inside a bare
+      WKWebView / Capacitor shell, not just Safari, and establish four
+      things — (i) MapLibre frame rate behind the shell boundary (the one
+      assumption that could still favour a native rewrite); (ii) whether
+      OPFS and `navigator.storage.estimate()` work under
+      `capacitor://localhost` at all, and what quota they report (the
+      15 %-vs-60 % policy is documented; what a shell actually gets is
+      not); (iii) whether a service worker registers there — the shell's
+      over-the-air update story depends on it (review F3); (iv) that the
+      shell sees none of the installed PWA's data (confirms the silo). If
+      the storage seam's native backend is prototyped, measure its
+      range reads over a multi-GB file with MapLibre's worker parsing —
+      the "≈100 lines" estimate is untested. Needs a Mac with Xcode and a
+      free Apple ID (7-day device builds), **not** the paid Developer
+      Program — this is not spend. An hour now, or a re-architecture later.
 - [ ] **Scale/soak rider** (founding review): ≥5 GB of archives written to
       OPFS, device left 7+ days dormant, then cold-start offline render —
       on a real iPhone AND an older iPad. This is the hard half of the

@@ -89,6 +89,13 @@ Mike re-opened the platform question. Researched against current sources:
 Superseding this ADR is deliberately **not** done here: re-tiering a
 review-outcome ruling is the owner's call, flagged on ROADMAP.
 
-**Review of the challenge**: queued 2026-08-15 —
-`../reviews/2026-08-15-1033-platform-tier-and-marine-staging.md` (a cold
-pass on the research and this section before the owner rules).
+**Review of the challenge**: done 2026-08-15 —
+`../reviews/2026-08-15-1033-platform-tier-and-marine-staging.md`. Held:
+every rejection above, and the storage seam. Contested: "the shell is a
+certainty" (F1 — marine's strategy-defined half needs no shell; instrument
+integration does), and this ADR's "web assets update over the air" is
+unexamined — Capacitor's remote-URL mode is documented as not for
+production, so over-the-air means a third-party updater (a new trust
+surface) or App Review per fix (F3). Neither ADR enumerates the native
+channel's threats (S1). Recommendation R2: keep post-Phase-3, widen the gate
+to two arms, name the trigger. Owner's ruling still outstanding.

@@ -168,6 +168,13 @@ Three consequences are current truth regardless of how he rules:
   **buys no capability the shell doesn't**, while forfeiting zero-build,
   push-to-deploy, the web surface, and paying a permanent annual
   toolchain-upgrade tax. Not a live option; recorded so it stays closed.
+**Reviewed 2026-08-15** (cold pass —
+`reviews/2026-08-15-1033-platform-tier-and-marine-staging.md`): the
+native-first closure and the storage-seam consequence hold; the first bullet
+overreaches — the strategy's marine half (layers, reserves, dive sites,
+tides, a wake track) is web-reachable, and it is marine *instrument*
+integration that cannot ship on the web (verdict F1). The bullet stands as
+written until Mike rules; read it with that finding beside it.
 Web ceiling detail: `research/2026-08-08-sensors-audio-companion.md`.
 
 ## Layout

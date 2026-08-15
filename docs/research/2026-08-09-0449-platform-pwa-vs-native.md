@@ -6,9 +6,12 @@ any other option."* Re-opens ADR `2026-08-08-0545-platform-posture.md`
 (PWA-canonical + a committed thin Capacitor channel), which was itself a
 founding-review ruling.
 
-**Review**: queued 2026-08-15 —
-`../reviews/2026-08-15-1033-platform-tier-and-marine-staging.md`. This record
-is direction the owner will rule on; it is unreviewed until that pass lands.
+**Review**: done 2026-08-15 —
+`../reviews/2026-08-15-1033-platform-tier-and-marine-staging.md`. Verdict in
+one line: the negative conclusion (no native-first) holds; the positive one
+(re-tier the shell into v1) overreaches — see F1, F3, F4 there and the
+*Corrections* note at the foot. Direction the owner rules on; unchanged
+here.
 
 Evidence is dated and sourced. Where a claim is widely repeated on the web
 but wrong, it is marked ❌ **discredited** with the authoritative
@@ -168,3 +171,20 @@ forward accordingly:
 - [MapLibre Android — PMTiles example](https://maplibre.org/maplibre-native/android/examples/data/PMTiles/)
 - [MapLibre React Native](https://maplibre.org/maplibre-react-native/)
 - [MapLibre newsletter, April 2026](https://maplibre.org/news/2026-05-02-maplibre-newsletter-april-2026/)
+
+## Corrections (cold review 2026-08-15 — body left as written)
+
+- "Web Bluetooth landed in Chrome 151" is a misread of caniuse's mobile
+  column, which lists only the current Chrome for Android; the desktop
+  column reads 56–150. Web Bluetooth has shipped on Chrome for Android since
+  Chrome 56 (2017). Harmless to the conclusion.
+- "Wake lock works on installed PWAs (iOS ≥ 18.4)" is uncited; caniuse gives
+  Safari on iOS 16.4+. If 18.4 refers to a standalone-mode fix, it needs a
+  source.
+- The quota, `persist()`, iOS Web Bluetooth and Apple SDK-date claims were
+  re-verified against their sources and hold verbatim. Not re-verified: the
+  Play target-API-36 date; "MapLibre React Native v11 mirrors GL JS".
+- The record's own strongest cost argument (the recurring platform tax)
+  applies to starting the shell early as much as to native-first, and
+  "marine first-class" does not entail marine *instruments* in v1 — both
+  argued in the review's verdict (F1, F4), not restated here.
