@@ -48,6 +48,14 @@ the first write, not in Phase 3 (founding review).
       IndexedDB store (model/UI split, unit-tested pure logic,
       `node --test`). Imported/synced text is untrusted input — render
       via the shared `el()` helper only; CSP headers from this phase.
+      **The schema carries its time dimension from the first write**
+      (atelier PRINCIPLES §9, 2026-08-08): *world time* (when the fix was
+      taken / the photo shot / the catch landed) and *record time* (when
+      the row was created or last edited — the HLC the sync design already
+      needs) as separate fields, never one column doing both; deletion is a
+      dated tombstone, not a hard delete (LWW sync needs the tombstone
+      anyway); an imported GPX point with no timestamp is stored as
+      *unknown*, never as *now*. Cheap on day one, unrecoverable later.
 - [ ] Track recording behind a **capability seam** (a location-stream
       interface the future native plugin implements — ADR
       2026-08-08-0545): wake lock + `watchPosition`, filter pipeline
@@ -86,7 +94,12 @@ and the hedge wording has had a legal read-over.
       archives), progress, **versioned resumable full re-downloads**
       (ETag/If-Range; delta sync is post-v1, evidence-gated — ROADMAP),
       cache-repair manifest, honest per-layer sizes, user-scalable
-      coverage. Whole-of-NZ is the post-v1 *ceiling*, device-permitting;
+      coverage. The manifest carries **two dates per layer, kept apart**
+      (PRINCIPLES §9): the source's data currency (world time — what the
+      map face shows) and the archive's build date (record time — what
+      staleness is computed from); one date standing for both is the
+      defect the on-map currency rule exists to avoid. Whole-of-NZ is the
+      post-v1 *ceiling*, device-permitting;
       the ~1 GB national base is the floor. Multi-archive tile-routing
       design note written before build. Archives sit behind a **storage
       seam** (platform research 2026-08-09) — OPFS backend now, native
