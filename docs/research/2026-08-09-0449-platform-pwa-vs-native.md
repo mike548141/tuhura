@@ -6,6 +6,10 @@ any other option."* Re-opens ADR `2026-08-08-0545-platform-posture.md`
 (PWA-canonical + a committed thin Capacitor channel), which was itself a
 founding-review ruling.
 
+**Review**: queued 2026-08-15 —
+`../reviews/2026-08-15-1033-platform-tier-and-marine-staging.md`. This record
+is direction the owner will rule on; it is unreviewed until that pass lands.
+
 Evidence is dated and sourced. Where a claim is widely repeated on the web
 but wrong, it is marked ❌ **discredited** with the authoritative
 correction — several of the popular "iOS PWA limits" numbers are years out
