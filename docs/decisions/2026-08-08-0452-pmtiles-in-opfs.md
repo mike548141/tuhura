@@ -1,8 +1,11 @@
 # Offline tiles: PMTiles archives in OPFS, not service-worker tile caching
 
 **Status**: accepted • **Date**: 2026-08-08
-**Review**: queued — part of the founding architecture review (ROADMAP item;
-brief to be filed in `docs/reviews/`)
+**Review**: done — founding cold review, verdict 2026-08-08
+(`../reviews/2026-08-08-0516-founding-architecture-and-directives.md`; the
+offline stack was its assumption 2 — held, with the scale/soak rider and
+`persist()`-is-heuristic caveats folded into WORKPLAN/ARCHITECTURE). Pointer
+closed 2026-08-15 — it still read "brief to be filed" after the brief landed.
 
 ## Context
 

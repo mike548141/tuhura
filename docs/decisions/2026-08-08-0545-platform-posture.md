@@ -88,3 +88,7 @@ Mike re-opened the platform question. Researched against current sources:
 
 Superseding this ADR is deliberately **not** done here: re-tiering a
 review-outcome ruling is the owner's call, flagged on ROADMAP.
+
+**Review of the challenge**: queued 2026-08-15 —
+`../reviews/2026-08-15-1033-platform-tier-and-marine-staging.md` (a cold
+pass on the research and this section before the owner rules).
