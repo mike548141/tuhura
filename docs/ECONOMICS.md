@@ -1,56 +1,45 @@
-# Model & token economics — working policy
+# Model & token economics — repo-local facts only
 
-The short version of the house policy this repo runs by.
+The doctrine lives up, not here. Seat assignment (risk assigns the seats;
+billing only prices them), the billing states of the marginal token, the
+hand-up ladder, sub-agent economics and session hygiene are atelier's
+[economics doctrine][economics], read at the pin in `CLAUDE.md`; entitlement
+numbers (the plan, its cap share, prices) are person-local in the estate
+root. Never trust a restatement of any of that here: until 2026-08-15 this
+file was a full restatement of the house policy with no repo-local content
+at all — the exact "repeat" atelier's propagation rule forbids (a child may
+*add*, never repeat or conflict — `PROPAGATION.md`, ruled 2026-08-09, with
+the sibling `faves` copy as the grounding case). Trimmed at the 2026-08-15
+pin bump. What remains is only what atelier cannot hold: this repo's own
+applications and the economics it owes.
 
-## Who does what
+## Applying the seats to this repo
 
-Seats are **roles assigned by risk**; billing facts are **read off the current
-plan at session open, never off this file** — a hard-coded model↔billing
-mapping here went stale once already when the provider moved the plan
-(atelier's [economics doctrine][economics], billing states of the marginal
-token).
-Which model fills each seat, and each one's billing state, are plan details
-held person-local, not in this repo.
+- Nearly all v1 work is build-tier: the `site/` shell, the map/tiles/OPFS
+  plumbing, the service worker, pure-logic tests (`node --test`), docs, and
+  the data pipeline tools under `tools/`.
+- Reviews stay scoped and short: hand the reviewer the diff / named files or
+  the design record, not the repo; ask for findings, not rewrites; apply back
+  on the build tier ([reviews/README.md](reviews/README.md)).
+- **A field test is spend the tank cannot buy.** Several accept-whens
+  (Phase 0's soak rider, Phase 1's real recorded walk, Phase 3's full trip
+  cycle) need a real device in real conditions over real days. Plan sessions
+  so the human step is queued *before* the wait, not discovered after it.
 
-- **Workhorse seat** — building, iterating, docs, exploration: the cheapest
-  model that genuinely does the items' builds, safe because the mechanical
-  floor catches its failures.
-- **Capable seat** — the orchestrator, reviewer and hard-problem solver. For
-  reviews and hard problems keep it **scoped**: hand it a diff/file list; ask
-  for *findings*, not rewrites; apply fixes back on the workhorse (see
-  [reviews/README.md](reviews/README.md)). Orchestration is the long-running
-  exception — it runs
-  the parent's orchestrated-run tier split, not scoped-and-short. If this
-  seat's model is capped on the current plan, at the cap the exits are
-  stop/delay or the principal choosing to pay — **never down-tier the work to
-  dodge the cap**: tier is the work's risk profile's call, not the tank's.
-- **Fan-out seat** — sub-agent fan-out and mechanical bulk (searches, scans,
-  pattern-following reads) whose result the parent or the mechanical floor
-  verifies: the cheapest tier that genuinely does the read.
-- **Sub-agents** — fan-out, parallel slices, fresh-context verification; they
-  buy context *isolation*, not token savings — and they run on the cheapest
-  tier that genuinely does the read. The full economics — when, when-not,
-  lossiness — live in the parent's *Sub-agents — isolation, not
-  savings* (atelier's [economics doctrine][economics]).
-- **Past your depth? Fail noisily and hand up** — stop improvising, say what
-  exceeded you, record it, route up: workhorse → capable tier → principal.
-  A silent stall or a quietly degraded attempt blocks the hand-up.
+## Operating costs and licence tripwires — owed
 
-## Session hygiene
-
-- **One task per session — a coherent *line* of work, not a single checkbox.**
-  Related, already-grounded work sharing the context is the *same* task; keep
-  going. Break for a genuine reason (an unrelated pivot, a principal-only
-  decision, a real unreviewed dependency, cache/context degradation), **not
-  because one item went green**. Then write the `SESSIONS.md` entry, start fresh.
-- **Match the ceremony to the risk** — reviews, sweeps, session breaks are
-  *spend*; apply them in proportion to the cost of being wrong, not uniformly.
-- **Never switch model mid-session** — the prompt cache is per-model.
-- **Point, don't paste** — give paths/line ranges; let the model read.
-
-The canonical, fuller version is atelier's [economics doctrine][economics]
-(match-model-to-job, tiered authority, cache economics, ceremony-to-risk, review
-triggering). This file carries only what's repo-local, or points up entirely.
+The founding review (2026-08-08) found "free app" is load-bearing: Open-Meteo,
+BirdNET and NIWA terms all turn on it, so **one non-commercial analysis governs
+all three**, and it belongs here. This file owes an operating-costs & licence-
+tripwire table covering: R2 storage/egress for tile archives, the LINZ Basemaps
+key tier, Cloudflare Pages/Workers limits, each cached layer's licence
+condition and the change that would trip it, and — once the hybrid channel
+starts — the **platform tax the shell brings**: US$99/yr Apple in perpetuity
+plus the recurring toolchain march (current-year SDK for App Store
+submissions; Google Play target-API deadlines), a standing maintenance
+obligation on a solo project, not a one-off (platform research 2026-08-09).
+Until the table exists, the ROADMAP's data-ops thread is the record of the
+debt.
 
 <!-- Cross-repo pointer into atelier (public), as a full URL so it resolves
      for a reader who has no sibling checkout. -->

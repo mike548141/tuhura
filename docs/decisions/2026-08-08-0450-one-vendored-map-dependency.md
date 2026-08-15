@@ -1,8 +1,12 @@
 # Zero build step, with one vendored map dependency (MapLibre GL JS + pmtiles)
 
-**Status**: accepted • **Date**: 2026-08-08
-**Review**: queued — part of the founding architecture review (ROADMAP item;
-brief to be filed in `docs/reviews/`)
+**Status**: accepted; its "exactly one dependency class" sentence superseded by
+`2026-08-08-0546-vendored-dependencies-rule.md` (the map-stack decision and every
+rejection stand) • **Date**: 2026-08-08
+**Review**: done — founding cold review, verdict 2026-08-08
+(`../reviews/2026-08-08-0516-founding-architecture-and-directives.md`; the
+one-class framing was its finding 9, answered by ADR 0546). Pointer closed
+2026-08-15 — it still read "brief to be filed" a week after the brief landed.
 
 ## Context
 

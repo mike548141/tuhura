@@ -67,6 +67,10 @@ records *when*, the gate records *why then*.
   ruling and are folded into the phases — the WKWebView storage-quota
   asymmetry (15% vs 60% of disk) means Phase 3 needs a storage seam, and a
   MapLibre-in-WKWebView spike belongs in Phase 0.
+  review of the challenge: queued
+  (`docs/reviews/2026-08-15-1033-platform-tier-and-marine-staging.md`) — a
+  cold pass before Mike rules, so the ruling is made on a tested finding,
+  not a fresh one.
 - [ ] **Delta sync** (makesync-style, changed blocks only — the owner's
   end-state requirement). Gate: real users + measured update pain from
   full re-downloads; verify OPFS `move()` + makesync format stability
@@ -100,6 +104,9 @@ records *when*, the gate records *why then*.
   drift/wake track) join v1 Phase 4, and do bathymetry + reserves join the
   Phase 2/3 layer work? Not decided here — the tier is unchanged until Mike
   rules.
+  review of the staging question: queued — same brief as the shell tier
+  (`docs/reviews/2026-08-15-1033-platform-tier-and-marine-staging.md`); the
+  two rulings are coupled and the brief asks whether they should be.
 - [ ] **Māori land status layer** — ship per owner ruling **subject to
   engagement**: Te Kōti Whenua Māori + mana whenua hold authority over
   the layer's shape and existence (status-on-tap vs area fill in hunting
@@ -130,6 +137,15 @@ records *when*, the gate records *why then*.
 - [ ] Vehicle **control** via CAN (owner mused 2026-08-08): safety-
   critical actuation — own ADR + full review before any design; never
   rides in on telemetry (ADR 2026-08-08-0555).
+
+## Queued reviews (refs only — the brief carries the ask)
+
+- [ ] ⏳ Cold pass on the platform-tier challenge + marine staging, before the
+  owner's two rulings — brief
+  `docs/reviews/2026-08-15-1033-platform-tier-and-marine-staging.md`
+  (delta: `research/2026-08-09-0449-…`, ADR 0545 § Challenged, the
+  STRATEGY/ROADMAP marine changes of 2026-08-09). Needs a fresh Fable
+  session that did not write the brief.
 
 ## Standing threads (options that may never open — off every critical path)
 
