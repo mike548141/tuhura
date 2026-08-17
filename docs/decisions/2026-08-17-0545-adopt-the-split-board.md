@@ -132,3 +132,50 @@ remedy line to know it is speaking to a child.
 - A fresh clone that has not run `git config hooks.atelierTools` cannot rebuild
   the index *or* scan — the same pre-existing gap CONTRIBUTING already covers,
   now with one more symptom.
+
+## Addendum 2026-08-17 — the local variation is retired, and a claim is corrected
+
+Everything above stands as accepted. Two things changed within hours of it, and
+both are appended rather than edited in.
+
+**The shim is gone; all three findings were fixed upstream.** The section *The
+one local variation* described `tools/board.py` as a shim to be handed up, not
+kept. atelier did the upstream fix the same evening — `b2ba382` (the generator
+writes for the repo it lives in), `363a846` (the wrapscan half), `a3a64aa` (emit
+the hook's *whole* resolution order, after a first attempt named only
+`$ATELIER_TOOLS` and expanded to `python3 /board.py` on a machine that sets the
+git config instead). So:
+
+- `tools/board.py` is **deleted**. The generated banner now names no path at
+  all, and the rebuild instruction in the preamble is emitted per-repo:
+  repo-relative where the tool lives inside the tree, the hook's full
+  `${ATELIER_TOOLS:-$(git config hooks.atelierTools)}` order where it does not,
+  and never an absolute path — a machine-local fact has no business in a public
+  file.
+- The `.wrapscanignore` entry for the index is **removed**, and `wrapscan` is
+  green with no exemption. The cause was not a policy conflict at all: item
+  flags were appended *after* the link, which put a space after the trailing
+  store path and destroyed the unbreakable-token exemption the line already had.
+  Flags now lead the link. My reading of it as "two enforced checks are mutually
+  unsatisfiable" was wrong — it was a trailing space.
+- `.pathscanignore` is **deleted entirely**. The generator stopped repeating
+  each section's path as its own link text, so the six-per-rebuild false
+  positives are gone. The exemption is not merely unnecessary now, it was
+  masking real findings: with it removed, `pathscan` immediately surfaced eight
+  live references to the shim this addendum retires.
+
+**Correction: tūhura was not the first child to adopt.** The Context above says
+it was. `faves` split its board at 17:28 NZST on 2026-08-17, twenty-six minutes
+before this repo's merge at 17:54, and it is faves' adoption the upstream fixes
+name in their own comments. The two sessions ran concurrently and neither could
+see the other's commits; nothing was checked before the claim was made, and that
+is the defect — the claim went further than the evidence, which is the one thing
+the apex does not trade. What survives is only that both children independently
+hit the same three defects within half an hour, which is stronger evidence for
+the upstream fixes than either report alone.
+
+**Pin.** `atelier@eef38be` → `atelier@0af3006`. The doctrine moved with it (the
+inlined floor gains the before-the-action re-briefing rule and the channel's
+concurrency wording, both now verbatim against atelier's template); the earlier
+session note that "no pin bump is owed" was true against `66ff846` when it was
+checked and false thirty minutes later.

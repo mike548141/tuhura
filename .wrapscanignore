@@ -5,13 +5,3 @@
 # — keep this glob exactly this narrow.
 docs/research/**
 
-# docs/ROADMAP.md is GENERATED (`tools/board.py`, ADR 2026-08-17-0545) and the
-# `board` floor check pins it byte-for-byte against docs/roadmap/ — so it cannot
-# be hand-wrapped, and an allow-marker cannot be hand-added either: both edits
-# make `board` red. Two enforced checks are mutually unsatisfiable on this one
-# file, and a path exemption is the only resolution available in-repo. atelier's
-# own index has the same shape (62 findings there); it passes only because
-# atelier scopes wrapscan by explicit CI path, which tūhura's floor run does not.
-# Handed up to atelier as a finding. The exemption is exactly one file — the
-# item files under docs/roadmap/ are hand-written prose and stay gated.
-docs/ROADMAP.md
