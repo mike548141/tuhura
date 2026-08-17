@@ -1,5 +1,5 @@
 <!-- stamp:begin source=docs/method/PROPAGATION.md region=floor -->
-## Doctrine — inherited from atelier (pinned `atelier@eef38be`)
+## Doctrine — inherited from atelier (pinned `atelier@0af3006`)
 
 This repo works by the atelier operating model. The safety floor here is
 **inlined so it binds even if atelier is never read**; all richer doctrine lives
@@ -21,7 +21,9 @@ in atelier and is read on demand — never wholesale.
   and the likely impact in plain language first. The principal's authority is
   absolute — never overrule him, even if you believe him uninformed; an approval
   given without that account is open to challenge on the briefing, and the
-  challenge is raised to him by re-briefing (`00-APEX.md`). Everything
+  challenge is raised to him by re-briefing (`00-APEX.md`) — and at *this*
+  floor the re-briefing comes **before** the action, never after it, because
+  what the floor guards cannot be taken back. Everything
   recoverable — commit/push/PR included — just proceed.
 - **Concurrency:** assume another session may be live — a clean tree is not
   proof you're alone. `git pull --rebase --autostash` at session start; push
@@ -30,7 +32,13 @@ in atelier and is read on demand — never wholesale.
   to a worktree — never work around or absorb them (`CONCURRENCY.md`). Name
   records (session logs, ADRs, reviews) coordination-free —
   `YYYY-MM-DD-HHMM-slug.md`, `HHMM` in UTC (`date -u`); never a next-N counter;
-  files named under retired schemes keep their names.
+  files named under retired schemes keep their names. Where sessions can message
+  each other, announce your **file set** on open and answer peers' — a claim says
+  what, never which files. A message reserves nothing; only a pushed artefact
+  does, so check a shared allocator (identifiers, version constants) **after**
+  the push. The shared checkout's index and its mid-rebase state are shared
+  surfaces too: stage explicit paths, and read the staged hunk headers before
+  every commit (`CONCURRENCY.md` § The channel).
 - **Session rhythm (points up for the full rule):** claim work you take off the
   shared queue before starting it, and let a live `[~]` claim override a
   standing instruction to take that item; stay in the lane you were given
@@ -40,7 +48,7 @@ in atelier and is read on demand — never wholesale.
   with an evidence-based all-clear that nothing owed is left uncaptured
   (`RECORD.md`).
 - **Source & drift:** canonical doctrine is `../atelier/docs/method/`. At
-  session start run `git -C "../atelier" log --oneline eef38be..HEAD`; any
+  session start run `git -C "../atelier" log --oneline 0af3006..HEAD`; any
   output means the house doctrine moved — read it, then bump the pin above
   deliberately.
 - **Estate resources — point up, don't re-derive:** providers & account plans,
@@ -78,9 +86,10 @@ and with other users — the server must never be able to read user data.
 3. `docs/ROADMAP.md` — what's open. It is a **generated index** over the board
    (`docs/roadmap/`, one file per item — ADR 2026-08-17-0545): read the index,
    then open only the items you need. Never hand-edit it; edit the item file and
-   run `python3 tools/board.py rebuild` **in the same commit** (the `board` floor
-   check blocks a stale index, and after a merge conflict on it rebuilding *is*
-   the resolution). Work from `docs/WORKPLAN.md`.
+   rebuild **in the same commit**, with the command the index prints at its own
+   top (atelier's `board.py`, via the `hooks.atelierTools` wiring the scan hook
+   already uses). The `board` floor check blocks a stale index, and after a merge
+   conflict on it rebuilding *is* the resolution. Work from `docs/WORKPLAN.md`.
 4. Tail of `docs/SESSIONS.md` — where the last session left off. A last commit
    then silence with no closing entry means the last session either died
    mid-flight or is still live — run the read-first recovery sweep

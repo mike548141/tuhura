@@ -301,3 +301,51 @@ entry before finishing a session.
   would hide it.
   Next: 🎯 Mike's two rulings (R1 marine-into-v1, R2 shell tier — still
   independent of each other); then Phase 0, with the sharpened spike.
+
+- **2026-08-17 (same session, second phase — the pin, and three corrections)**:
+  Mike asked whether the atelier pin had been bumped. It had not: the earlier
+  phase checked the drift, found `docs/method` and `tools` byte-identical
+  between `eef38be` and atelier's then-HEAD `66ff846`, and recorded "no pin
+  bump owed" — **true when checked, false thirty minutes later.** atelier
+  advanced to `0af3006` *during* this session: 56 commits from the pin, seven
+  `docs/method` files changed, `board.py` +146 lines, a new `coldsweep.py`, and
+  the CLAUDE.md template moved. The lesson is not that the check was done
+  wrong but that a drift read is a **point-in-time** fact and was recorded as a
+  standing one; the sibling checkout was also verified current against its
+  remote this time, which the first read never did.
+  **Pin bumped `eef38be` → `0af3006`**, and the inlined floor now matches
+  atelier's template **verbatim** (diffed, not eyeballed): the apex/floor gains
+  *at this floor the re-briefing comes before the action, never after it*, and
+  concurrency gains **the channel** — announce your file set on open, a claim
+  says what and never which files, a message reserves nothing so check a shared
+  allocator after the push, and the shared checkout's index and mid-rebase
+  state are shared surfaces (stage explicit paths, read staged hunk headers
+  before every commit).
+  **All three findings this repo handed up were fixed upstream within the
+  hour** — and by a sibling's report, not this one. `faves` split its board at
+  17:28 NZST, twenty-six minutes before tūhura's merge at 17:54, hit the same
+  three defects, and atelier's fixes (`b2ba382`, `363a846`, `a3a64aa`) cite
+  faves by name. **So the earlier claim that tūhura was "the first child repo"
+  is corrected — it went further than the evidence, nothing was checked before
+  it was written, and that is the defect.** What survives is stronger than
+  either report alone: two children hit the identical three defects
+  independently, half an hour apart.
+  **Consequently the local workarounds are all deleted**: `tools/board.py` (the
+  resolver shim), the `.wrapscanignore` entry for the generated index, and
+  `.pathscanignore` in its entirety. `wrapscan` is green with **no** exemption
+  — the cause was never "two enforced checks are mutually unsatisfiable", it
+  was a trailing space: flags appended *after* the link put a space after the
+  line's trailing path and destroyed the unbreakable-token exemption the line
+  already had. Flags now lead. Removing `.pathscanignore` immediately proved
+  its cost: eight live references to the deleted shim surfaced the moment the
+  mask came off, all since fixed in current-truth files. The ADR takes a dated
+  **addendum** rather than an edit (accepted text is immutable); the residual
+  `pathscan` findings in `SESSIONS.md` and the ADR body are left standing on
+  purpose — upstream doctrine holds records deliberately un-gateable, since a
+  record legitimately names a path that existed when it was written.
+  Verified: hook floor 0, CI floor 0, `check_links` 0, `board --selftest` OK,
+  index rebuilt in the new shape (61 lines). Not done, by lane: nothing on
+  Phase 0; the seven changed `docs/method` files are read-on-demand doctrine
+  and were read for what binds here, not adopted wholesale.
+  Next: 🎯 Mike's two rulings (R1 marine-into-v1, R2 shell tier); the queued
+  `SESSIONS.md` relocation question; then Phase 0.

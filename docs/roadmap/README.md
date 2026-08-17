@@ -6,9 +6,11 @@ Each item lives in `<NNN>-<section>/<NNN>-<slug>.md`: its checkbox line first,
 detail beneath, its own `git log` as provenance — which commit flipped its state,
 and what work that commit carried. Each section's narrative lives in that
 section's `README.md`. [`../ROADMAP.md`](../ROADMAP.md) is the **generated index**
-(`python3 tools/board.py rebuild`; the `board` floor check blocks a commit whose
-index is stale — after a merge conflict on the index, rebuilding *is* the
-resolution). The session-start read is the index; open item files on demand.
+(rebuilt with the command the index itself prints at the top — atelier's
+`board.py`, reached through the same `hooks.atelierTools` wiring as the scan
+hook; the `board` floor check blocks a commit whose index is stale, and after a
+merge conflict on the index, rebuilding *is* the resolution). The session-start
+read is the index; open item files on demand.
 Completed detail from before the split lives frozen in
 [`../ROADMAP-DONE.md`](../ROADMAP-DONE.md); a done item now simply stays in its
 file as `[x]` — there is no harvest step.
