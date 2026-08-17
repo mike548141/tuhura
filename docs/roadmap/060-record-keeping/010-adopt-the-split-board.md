@@ -8,10 +8,10 @@
       `docs/decisions/2026-08-17-0545-adopt-the-split-board.md`; the upstream
       ruling is atelier's board-store ADR (2026-08-15).
       review: not warranted — adoption of an already-reviewed upstream decision,
-      applied without local variation bar the `tools/board.py` resolver shim;
+      applied without local variation bar a local board-tool resolver shim;
       the shim is noted in the ADR and handed up to atelier as a finding.
 
-      **Note 2026-08-17 (same day):** the local `tools/board.py` shim is
+      **Note 2026-08-17 (same day):** the local board-tool resolver shim is
       **retired**. atelier fixed all three child-adoption defects upstream
       within the hour (`b2ba382`, `363a846`, `a3a64aa`) — the banner names no
       path, the generator emits the hook's full resolution order for a child,

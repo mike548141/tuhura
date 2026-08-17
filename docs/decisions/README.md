@@ -52,6 +52,9 @@ One line per ADR, oldest first.
 - [2026-08-17 0545](2026-08-17-0545-adopt-the-split-board.md) — the roadmap
   becomes a board: one file per item under `docs/roadmap/`, `ROADMAP.md`
   generated, the `board` floor check now enforcing here.
+- [2026-08-17 1229](2026-08-17-1229-split-the-session-log.md) — the session log
+  becomes an index with detail on demand under `docs/sessions/`; rotation to a
+  `SESSIONS-ARCHIVE.md` growth store is the *next* move, deliberately not taken.
 
 <!-- Cross-repo pointers into atelier (public), as full URLs so they resolve
      for a reader who has no sibling checkout. -->

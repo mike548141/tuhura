@@ -321,12 +321,13 @@ later. I recommend later. It is a genuine fork and his to pick.
 
 ### Follow-up checklist
 
-- [ ] Owner rules on R1 and R2 (ROADMAP ⏳ items, both).
-- [ ] On R1 accepted: WORKPLAN Phase 2/3/4 edits + STRATEGY line naming
-  instrument integration post-v1.
-- [ ] On R2 (either way): supersede or append ADR 0545 with the gate and
-  the F3/S1/S2 obligations; ECONOMICS table takes the Play closed-test
-  hurdle beside the Apple line.
+- [x] Owner rules on R1 and R2 — **both ACCEPTED 2026-08-17**; the two ⏳
+  contests are closed and the board items say so.
+- [x] On R1 accepted: WORKPLAN Phase 2/3/4 edits + STRATEGY line naming
+  instrument integration post-v1 — done 2026-08-17.
+- [x] On R2 (either way): ADR 0545 **appended** (not superseded) with the
+  two-armed gate and the F3/S1 obligations; ECONOMICS takes the Play
+  closed-test hurdle beside the Apple line — done 2026-08-17.
 - [x] F6 corrections note on the research record; F8 spike sharpened; F1/F3
   pointers on ARCHITECTURE, ROADMAP, ADR 0545 (this session).
 

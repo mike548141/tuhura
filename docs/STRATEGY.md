@@ -102,10 +102,16 @@ mode, ROADMAP).
   track for the native-only sensor set (ADR 2026-08-08-0545) — packaging,
   never a second product. Re-examined 2026-08-09 when Mike re-opened the
   question: this non-goal **held** (native-first buys no capability the
-  shell doesn't), but the shell's *tier* is contested and the ruling is
-  outstanding — see `research/2026-08-09-0449-platform-pwa-vs-native.md`
-  and ARCHITECTURE § Platform posture. "Post-v1" is no longer safe to
-  assume here.
+  shell doesn't). **Tier ruled 2026-08-17 (R2)**: the shell stays
+  **post-Phase-3**, on a two-armed gate — a real field weekend where
+  screen-on recording fails, *or* Mike naming a native-only feature as the
+  next deliverable after Phase 3. **Marine layers do not wait on it** (R1):
+  every marine layer named above is web-reachable and licence-clear bar
+  tides, and they are in v1. What *does* wait for the shell is **marine
+  instrument integration** — BLE/NMEA from onboard instruments is
+  permanently closed to iOS Safari, so it is post-v1 on the native channel
+  and nowhere else. See `research/2026-08-09-0449-platform-pwa-vs-native.md`
+  and ARCHITECTURE § Platform posture.
 
 ## Future direction (parked, in order)
 

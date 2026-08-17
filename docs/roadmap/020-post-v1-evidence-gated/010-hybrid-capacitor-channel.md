@@ -1,24 +1,26 @@
-- [ ] 🎯 **Hybrid Capacitor channel** → background GNSS logging + barometer.
-      Gate: screen-on recording fails a real owner field weekend.
-      review: done — ADR 2026-08-08-0545 (the founding review's ruling)
+- [ ] **Hybrid Capacitor channel** → background GNSS logging + barometer.
+      **Tier RULED 2026-08-17 (R2, Mike): stays post-Phase-3**, on a
+      **two-armed gate** — either arm opens it, neither is presumed:
 
-  ⏳ **Gate contested, owner's call outstanding.** Mike re-opened the
-  platform question 2026-08-09; researched in
-  `docs/research/2026-08-09-0449-platform-pwa-vs-native.md`. Finding: the ADR's
-  shape holds (native-first buys no capability the shell doesn't), but its
-  timing does not — marine instruments (BLE/NMEA, permanently closed to
-  iOS Safari) and screen-off recording are now committed features that
-  cannot ship without the shell, so the gate is met in principle already.
-  Open: re-tier the shell into v1. Two consequences do NOT wait on that
-  ruling and are folded into the phases — the WKWebView storage-quota
-  asymmetry (15% vs 60% of disk) means Phase 3 needs a storage seam, and a
-  MapLibre-in-WKWebView spike belongs in Phase 0.
+      1. screen-on recording fails a real owner field weekend; **or**
+      2. Mike names a native-only feature as the next deliverable after
+         Phase 3.
 
-  review of the challenge: done 2026-08-15
-  (`docs/reviews/2026-08-15-1033-platform-tier-and-marine-staging.md`) —
-  native-first stays closed; "the shell is a certainty" overreaches (F1),
-  the shell's over-the-air update claim is unexamined (F3); recommendation
-  R2: keep post-Phase-3, widen the gate to two arms (field failure OR the
-  owner naming a native-only feature as the next deliverable after Phase
-  3), name the trigger. 🎯 Mike rules; this item and the marine item are
-  decoupled — neither waits on the other.
+      Naming the trigger is the point of arm 2. Without it the tier gets
+      re-litigated at every phase boundary by whoever feels the shell is
+      overdue — which is exactly what happened between 2026-08-08 and
+      2026-08-15.
+
+      Three obligations ride with the ruling, all **before** the first
+      native build, not after: **F3** — the over-the-air update claim is
+      unexamined (Capacitor's remote-URL mode is documented as not for
+      production, so it means a third-party updater — a new trust surface,
+      and a floor confirmation — or App Review per fix); **S1** — neither
+      ADR enumerates the native channel's threats, and the threat model is
+      part of the shell's own work; **the platform tax** is standing, not
+      one-off, and ECONOMICS carries it.
+
+      review: done — ADR 2026-08-08-0545 (founding ruling) + its 2026-08-17
+      addendum (the tier ruling); challenge reviewed 2026-08-15
+      (`docs/reviews/2026-08-15-1033-platform-tier-and-marine-staging.md`).
+      The ⏳ contest that stood here is **closed** — Mike ruled.

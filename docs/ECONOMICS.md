@@ -36,10 +36,22 @@ key tier, Cloudflare Pages/Workers limits, each cached layer's licence
 condition and the change that would trip it, and — once the hybrid channel
 starts — the **platform tax the shell brings**: US$99/yr Apple in perpetuity
 plus the recurring toolchain march (current-year SDK for App Store
-submissions; Google Play target-API deadlines), a standing maintenance
-obligation on a solo project, not a one-off (platform research 2026-08-09).
-Until the table exists, the ROADMAP's data-ops thread is the record of the
-debt.
+submissions; Google Play target-API deadlines **and its closed-test hurdle
+before a first public release**), a standing maintenance obligation on a solo
+project, not a one-off (platform research 2026-08-09).
+
+**Two costs the 2026-08-17 ruling (R2) adds to that table, both before the
+first native build rather than after it.** The shell's *tier* is now
+post-Phase-3 on a two-armed gate (ADR 2026-08-08-0545 addendum), so the tax is
+not yet being paid — but the table must be honest about what opens when it is.
+First, **over-the-air updates are unpriced and may not be free** (review F3):
+this project assumed web assets update over the air, and Capacitor's remote-URL
+mode is documented as not for production. The real options are a third-party
+updater — a new trust surface, and a floor confirmation before adoption — or
+App Review per fix, which is a *per-change* cost, not a per-year one. Second,
+the closed-test hurdle above is a **release-blocking** cost on Google's side,
+not a line item. Until the table exists, the board's data-ops thread is the
+record of the debt.
 
 <!-- Cross-repo pointer into atelier (public), as a full URL so it resolves
      for a reader who has no sibling checkout. -->

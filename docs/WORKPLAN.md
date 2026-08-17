@@ -94,10 +94,17 @@ Default-deny styling: absence of data never renders as "public".
       daily-update cadence given its own refresh story.
 - [ ] Layer switcher with per-layer attribution + currency **on the map
       face**, not only in a card.
+- [ ] **MPI marine reserves + fishing rules** (R1, Mike ruled 2026-08-17):
+      these are the access layer *at sea* — go/no-go in exactly the sense
+      DOC and Herenga ā Nuku are on land, and the review's F10 is that the
+      strategy's own logic already put them here. Same default-deny styling
+      and same on-map currency date; a closed area whose data is stale must
+      say so rather than render as open.
 
 **Accept when**: standing on a boundary in the field, the app shows the
 access status of each side, offline, with source and data-date visible —
-and the hedge wording has had a legal read-over.
+and the hedge wording has had a legal read-over. The same holds at a
+reserve boundary on the water.
 
 ## Phase 3 — regions & trip readiness
 
@@ -125,10 +132,18 @@ and the hedge wording has had a legal read-over.
       too late.
 - [ ] Open-Meteo forecast fetch-before-you-go, cached with timestamp;
       sunrise/set computed locally.
+- [ ] **GEBCO bathymetry + LINZ hydro vectors** (R1, Mike ruled
+      2026-08-17), behind the first-enable modal and the persistent
+      **not-for-navigation** badge, with no route-planning over water. The
+      badge is not a disclaimer to be dismissed once — it stays on the map
+      face while the layer is on. Offline tides remain blocked on the LINZ
+      written licence answer and are not part of this.
 - [ ] Lighthouse pass + a11y sweep; deploy to Cloudflare Pages.
 
 **Accept when**: quality bar met (Perf ≥ 95, A11y 100, installable) and a
-full plan→dark→review trip cycle works on the owner's real weekend.
+full plan→dark→review trip cycle works on the owner's real weekend —
+including one leg on the water, with the not-for-navigation badge visible
+throughout and no route drawn over it.
 
 ## Phase 4 — activity heroes (one per vertical, prove the thesis)
 
@@ -138,9 +153,16 @@ full plan→dark→review trip cycle works on the owner's real weekend.
       tide context joins when the LINZ licence answer arrives — the hero
       ships without its blocked part.
 - [ ] Birding: stationary/travelling checklist mode on the personal layer.
+- [ ] **One water hero** (R1, Mike ruled 2026-08-17) — the review's F9:
+      Phase 4's own one-per-vertical rule left the water with none. The
+      candidates recorded are a **dive-site / anchorage log** or a
+      **drift / wake track**; which one is a Phase 4 design call, not
+      decided by this ruling. It ships without tide context if the LINZ
+      licence answer has not arrived — the same discipline the fishing
+      hero already takes.
 
 **Accept when**: each vertical has one moment where tūhura beats the app
-the owner used before.
+the owner used before — the water counted as a vertical, not an extra.
 
 ## Later (parked → ROADMAP)
 

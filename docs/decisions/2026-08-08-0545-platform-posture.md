@@ -99,3 +99,52 @@ production, so over-the-air means a third-party updater (a new trust
 surface) or App Review per fix (F3). Neither ADR enumerates the native
 channel's threats (S1). Recommendation R2: keep post-Phase-3, widen the gate
 to two arms, name the trigger. Owner's ruling still outstanding.
+
+## Addendum 2026-08-17 — the owner's ruling on tier (R2), and marine decoupled (R1)
+
+The accepted text above stands. Mike ruled on both recommendations of the
+2026-08-15 cold pass, and the two are independent of each other.
+
+**R2 — accepted. The shell stays post-Phase-3, and the gate now has two arms.**
+The original single arm (screen-on recording fails a real owner field weekend)
+is joined by a second: **Mike naming a native-only feature as the next
+deliverable after Phase 3.** Either arm opens the gate; neither is presumed.
+This replaces the ADR's implicit "the shell is a certainty" framing, which the
+review found overreached (F1) — the shell is *committed as a track* and
+*unscheduled as work*, and those are different claims.
+
+Naming the trigger is the point of the second arm. Without it the tier decision
+would be re-litigated at every phase boundary by whoever felt the shell was
+overdue, which is what happened between 2026-08-08 and 2026-08-15.
+
+**Three obligations the ruling carries, none of them optional:**
+
+- **F3 — the over-the-air update claim is unexamined and must be settled before
+  the shell is built, not after.** This ADR asserted that web assets update over
+  the air. Capacitor's remote-URL mode is documented as *not for production*, so
+  in practice over-the-air means either a third-party updater — **a new trust
+  surface, and therefore a floor confirmation before it is adopted** — or App
+  Review per fix. Whichever it is, the honest cost belongs in ECONOMICS before
+  the first native build, because it changes the shell's running cost, not just
+  its setup cost.
+- **S1 — neither ADR enumerates the native channel's threats.** A threat model
+  is owed as part of the shell's own work, not retrofitted after it ships.
+- **The platform tax is a standing obligation.** US$99/yr Apple in perpetuity
+  plus a recurring toolchain march (current-year SDK for App Store submissions;
+  Google Play's target-API and closed-test hurdles). ECONOMICS carries it.
+
+**R1 — accepted, and it is decoupled from the above.** Marine layers join v1 on
+the web side: MPI reserves + fishing rules into Phase 2 (they are the access
+layer at sea, F10), GEBCO + LINZ hydro into Phase 3 behind the first-enable
+modal and the persistent not-for-navigation badge, one water hero into Phase 4
+(F9). Offline tides stay blocked on the LINZ written licence answer.
+
+**Marine instrument integration — BLE/NMEA — stays post-v1 on the native
+channel**, and STRATEGY now says so at the non-goal rather than leaving it to be
+inferred. This is the distinction F1 turned on: the strategy-defined marine
+*half* needs no shell; marine *instruments* do. Reading the first as requiring
+the second is what made the shell look like a certainty.
+
+Superseding this ADR is still deliberately not done: the ruling changes the
+gate and the tier's justification, not the platform posture itself, and the
+rejections above all held under review.
