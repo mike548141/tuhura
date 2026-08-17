@@ -49,6 +49,9 @@ One line per ADR, oldest first.
 - [2026-08-08 0555](2026-08-08-0555-sensor-seams-and-native-channel-scope.md)
   — sensor-source seams (pluggable backends) + the widened native-channel
   scope; vehicle *control* needs its own ADR + review.
+- [2026-08-17 0545](2026-08-17-0545-adopt-the-split-board.md) — the roadmap
+  becomes a board: one file per item under `docs/roadmap/`, `ROADMAP.md`
+  generated, the `board` floor check now enforcing here.
 
 <!-- Cross-repo pointers into atelier (public), as full URLs so they resolve
      for a reader who has no sibling checkout. -->

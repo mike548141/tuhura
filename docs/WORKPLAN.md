@@ -2,7 +2,8 @@
 
 Phases toward v1, each ending in something demonstrable on a phone with an
 explicit **Accept when**. Work top-down; write evidence notes inline as
-phases land (the Faves pattern). Parked items live in `ROADMAP.md`.
+phases land (the Faves pattern). Parked items live on the board
+(`docs/roadmap/`, indexed by `ROADMAP.md`).
 
 ## Phase 0 — offline map proof (the riskiest assumption first)
 

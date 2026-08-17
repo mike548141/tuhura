@@ -1,0 +1,12 @@
+# pathscan path allowances — root-relative globs.
+# Keep this list SHORT and reasoned — every entry is a hole in the boundary.
+
+# docs/ROADMAP.md is GENERATED (`tools/board.py`, ADR 2026-08-17-0545). Its
+# per-section narrative lines render the README's path as the LINK TEXT
+# (`*Narrative: [<section>/README.md](roadmap/<section>/README.md)*`), and
+# pathscan reads that text as a bare path that does not resolve from docs/.
+# The link TARGETS are generated from files board.py has just walked, so they
+# cannot be stale — and linkscan (enforced) checks them for real, which is the
+# net that matters. Six guaranteed false positives per rebuild would drown the
+# advisory. As with wrapscan, the file cannot be hand-fixed: `board` pins it.
+docs/ROADMAP.md
