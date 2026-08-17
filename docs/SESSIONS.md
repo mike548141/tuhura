@@ -293,5 +293,11 @@ entry before finishing a session.
   nothing on Phase 0; no roadmap *content* changed — this was a change of
   store, not of substance, and restructuring under cover of a migration
   was explicitly rejected.
+  One signal caught in passing and put on the board rather than acted on:
+  `sizescan` flags this very file at 297 lines against the ~250 reference,
+  which is the class atelier answered with an index plus `docs/sessions/`.
+  Recorded as an open question (`060-record-keeping/020-…`), not bundled
+  into this migration — a second store change under cover of the first
+  would hide it.
   Next: 🎯 Mike's two rulings (R1 marine-into-v1, R2 shell tier — still
   independent of each other); then Phase 0, with the sharpened spike.

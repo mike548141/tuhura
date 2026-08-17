@@ -56,3 +56,4 @@ Board doctrine and the checkbox legend: [roadmap/README.md](roadmap/README.md). 
 *Narrative: [060-record-keeping/README.md](roadmap/060-record-keeping/README.md)*
 
 - ✅ [Adopt the split board — one file per item, a generated index.](roadmap/060-record-keeping/010-adopt-the-split-board.md)
+- [ ] [Does SESSIONS.md want the same treatment as the board?](roadmap/060-record-keeping/020-sessions-log-relocation-question.md)
