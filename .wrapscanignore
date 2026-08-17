@@ -5,3 +5,9 @@
 # — keep this glob exactly this narrow.
 docs/research/**
 
+# docs/SESSIONS.md is the session INDEX (RECORD.md § The session log, adopted
+# here 2026-08-17): one deliberately long line per session, so a whole session's
+# scope stays greppable on a single line. Wrapping them would defeat the format,
+# and the format is the point. atelier carries the identical entry for its own
+# index. The DETAIL files under docs/sessions/ are ordinary prose and stay gated.
+docs/SESSIONS.md

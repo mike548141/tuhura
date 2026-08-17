@@ -47,6 +47,8 @@ then `python3 "${ATELIER_TOOLS:-$(git config hooks.atelierTools)}"/board.py rebu
 
 *[Narrative](roadmap/040-queued-reviews/README.md)*
 
+- ⏳ [Rule-4 cold pass queued — the session-log split.](roadmap/040-queued-reviews/010-session-log-split.md)
+
 ## Standing threads — options that may never open
 
 *[Narrative](roadmap/050-standing-threads/README.md)*
@@ -59,4 +61,4 @@ then `python3 "${ATELIER_TOOLS:-$(git config hooks.atelierTools)}"/board.py rebu
 *[Narrative](roadmap/060-record-keeping/README.md)*
 
 - ✅ [Adopt the split board — one file per item, a generated index.](roadmap/060-record-keeping/010-adopt-the-split-board.md)
-- [ ] [Does SESSIONS.md want the same treatment as the board?](roadmap/060-record-keeping/020-sessions-log-relocation-question.md)
+- ✅ [Does SESSIONS.md want the same treatment as the board?](roadmap/060-record-keeping/020-sessions-log-relocation-question.md)

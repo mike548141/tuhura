@@ -90,7 +90,10 @@ and with other users — the server must never be able to read user data.
    top (atelier's `board.py`, via the `hooks.atelierTools` wiring the scan hook
    already uses). The `board` floor check blocks a stale index, and after a merge
    conflict on it rebuilding *is* the resolution. Work from `docs/WORKPLAN.md`.
-4. Tail of `docs/SESSIONS.md` — where the last session left off. A last commit
+4. Tail of `docs/SESSIONS.md` — where the last session left off. It is an
+   **index** (ADR 2026-08-17-1229): one line per session, with the detail in
+   `docs/sessions/<date>-<HHMM>-<slug>.md` — open a file only when its line
+   needs unpacking. A last commit
    then silence with no closing entry means the last session either died
    mid-flight or is still live — run the read-first recovery sweep
    (`../atelier/docs/method/CONCURRENCY.md` § Surviving an interrupted
