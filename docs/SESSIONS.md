@@ -251,3 +251,47 @@ entry before finishing a session.
   on Phase 0.
   Next: 🎯 Mike's two rulings (R1, R2 — now independent of each other);
   then Phase 0, with the sharpened spike.
+
+- **2026-08-17**: **Board split adopted** (owner directive, this session) —
+  the roadmap became a per-item store. `docs/ROADMAP.md`'s 173 hand-kept
+  lines are now `docs/roadmap/`: six sections (v1 spine · post-v1 ·
+  icebox · queued reviews · standing threads · record-keeping), each with
+  its own narrative `README.md`, twenty-four item files carrying the
+  checkbox grammar verbatim, and a board preamble holding the legend,
+  the review-line rule and the three-tier structure. `ROADMAP.md` is now
+  a **58-line generated index**; `ROADMAP-DONE.md` is frozen as the
+  pre-split archive and takes no new entries — a done item stays `[x]` in
+  its own file, flipped in the commit that finishes the work, so the
+  harvest step and its red-window failure mode are both retired here.
+  ADR `2026-08-17-0545`. **Atelier drift: none owed** — the pin
+  `eef38be` already carries the board-store ADR (2026-08-15) *and*
+  `tools/board.py`; the 25 commits since touch no doctrine and no tools,
+  so the pin stands unbumped deliberately, not by omission.
+  **The `board` floor check went from out-of-scope to enforcing** the
+  moment `docs/roadmap/` existed — nothing was wired to turn it on, which
+  is atelier's registry design working as built. **One local variation**:
+  `tools/board.py` is a ~90-line **resolver shim**, no board logic, that
+  finds atelier's copy the way the pre-commit hook finds `floor.py`
+  (`ATELIER_TOOLS` → `hooks.atelierTools` → `../atelier/tools`) and
+  defaults `--root` to this repo. It exists because atelier's `board.py`
+  prints its own remedy — *"run `python3 tools/board.py rebuild`"* — into
+  the generated index and every failure message, and in a child repo that
+  command did not exist; vendoring the tool was rejected outright (ADR
+  0008, one source). **Handed up to atelier as a finding**, not fixed
+  here: the remedy string assumes atelier-local tools, found by being the
+  first child to adopt. **Two 🎯 flags surfaced, not created** — the
+  platform-tier and marine-staging rulings carried their 🎯 in body prose
+  where the index could not see it; moved onto the state line so both
+  show at the session-start read. The rulings are untouched and still
+  Mike's. Honest note recorded in the ADR: tūhura's read-cost case is
+  weak (173 lines against atelier's 4,063) and it has never had two
+  sessions collide on the board — the benefit taken *today* is
+  provenance (an item's own `git log` says which commit flipped it); the
+  contention benefit is insurance bought before it is needed.
+  Verified: `board --selftest` OK, index check green, `check_links.py`
+  green, floor green on both hook and CI planes. Not done, by lane:
+  nothing on Phase 0; no roadmap *content* changed — this was a change of
+  store, not of substance, and restructuring under cover of a migration
+  was explicitly rejected.
+  Next: 🎯 Mike's two rulings (R1 marine-into-v1, R2 shell tier — still
+  independent of each other); then Phase 0, with the sharpened spike.

@@ -75,7 +75,12 @@ and with other users — the server must never be able to read user data.
 
 1. `docs/STRATEGY.md` — what tūhura is for and the non-goals.
 2. `docs/ARCHITECTURE.md` — current truth: the stack and why.
-3. `docs/ROADMAP.md` — what's open; work from `docs/WORKPLAN.md`.
+3. `docs/ROADMAP.md` — what's open. It is a **generated index** over the board
+   (`docs/roadmap/`, one file per item — ADR 2026-08-17-0545): read the index,
+   then open only the items you need. Never hand-edit it; edit the item file and
+   run `python3 tools/board.py rebuild` **in the same commit** (the `board` floor
+   check blocks a stale index, and after a merge conflict on it rebuilding *is*
+   the resolution). Work from `docs/WORKPLAN.md`.
 4. Tail of `docs/SESSIONS.md` — where the last session left off. A last commit
    then silence with no closing entry means the last session either died
    mid-flight or is still live — run the read-first recovery sweep

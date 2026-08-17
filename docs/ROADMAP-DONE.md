@@ -1,7 +1,12 @@
-# tūhura roadmap — completed detail
+# tūhura roadmap — completed detail (FROZEN 2026-08-17)
 
-Harvested from `ROADMAP.md` as items reach `[x]` (current-truth/history
-split; newest last).
+**This file is the pre-split archive and takes no new entries.** It was
+harvested from the monolithic `ROADMAP.md` as items reached `[x]`. Since the
+board split ([ADR 2026-08-17-0545](decisions/2026-08-17-0545-adopt-the-split-board.md))
+a done item simply stays `[x]` in its own file under
+[`roadmap/`](roadmap/README.md), flipped in the commit that finishes the work —
+there is no harvest step. What is below stays verbatim, newest last; grep it on
+demand.
 
 - [x] **Founding architecture review** — done 2026-08-08. Three
   independent cold reviewers (platform/architecture, security/safety/

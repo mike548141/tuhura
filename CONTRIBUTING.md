@@ -12,7 +12,15 @@ Nothing to install — a static file server and a browser are the toolchain:
 ```sh
 python3 tools/serve.py        # serves site/ on laptop + phone (same Wi-Fi)
 python3 tools/check_links.py  # doc link integrity
+python3 tools/board.py rebuild  # regenerate docs/ROADMAP.md after a board edit
 ```
+
+**The roadmap is a board, not a file.** Items live one-per-file under
+[`docs/roadmap/`](docs/roadmap/README.md); `docs/ROADMAP.md` is generated from
+them and is never hand-edited. Edit the item, then rebuild **in the same
+commit** — the `board` floor check blocks a stale index. `tools/board.py` here
+is a resolver shim onto atelier's copy, so it needs `hooks.atelierTools` wired
+(below) just as the scan hook does.
 
 **`main` auto-deploys.** Hosting is Cloudflare Pages, git-connected, so a
 push to `main` publishes to <https://tuhura.myspot.nz> with no separate
