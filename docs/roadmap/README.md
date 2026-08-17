@@ -40,6 +40,15 @@ review line — `review: queued (docs/reviews/<file>)` or
 `review: not warranted — <grounds>` (atelier's [review doctrine][review]:
 omission is the bug). Plain work items don't.
 
+**The `board` check is weaker at the hook than it looks** (atelier BS1, Mike's
+ruling 2026-08-17). It compares the *worktree* against the worktree, not the
+staged plane — so a rebuilt-but-unstaged index passes the hook, and so does a
+rebuild that absorbed a sibling's dirty state line. CI catches the forgotten
+rebuild unconditionally; the hook only catches it when worktree and index agree.
+The consequence that bites: **a dirty item state line is a stop for claiming
+from that checkout** — sync and take the next open item — not a
+stage-your-own-hunk case.
+
 **Claiming.** A claim edits the item file's checkbox line **on `main`**, before
 the worktree, and the claim commit carries the regenerated index with it. A
 same-item collision still fires as a same-line git conflict; sessions on

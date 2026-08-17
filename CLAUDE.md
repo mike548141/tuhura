@@ -1,5 +1,5 @@
 <!-- stamp:begin source=docs/method/PROPAGATION.md region=floor -->
-## Doctrine — inherited from atelier (pinned `atelier@0af3006`)
+## Doctrine — inherited from atelier (pinned `atelier@431f1f7`)
 
 This repo works by the atelier operating model. The safety floor here is
 **inlined so it binds even if atelier is never read**; all richer doctrine lives
@@ -48,7 +48,7 @@ in atelier and is read on demand — never wholesale.
   with an evidence-based all-clear that nothing owed is left uncaptured
   (`RECORD.md`).
 - **Source & drift:** canonical doctrine is `../atelier/docs/method/`. At
-  session start run `git -C "../atelier" log --oneline 0af3006..HEAD`; any
+  session start run `git -C "../atelier" log --oneline 431f1f7..HEAD`; any
   output means the house doctrine moved — read it, then bump the pin above
   deliberately.
 - **Estate resources — point up, don't re-derive:** providers & account plans,
