@@ -1,27 +1,28 @@
-- [ ] 🎯 **Marine layers — boating & diving**: GEBCO + LINZ hydro vectors with
-      first-enable modal + persistent not-for-navigation badge, no
-      route-planning over water; dive-sites layer ODbL if OSM-seeded;
-      offline tides ⏳ blocked on LINZ written licence confirmation.
-      review: done — founding review (staging is its recommendation)
+- [x] **Marine layers — boating & diving.** **SUPERSEDED 2026-08-17 by Mike's
+      R1 ruling: marine joins v1 on the web side.** No more work is owed on
+      *this* item — the work itself is owed, in the v1 phases it moved to:
 
-  ⏳ **Staging contested, owner's call outstanding.** Mike directed
-  2026-08-09 that maritime use is first-class, equal to land — STRATEGY and
-  CLAUDE.md now say so. The founding review's "stage marine after the land
-  verticals prove out" was a *sequencing* recommendation on delivery risk,
-  not a statement of worth, so the two are not strictly contradictory — but
-  leaving marine as the only post-v1 vertical does read as second-class, and
-  Phase 4's activity heroes (WORKPLAN) currently have no water hero. Open:
-  does a marine hero (dive-site/anchorage log with tide context, or a
-  drift/wake track) join v1 Phase 4, and do bathymetry + reserves join the
-  Phase 2/3 layer work? Not decided here — the tier is unchanged until Mike
-  rules.
+      - **Phase 2** — MPI marine reserves + fishing rules (they are the
+        access layer at sea, F10), default-deny styling and on-map currency
+        exactly as the land layers.
+      - **Phase 3** — GEBCO bathymetry + LINZ hydro vectors behind the
+        first-enable modal and the persistent not-for-navigation badge, no
+        route-planning over water.
+      - **Phase 4** — one water hero (F9): a dive-site / anchorage log or a
+        drift / wake track, the choice being a Phase 4 design call.
 
-  review of the staging question: done 2026-08-15
-  (`docs/reviews/2026-08-15-1033-platform-tier-and-marine-staging.md`) —
-  decoupled from the shell (F11): every marine layer STRATEGY names is
-  web-reachable and licence-clear bar tides. Recommendation R1: marine into
-  v1 on the web side — MPI reserves + fishing rules into Phase 2 (they are
-  the access layer at sea, F10), GEBCO + LINZ hydro into Phase 3 behind the
-  not-for-navigation modal and badge, one water hero into Phase 4 (F9);
-  instrument integration stays post-v1 on the native channel and STRATEGY
-  says so. 🎯 Mike rules.
+      **Offline tides stay blocked** on the LINZ written licence answer and
+      did not move — the outreach thread owns that. **Marine instrument
+      integration (BLE/NMEA) stays post-v1** on the native channel and is
+      now its own item beside this one.
+
+      The ⏳ staging contest that stood here is **closed**. Mike's 2026-08-09
+      directive made maritime first-class; the founding review's "stage
+      marine after the land verticals prove out" was a sequencing call on
+      delivery risk, and the 2026-08-15 cold pass found the sequencing
+      premise did not hold — every marine layer STRATEGY names is
+      web-reachable and licence-clear bar tides.
+
+      review: done — founding review, then the 2026-08-15 cold pass
+      (`docs/reviews/2026-08-15-1033-platform-tier-and-marine-staging.md`),
+      R1 ruled by Mike 2026-08-17.

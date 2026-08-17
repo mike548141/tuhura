@@ -22,16 +22,17 @@ then `python3 "${ATELIER_TOOLS:-$(git config hooks.atelierTools)}"/board.py rebu
 
 *[Narrative](roadmap/020-post-v1-evidence-gated/README.md)*
 
-- [ ] 🎯 [Hybrid Capacitor channel](roadmap/020-post-v1-evidence-gated/010-hybrid-capacitor-channel.md)
+- [ ] [Hybrid Capacitor channel](roadmap/020-post-v1-evidence-gated/010-hybrid-capacitor-channel.md)
 - [ ] [Delta sync](roadmap/020-post-v1-evidence-gated/020-delta-sync.md)
 - [ ] [Whole-of-NZ offline ceiling](roadmap/020-post-v1-evidence-gated/030-whole-of-nz-offline-ceiling.md)
 - [ ] [Sound ID](roadmap/020-post-v1-evidence-gated/040-sound-id.md)
 - [ ] [E2E sync backend](roadmap/020-post-v1-evidence-gated/050-e2e-sync-backend.md)
-- [ ] 🎯 [Marine layers — boating & diving](roadmap/020-post-v1-evidence-gated/060-marine-layers-boating-and-diving.md)
+- ✅ [Marine layers — boating & diving.](roadmap/020-post-v1-evidence-gated/060-marine-layers-boating-and-diving.md)
 - [ ] [Māori land status layer](roadmap/020-post-v1-evidence-gated/070-maori-land-status-layer.md)
 - [ ] [UX + settings deep design pass](roadmap/020-post-v1-evidence-gated/080-ux-and-settings-deep-design-pass.md)
 - [ ] [Companion-mode docs page](roadmap/020-post-v1-evidence-gated/090-companion-mode-docs-page.md)
 - [ ] [Vehicle telemetry](roadmap/020-post-v1-evidence-gated/100-vehicle-telemetry.md)
+- [ ] [Marine instrument integration — BLE/NMEA from onboard instruments.](roadmap/020-post-v1-evidence-gated/110-marine-instrument-integration.md)
 
 ## Icebox — externally gated
 
