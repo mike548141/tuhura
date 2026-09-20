@@ -55,6 +55,10 @@ One line per ADR, oldest first.
 - [2026-08-17 1229](2026-08-17-1229-split-the-session-log.md) — the session log
   becomes an index with detail on demand under `docs/sessions/`; rotation to a
   `SESSIONS-ARCHIVE.md` growth store is the *next* move, deliberately not taken.
+- [2026-09-20 1116](2026-09-20-1116-archive-store-seam.md) — the storage
+  seam's `ArchiveStore`/`ArchiveHandle`/`ArchiveWriter` interface, range reads
+  as the primitive, OPFS backend today and a native filesystem one later
+  behind the same shapes (P0-D's browser-free half).
 
 <!-- Cross-repo pointers into atelier (public), as full URLs so they resolve
      for a reader who has no sibling checkout. -->
