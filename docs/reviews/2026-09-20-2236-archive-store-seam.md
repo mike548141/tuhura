@@ -18,9 +18,9 @@ session log, not this seam, and nothing in it was used. The other two prior
 verdicts were not opened. The session detail file for the run that built the
 delta carries the author's evaluative account ("the difference between a seam
 and a wrapper"); it sits on the onramp read path and was treated as a claim.
-Tree sweeps ran through `coldsweep.py` at its default bar. Time-boxed by the
-principal at 11:00 NZST: the reconcile against the two unopened prior verdicts
-is recorded as owed below, not claimed.
+Tree sweeps ran through `coldsweep.py` at its default bar. The reconcile was time-boxed
+out by the principal's 11:00 NZST cap and completed once the cap lifted, in
+a second commit; the reconcile section says when.
 
 ## Subject
 
@@ -288,12 +288,22 @@ and is not gitignored (scanner note).
 - [ ] F4, F5, F6, F7 — decide; small code and one addendum.
 - [ ] F8, F9 — the addendum records acceptance and the threat list.
 - [ ] F10, F11 — tidy on the next touch.
-- [ ] Owed by this pass: reconcile against the 2026-08-08 and 2026-08-15
-      verdicts (the scanner result is folded in above).
+- [x] Reconcile against the 2026-08-08 and 2026-08-15 verdicts — done
+      2026-09-20 23:05 UTC, below.
 
-### Reconcile — prior verdicts
+### Reconcile — prior verdicts, opened after the findings above were committed
 
-Not done: the principal's time cap fell before this step. The 2026-09-20
-session-log verdict was opened (disclosed above) and does not overlap. The
-founding and platform-tier verdicts remain unopened by this pass; the
-reconcile is on the checklist, owed, not claimed.
+Done 2026-09-20 23:05 UTC, after `2aeefa2` landed the findings. The founding
+verdict (`2026-08-08-0516`) held the offline stack as its assumption 2 with
+the scale/soak rider and the `persist()`-is-heuristic caveat; nothing there
+overlaps or contradicts a finding here, and F2 is the concrete shape of the
+"trust-your-life offline promise" question it asked. The platform-tier pass
+(`2026-08-15-1033`) placed the storage seam in Phase 3 and, in its seeded
+question 3 and F8, left the native backend's "≈100 lines" estimate untested
+for the WKWebView spike to measure; the seam landed under Phase 0's P0-D
+instead (the 2026-09-20 split), which is a sequencing change and not a
+conflict. F1's bounds rule and F5's worker-boundary gap are inputs that
+spike now inherits, since a native backend is bound by the same ADR. No
+finding here is disturbed by either prior verdict, and none of theirs by
+this one. Neither verdict's `[x]` claims were re-verified: both close at or
+below this delta's base, outside the bound.

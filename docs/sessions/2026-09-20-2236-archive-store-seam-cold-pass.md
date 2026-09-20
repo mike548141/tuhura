@@ -22,12 +22,14 @@ The `/security-review` skill read the clean primary checkout and reached
 nothing; re-aimed as a sub-task at a scratch worktree carrying the delta as
 pending changes, it formed no finding and one hygiene note (folded in).
 
-## Owed, time-capped by Mike at 11:00 NZST
+## Owed at the cap, then discharged once it lifted
 
-- Reconcile against the 2026-08-08 and 2026-08-15 verdicts (not opened).
+- Reconcile against the 2026-08-08 and 2026-08-15 verdicts — **done** in the
+  second commit; no overlap, no contradiction, the seam's Phase 0 landing
+  versus the 08-15 verdict's Phase 3 placement is sequencing, not conflict.
 - Atelier drift: `e9a6aae` → `2b29bb7`; child template and canonical floor
   block **unchanged** (diffed), so the inlined block is current; movement is
   tooling (`board --staged` at the hook, `rebuild --from-index`, scanners
   skip linked worktrees) and CONCURRENCY (dispatch prompts name a unique
-  absolute scratch path; CF3's stop flagged 🎯 for Mike upstream). Pin bump
-  deliberately left for the next session to make with the read done.
+  absolute scratch path; CF3's stop flagged 🎯 for Mike upstream). Pin **bumped** to
+  `2b29bb7` in the second commit; nothing in the inlined block changes.
