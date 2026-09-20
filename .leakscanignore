@@ -1,0 +1,18 @@
+# leakscan path allowances — root-relative globs.
+# site/vendor/ holds pinned, unmodified third-party bytes (ADR
+# 2026-08-08-0450, ADR 2026-08-08-0546) — minified/bundled JS and CSS,
+# not content this repo authored. Their packed literal tables (colour
+# tables, projection constants, test fixture coordinates baked into the
+# library) read as ipv4/coordinate/phone/payment-card shapes to a
+# structural scanner; none of it is this repo's personal or estate
+# data. tools/vendor_check.py is what actually guards this directory
+# (a sha256 pin per file, checked every run), so leaving it in scope
+# here would only ever produce noise, never signal.
+site/vendor/**
+
+# tools/vendor-manifest.json's entire content is npm integrity hashes
+# (sha512, base64) and per-file sha256 pins — long structured digit/hex
+# runs that read as ipv4/phone-shaped data to a structural scanner, and
+# every future re-vendor adds more of them. The real guard on this file
+# is vendor_check.py's exact-value comparison, not a shape scan.
+tools/vendor-manifest.json

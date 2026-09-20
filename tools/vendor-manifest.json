@@ -1,0 +1,32 @@
+{
+  "$comment": "Pins for site/vendor/ (ADR 2026-08-08-0450, 2026-08-08-0546). tools/vendor_check.py reads this file and fails the commit if a vendored file drifts from it, or if a file under site/vendor/ is missing here. Re-vendoring a library is a deliberate edit to this file plus the bytes it points at, in the same commit, with NOTICE updated alongside.",
+
+  "libraries": {
+    "maplibre-gl": {
+      "version": "6.10.0",
+      "licence": "BSD-3-Clause",
+      "upstream": "https://www.npmjs.com/package/maplibre-gl/v/6.10.0",
+      "tarball": "https://registry.npmjs.org/maplibre-gl/-/maplibre-gl-6.10.0.tgz",
+      "integrity": "sha512-pZIJ1/rsB1jDjT3eBTfMaeSY45lRKdCuZtqXqTnkUrn0UJO9IwtbywT5ym3/cz57MGEELwAwQSYjB/Fj9TlktQ==",
+      "note": "True ESM: package.json 'module'/'exports' both point at dist/maplibre-gl.mjs, which statically imports dist/maplibre-gl-shared.mjs and, at runtime, constructs a URL to dist/maplibre-gl-worker.mjs (relative to import.meta.url) to start its Worker. All three plus the CSS are the minimum load set — the shipped .d.ts is a type-checker input, not a browser runtime file, so it is not vendored.",
+      "files": {
+        "site/vendor/maplibre-gl/maplibre-gl.mjs": "sha256:454e0bbb16c721cfbf952a92ff3e4362130346ed59a5bff56ae5d6fbebb651f7",
+        "site/vendor/maplibre-gl/maplibre-gl-shared.mjs": "sha256:0996a0ff2ecb2807afc3f053992539ff7fe45c1678a02304b2b33120136f81f3",
+        "site/vendor/maplibre-gl/maplibre-gl-worker.mjs": "sha256:7d5ebf88ec25a72cc48cc320d374f41d921e5105d2f1fc774d463a4b68164227",
+        "site/vendor/maplibre-gl/maplibre-gl.css": "sha256:8e2dbbab312dc57656fbb76e9fa5308c75c9d7c7ba5808a7d55bcdb64cc813fa"
+      }
+    },
+
+    "pmtiles": {
+      "version": "4.5.0",
+      "licence": "BSD-3-Clause",
+      "upstream": "https://www.npmjs.com/package/pmtiles/v/4.5.0",
+      "tarball": "https://registry.npmjs.org/pmtiles/-/pmtiles-4.5.0.tgz",
+      "integrity": "sha512-CBeD4SoUluFziGdy/8k7FOjQxQy486n+929W/tWophauvMICpkZ26vGBWhDt/6b1FZQWNaf4jFdT/5+q0Wii5w==",
+      "note": "NOT true ESM in practice, despite package.json declaring 'module': dist/esm/index.js. That file carries a bare specifier `import ... from \"fflate\"`, which only resolves under a bundler or an import map — neither is available here (no npm at runtime, no CDN, no second undeclared dependency). dist/pmtiles.js is the package's own documented browser answer (its README ships it as a plain <script src> global, `window.pmtiles`) and is a self-contained global build with fflate inlined: no bare imports, verified by grepping the file for import(/require(/from\" specifiers. Vendored that file instead of the nominal ESM entry; loaded via a classic (non-module) <script> tag, not `import`.",
+      "files": {
+        "site/vendor/pmtiles/pmtiles.js": "sha256:caf981bc46f6327ee7e65d5dc964d89d38a69f60edca2bd4c5c890c21b554c6c"
+      }
+    }
+  }
+}

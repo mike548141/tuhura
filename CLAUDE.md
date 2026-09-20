@@ -182,9 +182,10 @@ and with other users — the server must never be able to read user data.
 ## Dev loop
 
 ```sh
-python3 tools/serve.py      # laptop + phone on same Wi-Fi; prints both URLs
+python3 tools/serve.py        # laptop + phone on same Wi-Fi; prints both URLs
 python3 tools/check_links.py  # doc link integrity
-# further checks (validate.py, vendor pinning) arrive with the code they gate
+python3 tools/vendor_check.py # site/vendor/ pins, NOTICE coverage, no-CDN/no-npm rule
+# further checks (validate.py) arrive with the code they gate
 ```
 
 Exercise changes in a real browser at 390 px, and offline (DevTools → Network
