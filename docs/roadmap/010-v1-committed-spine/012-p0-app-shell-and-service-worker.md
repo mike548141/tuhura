@@ -1,4 +1,5 @@
-- [ ] **P0-B — app shell, service worker, installable.** A minimal shell
+- [~] **P0-B — app shell, service worker, installable.**
+      (claimed 2026-09-20-1056, wt: tuhura-p0b-shell) A minimal shell
       (`site/index.html` + ES modules + CSS), a web app manifest, icons, and
       a service worker that precaches **the shell only** — never tiles, which
       belong in OPFS and would blow the Cache API budget. Follow Faves

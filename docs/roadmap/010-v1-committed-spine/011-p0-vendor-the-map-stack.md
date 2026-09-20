@@ -1,4 +1,5 @@
-- [ ] **P0-A — vendor the map stack and gate it.** MapLibre GL JS
+- [~] **P0-A — vendor the map stack and gate it.**
+      (claimed 2026-09-20-1056, wt: tuhura-p0a-vendor) MapLibre GL JS
       (`dist/maplibre-gl.js` + CSS) and the PMTiles ESM adapter, pinned as
       committed bytes into `site/vendor/`, with each library's licence
       carried in `NOTICE`. Adapt the no-deps guard to permit exactly
