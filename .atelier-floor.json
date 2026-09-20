@@ -1,3 +1,9 @@
 {
-  "licence": "Apache-2.0"
+  "licence": "Apache-2.0",
+  "local": {
+    "vendor": {
+      "run": "tools/vendor_check.py",
+      "why": "site/vendor/ is this repo's one sanctioned dependency, and its pins are the only thing standing between 'vendored' and 'unreviewed third-party bytes'"
+    }
+  }
 }

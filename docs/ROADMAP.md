@@ -11,8 +11,8 @@ then `python3 "${ATELIER_TOOLS:-$(git config hooks.atelierTools)}"/board.py rebu
 *[Narrative](roadmap/010-v1-committed-spine/README.md)*
 
 - ✅ [Phase 0 — offline map proof + scale/soak rider.](roadmap/010-v1-committed-spine/010-phase-0-offline-map-proof.md)
-- [~] [P0-A — vendor the map stack and gate it.](roadmap/010-v1-committed-spine/011-p0-vendor-the-map-stack.md)
-- [~] [P0-B — app shell, service worker, installable.](roadmap/010-v1-committed-spine/012-p0-app-shell-and-service-worker.md)
+- ✅ [P0-A — vendor the map stack and gate it. DONE 2026-09-20.](roadmap/010-v1-committed-spine/011-p0-vendor-the-map-stack.md)
+- [ ] 🎯 [P0-B — app shell, service worker, installable. BUILT](roadmap/010-v1-committed-spine/012-p0-app-shell-and-service-worker.md)
 - [ ] 🎯 [P0-C — online render against LINZ Basemaps.](roadmap/010-v1-committed-spine/013-p0-linz-basemaps-online-render.md)
 - [ ] [P0-D — PMTiles in OPFS, and the map's lifecycle.](roadmap/010-v1-committed-spine/014-p0-pmtiles-opfs-and-map-lifecycle.md)
 - [ ] 🎯 [P0-E — the WKWebView spike.](roadmap/010-v1-committed-spine/015-p0-wkwebview-spike.md)
