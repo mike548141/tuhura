@@ -12,6 +12,7 @@ Nothing to install — a static file server and a browser are the toolchain:
 ```sh
 python3 tools/serve.py        # serves site/ on laptop + phone (same Wi-Fi)
 python3 tools/check_links.py  # doc link integrity
+python3 tools/vendor_check.py # site/vendor/ pins, NOTICE coverage, no-CDN/no-npm rule
 ```
 
 **The roadmap is a board, not a file.** Items live one-per-file under
