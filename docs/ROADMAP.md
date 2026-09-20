@@ -53,7 +53,7 @@ then `python3 "${ATELIER_TOOLS:-$(git config hooks.atelierTools)}"/board.py rebu
 
 *[Narrative](roadmap/040-queued-reviews/README.md)*
 
-- [~] ⏳ [Rule-4 cold pass — the session-log split.](roadmap/040-queued-reviews/010-session-log-split.md)
+- ✅ [Rule-4 cold pass — the session-log split. DONE 2026-09-20](roadmap/040-queued-reviews/010-session-log-split.md)
 
 ## Standing threads — options that may never open
 
