@@ -15,3 +15,15 @@
       worker this run dispatched, which is the run's own authorship for
       rule 4 (atelier QR2) — "my worker wrote it" is not an independence
       the criterion recognises. Tier at selection: Fable.
+
+      🎯 **Mike ruled 2026-09-20: this is the next session's first item.**
+      The run that queued it asked him what to prioritise and he chose this
+      pass — so it is not merely open, it is *directed*. The queuing run
+      still may not take it: the seam was built by a worker that run
+      dispatched, and atelier QR2 is explicit that "my worker wrote it" is
+      not an independence rule 4 recognises. That bar is structural, not a
+      matter of care taken, and `REVIEW.md` rule 4's stop clause says a
+      session that cannot honour it stops rather than proceeding and hoping
+      the pass is accepted — a wrong-tier pass was once rejected entire,
+      findings unread. So the direction is recorded here instead of obeyed
+      there: **a fresh session, on Fable, takes this first.**
