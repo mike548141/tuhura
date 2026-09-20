@@ -75,6 +75,69 @@ E2E-encrypted blobs for cross-device sync and sharing.
 - **Hosting: Cloudflare Pages** (static, push-to-main deploy), same shape as
   Faves ADR 0004; tile archives served from R2 (zero egress).
 
+## App shell & service worker (lockstep rules)
+
+P0-B landed `site/sw.js`: it precaches the app shell only — HTML, CSS, JS,
+manifest, icons — under one versioned cache, `tuhura-shell-<SHELL_VERSION>`.
+It follows Faves' ADR 0015 split-versioning *pattern* (the pmtiles-in-OPFS
+decision above already committed this repo to that), but tūhura has only
+one version axis today, not Faves' two: no fetched data exists yet that
+changes on a different rhythm than the shell itself. This is the one place
+the resulting lockstep rules live (`CLAUDE.md`); nowhere else states them.
+
+- **Any non-comment edit under `site/`** (HTML, CSS, JS, the manifest, an
+  icon) **bumps `SHELL_VERSION` in `site/sw.js`, in the same commit.**
+  Editing `sw.js` at all is what makes a browser notice an update exists
+  (it only re-diffs the worker's own bytes); bumping the constant is what
+  makes that update actually *rebuild* the cache rather than reuse the old
+  one under a name that happens to still exist. Miss the bump and an
+  installed phone keeps serving the old shell forever with no error and no
+  visible sign anything is wrong — the update cycle runs, finds the old
+  cache name still present with its `READY` sentinel, and skips it.
+- **The `SHELL` array in `site/sw.js` must list exactly the files
+  `site/index.html` loads or imports** (directly, or transitively through
+  an ES-module `import`). Add an asset the shell needs → add it to `SHELL`
+  in the same commit, or it never reaches the offline cache and the first
+  cold start with no signal 404s on it. Remove one the shell no longer
+  needs → remove it from `SHELL`, or install spends a request precaching a
+  file nothing loads. `tools/check_links.py` catches a dangling
+  `href`/`src` in the HTML; it does **not** know `SHELL`'s contents, so a
+  `sw.js` that drifts from reality is a human/review check, not a tool one.
+- **A palette change is a three-file commit**, not a CSS-only one. The
+  same two colours are encoded three times: the `--bg`/`--accent`/
+  `--focus` tokens in `site/css/app.css`, `background_color`/
+  `theme_color` in `site/site.webmanifest`, and the `BG`/`FG` constants
+  in `tools/gen_icons.py` (rerun it and commit the new PNGs — its
+  `--check` flag catches an icon left stale against a script edit, not
+  a script left stale against a CSS edit, so this rule is still on a
+  human). Edit one and not the others and the install splash, the
+  browser chrome and the home-screen icon visibly disagree with the
+  app that opens.
+- **When P0-C/P0-D land the MapLibre style JSON, sprite sheet and glyph
+  set**, those are shell-sized (small, versioned files that change with a
+  design/style edit, not with a user's downloaded region) so they belong
+  in a service-worker precache — but on their **own** version axis
+  (`STYLE_VERSION` / `tuhura-style-<STYLE_VERSION>`), added alongside
+  `SHELL_VERSION` via the same `ensureCache` seam `sw.js` already has, not
+  folded into the shell cache. **A map tile or a PMTiles archive must
+  never appear in `SHELL` or any future service-worker cache** — tiles are
+  read from OPFS via `pmtiles`' `FileSource`
+  (`decisions/2026-08-08-0452-pmtiles-in-opfs.md`) and never touch
+  `fetch()` or the Cache API at all; that boundary is the whole reason the
+  OPFS decision exists, and a "just cache this one big style-adjacent
+  file too" edit is exactly how it would get eroded.
+- **The update flow is deliberately not silent-forever nor
+  silent-immediate.** A new worker installs and holds in `waiting`;
+  `site/js/update-notice.js` offers a visible "newer version is ready"
+  banner, and only a tap activates it (`SKIP_WAITING` → `controllerchange`
+  → one reload). Do not add an unconditional `skipWaiting()` in install —
+  it would serve new JS to a page still running old HTML with no reload,
+  a version-skew bug with no test able to see it. The one thing every
+  installed phone gets automatically, with no tap, is the next **cold
+  start** after the last tab closes (the waiting worker takes over on its
+  own then) — so "ignored the banner" degrades to "one version behind
+  until next launch," never to "stuck."
+
 ## Data layers and licensing
 
 Offline caching is redistribution — a layer ships only if its licence

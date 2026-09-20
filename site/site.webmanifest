@@ -1,0 +1,18 @@
+{
+  "name": "tūhura",
+  "short_name": "tūhura",
+  "description": "Offline-first map for the New Zealand outdoors, on land and on the water — off-road driving, tramping, hunting, birding, fishing, boating, diving.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "lang": "en-NZ",
+  "dir": "ltr",
+  "background_color": "#06090a",
+  "theme_color": "#06090a",
+  "icons": [
+    { "src": "icons/favicon-48.png", "sizes": "48x48", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

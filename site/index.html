@@ -2,28 +2,75 @@
 <html lang="en-NZ">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>tūhura</title>
   <meta name="description"
         content="tūhura — an offline-first map app for the New Zealand
                  outdoors, on land and on the water: off-road driving,
                  tramping, hunting, birding, fishing, boating, diving.">
-  <title>tūhura</title>
-  <style>
-    :root { color-scheme: light dark; }
-    body {
-      margin: 0; min-height: 100dvh; display: grid; place-items: center;
-      font-family: system-ui, sans-serif; text-align: center; padding: 1rem;
-    }
-    h1 { font-size: 2.5rem; margin: 0 0 .5rem; }
-    p  { max-width: 28rem; line-height: 1.5; }
-  </style>
+  <!-- Two theme-color tags, not one: the manifest's theme_color can't
+       take a media query, so the browser chrome (address bar, task
+       switcher card) is told separately per OS theme. Dark is the
+       primary identity (CLAUDE.md: night vision at a campsite is a
+       feature), light is the alternate — matching site/css/app.css's
+       --bg tokens exactly. -->
+  <meta name="theme-color" content="#f7f5f0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#06090a" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-  <main>
-    <h1><span lang="mi">tūhura</span></h1>
-    <p>An offline-first map for the New Zealand outdoors, on land and on
-       the water — off-road driving, tramping, hunting, birding, fishing,
-       boating, diving. Under construction; the map arrives with Phase 0.</p>
-  </main>
+  <!-- First focusable element in the document (WCAG 2.4.1 Bypass
+       Blocks) — today it skips one header, but the chrome only grows
+       from here and this stays correct as it does. -->
+  <a class="skip-link" href="#main">Skip to map</a>
+
+  <div class="app-shell">
+    <header class="app-header">
+      <div>
+        <h1 class="app-title"><span lang="mi">tūhura</span></h1>
+        <p class="app-tagline">Offline map for the NZ outdoors — land and water</p>
+      </div>
+    </header>
+
+    <!-- The map viewport IS the page's one main landmark — an added
+         role="region" here would override <main>'s implicit "main"
+         role and cost AT users the landmark navigation gets them, for
+         no benefit (a single top-level region needs no second label
+         to tell it apart from itself). aria-label names it "Map" for
+         when the header/footer landmarks give it company. This is the
+         sub-region P0-C/P0-D will mount MapLibre into; empty and
+         honest today — CLAUDE.md: "never present stale or uncertain
+         data as authoritative" applies just as much to "there is no
+         map here yet" as it does to a stale layer. -->
+    <main id="main" class="map-viewport" aria-label="Map">
+      <div class="map-placeholder">
+        <h2>The map isn't wired up yet</h2>
+        <p>
+          This is the app shell — installable and offline-capable on
+          its own. The MapLibre render and the offline NZ topo basemap
+          land with the next two roadmap items (P0-C, P0-D).
+        </p>
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      <p>tūhura is offline-first and accountless — no sign-up, nothing
+        leaves your device.</p>
+    </footer>
+  </div>
+
+  <noscript>
+    <div class="map-placeholder" style="margin: 1rem;">
+      <h2>JavaScript is off</h2>
+      <p>tūhura needs it — the map, offline caching and everything you
+        save all run in it.</p>
+    </div>
+  </noscript>
+
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>
