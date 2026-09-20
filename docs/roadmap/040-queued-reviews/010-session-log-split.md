@@ -18,8 +18,12 @@
       records and formed no finding. Disclosed at claim, in this pointer,
       and in the verdict.
 
-      🎯 **Four findings are Mike's to decide, not the author's** — rule 3,
-      because the ADR is doctrine by function. Open until he rules:
+      ✅ **Mike ruled 2026-09-20: dated addendum.** All four are enacted —
+      the addendum is appended to the ADR (measured figures, F2's rule
+      corrected, F6's clause folded in), F3's write-side wording is fixed in
+      `CLAUDE.md` and `CONTRIBUTING.md`, and F4 was discharged as a dated
+      entry in the 2026-09-20 session record rather than by editing an
+      append-only log. The findings as they stood:
 
       - **F1 (MODERATE)** — the ADR's quantitative grounds are wrong. It
         says "351 lines across eleven entries … 30–48 lines each"; the
@@ -43,5 +47,13 @@
       it; and the index-versus-detail integrity gap is half-guarded by
       `linkscan` already, with the orphan-detail-file half belonging in
       atelier's floor rather than in this repo.
+
+      **One honest wrinkle in the enactment.** Re-counting the pre-split
+      file gave 9–65 lines and four-of-ten inside the ADR's stated band;
+      the reviewer measured 10–65 and five-of-ten. The difference is
+      blank-line handling at an entry boundary. Both counts are in the
+      addendum rather than one being silently picked — the finding was
+      about uncounted numbers, so replacing them with a second
+      unreconciled figure would have repeated it.
 
       review: done — this item *is* the review.

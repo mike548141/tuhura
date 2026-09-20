@@ -131,8 +131,12 @@ other repos would want the rule, it belongs upstream in atelier instead.
 - **Record real decisions.** A short ADR in [`docs/decisions/`](docs/decisions/)
   when a choice rejects a plausible alternative or rests on hard-won
   evidence; a code comment for reversible ones.
-- **Log the session.** Append a dated entry to
-  [`docs/SESSIONS.md`](docs/SESSIONS.md) before finishing.
+- **Log the session.** Before finishing, append a one-line entry to the
+  [`docs/SESSIONS.md`](docs/SESSIONS.md) **index**, and — where the session
+  was substantial — the [`docs/sessions/`](docs/sessions/) detail file that
+  line points at. The index is what every session reads at open, so a line
+  that carries the whole account defeats the split; the detail file is where
+  the account goes.
 
 ## Review
 

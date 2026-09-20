@@ -198,7 +198,9 @@ Exercise changes in a real browser at 390 px, and offline (DevTools → Network
 
 - NZ English; macrons on te reo Māori.
 - Comments say *why*, not *what*; ADR the re-litigable decisions
-  (`docs/decisions/`); append a `docs/SESSIONS.md` entry before finishing.
+  (`docs/decisions/`); before finishing, append a one-line entry to the
+  `docs/SESSIONS.md` index **and**, where the session was substantial, the
+  matching `docs/sessions/<date>-<HHMM>-<slug>.md` detail file it points at.
 - Commit messages: `area: imperative subject`, why-dense body. Areas in play:
   `map`, `layers`, `waypoints`, `tracks`, `offline`, `sync`, `css`, `pwa`/`sw`,
   `a11y`, `data`, `docs`, `tools`, `deploy`.

@@ -94,3 +94,63 @@ suppressed.
 - The `HHMM` values are *first-commit* times, not true session starts. They are
   honest about what they are and consistent within the scheme, but a session that
   read for an hour before committing is recorded as starting late.
+
+## Addendum 2026-09-20 — the measured figures, on Mike's ruling
+
+Everything above stands as accepted; this is appended rather than edited in,
+the same shape the board-split ADR's own addendum took. The 2026-09-20 rule-4
+cold pass (`docs/reviews/2026-09-20-1058-session-log-split.md`) found this
+record's **quantitative** grounds were never counted, and Mike ruled the same
+day that the measured figures be recorded and the conclusion restated on them.
+
+**What the Context said:** "351 lines across eleven entries", and "eleven
+entries ran 30–48 lines each".
+
+**What the file held**, measured from `git show 7630fc2:docs/SESSIONS.md`:
+
+| | Claimed | Measured |
+|---|---|---|
+| Total lines | 351 | **351** ✅ |
+| Entries | eleven | **ten** |
+| Per-entry length | 30–48 | **9–65** |
+| Inside the 30–48 band | all eleven | **four of ten** |
+
+The reviewer independently measured 10–65 and five-of-ten; this session's
+re-count gives 9–65 and four-of-ten. The difference is only where an entry's
+trailing blank line falls and which boundary a 49-line entry sits on. Both
+counts agree on what matters: the entry count was wrong by one, and the stated
+length band described a minority of the entries rather than all of them.
+
+**The conclusion stands, on its qualitative ground.** Every entry was
+multi-line prose, the shortest already exceeded a single index line, and the
+longest ran to 65 — so detail-on-demand was the right move and the 351-line
+read cost was real and correctly stated. What was wrong was the *shape* of the
+distribution, not the existence of the problem. Nothing in the decision changes.
+
+**Why record it anyway.** That session made a point of re-briefing Mike because
+his first briefing had been incomplete, and then briefed him on figures nobody
+had counted. An accepted ADR is the durable copy of a briefing; leaving
+uncounted numbers in it teaches a future session that "roughly right" passes
+here. It does not.
+
+**F2 — the identifier rule as written is not the rule applied.** The rule above
+says each pre-split file takes the UTC time of that session's first commit,
+read from git. Eight of nine do. `2026-08-17-0545-…` does not: that session's
+first commit is `78e31b1` at **05:54** UTC, and `0545` is the time the session
+stamped its own board-split ADR with `date -u` at open. That is arguably the
+better fact — a session-owned start time is what the doctrine wants — so the
+rule is corrected rather than the file renamed: **first-commit time, except
+where the session left its own dated record at open, which takes precedence.**
+Renaming is not worth the churn.
+
+**F6 — "atelier carries the identical entry" is half the sentence.** atelier's
+`.wrapscanignore` does carry `docs/SESSIONS.md`; it *also* exempts
+`docs/sessions/`, on the ground that its detail files are one entry per line.
+tūhura keeps its detail files gated and they pass. That is stricter, and
+deliberate — so a future session should not copy atelier's second entry across
+on the strength of the word "identical".
+
+**F4** — the omission of `4f52ad2` from that session's record — was discharged
+in the 2026-09-20 session entry rather than here, because the session log is
+append-only and a later entry is the right shape for a correction to an
+earlier one.
