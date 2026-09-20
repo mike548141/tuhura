@@ -36,13 +36,17 @@
       </div>
     </header>
 
-    <!-- The map viewport. role="region" + an explicit label because a
-         bare <main> landmark is already announced; this is the named
-         sub-region P0-C/P0-D will mount MapLibre into. Empty and
+    <!-- The map viewport IS the page's one main landmark — an added
+         role="region" here would override <main>'s implicit "main"
+         role and cost AT users the landmark navigation gets them, for
+         no benefit (a single top-level region needs no second label
+         to tell it apart from itself). aria-label names it "Map" for
+         when the header/footer landmarks give it company. This is the
+         sub-region P0-C/P0-D will mount MapLibre into; empty and
          honest today — CLAUDE.md: "never present stale or uncertain
          data as authoritative" applies just as much to "there is no
          map here yet" as it does to a stale layer. -->
-    <main id="main" class="map-viewport" role="region" aria-label="Map">
+    <main id="main" class="map-viewport" aria-label="Map">
       <div class="map-placeholder">
         <h2>The map isn't wired up yet</h2>
         <p>
