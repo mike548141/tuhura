@@ -1,4 +1,8 @@
-- [ ] **P0-D — PMTiles in OPFS, and the map's lifecycle.** Build one
+- [~] **P0-D — PMTiles in OPFS, and the map's lifecycle.**
+      (claimed 2026-09-20-1134, wt: tuhura-p0d-storage-seam — the
+      browser-free half only: the seam's shape, its OPFS backend and a
+      synthetic archive fixture. Runtime OPFS and MapLibre wiring stay
+      open behind this claim.) Build one
       regional archive (Wellington / Wairarapa) with `pmtiles convert`,
       download it into OPFS from a worker using `createSyncAccessHandle`,
       and wire a `FileSource` behind the `pmtiles://` protocol so MapLibre
