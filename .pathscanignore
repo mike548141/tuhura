@@ -1,0 +1,6 @@
+
+# The split-board ADR narrates the retirement of this repo's own
+# tools/board.py shim (see its 2026-08-17 addendum). Every reference to
+# that path in it is history, deliberately describing a file that no
+# longer exists — not a stale pointer to fix.
+docs/decisions/2026-08-17-0545-adopt-the-split-board.md
