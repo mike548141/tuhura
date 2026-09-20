@@ -65,7 +65,7 @@ writer.abort()                 -> Promise<void>   // discard, free space
 **Range reads are the primitive, not whole-archive reads or fetches.**
 PMTiles is a directory-plus-blobs format read by `[offset, length)`
 slices — the header points at the root directory, the directory points
-at tile bytes, and MapLiber's worker thread decodes exactly the bytes
+at tile bytes, and MapLibre's worker thread decodes exactly the bytes
 a viewport needs, never the whole archive. `getBytes(offset, length)`
 is therefore the one operation a read backend must get right; every
 other read (header, directory, a tile) is that primitive called with

@@ -185,6 +185,9 @@ and with other users — the server must never be able to read user data.
 python3 tools/serve.py        # laptop + phone on same Wi-Fi; prints both URLs
 python3 tools/check_links.py  # doc link integrity
 python3 tools/vendor_check.py # site/vendor/ pins, NOTICE coverage, no-CDN/no-npm rule
+node --test                   # unit tests (tests/); pass NO path —
+                              # `node --test tests/` resolves the dir as a
+                              # module and dies, which reads as a red suite
 # further checks (validate.py) arrive with the code they gate
 ```
 
