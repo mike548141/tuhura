@@ -1,4 +1,7 @@
-- ⏳ **Rule-4 cold pass queued — the archive-store seam.** Refs only.
+- [x] **Rule-4 cold pass — the archive-store seam. DONE 2026-09-20** —
+      verdict `docs/reviews/2026-09-20-2236-archive-store-seam.md`
+      (FAIL-WITH-MAJORS: 2 MAJOR / 3 MODERATE / 4 minor / 2 note; F1–F11 are
+      Mike's under rule 3). Was: refs only.
       Delta: `23707e6..` **the commit that adds this file** (resolve with
       `git log --diff-filter=A -- docs/roadmap/040-queued-reviews/020-archive-store-seam.md`).
       The bound is spelled self-referentially rather than as `..HEAD`

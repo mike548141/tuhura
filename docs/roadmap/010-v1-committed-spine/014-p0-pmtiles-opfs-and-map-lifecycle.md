@@ -57,3 +57,13 @@
       target browsers or the copy-then-delete fallback is the live path;
       and what `storage.estimate()` and `persist()` actually report on a
       real device rather than what the policy documents claim.
+
+      🎯 **Cold pass closed 2026-09-20 — FAIL-WITH-MAJORS**
+      (`docs/reviews/2026-09-20-2236-archive-store-seam.md`). F1: the seam's
+      handle breaks pmtiles' 16 KiB header probe and was never put under
+      `PMTiles` in a test — the library verified the *fixture*, not the seam.
+      F2: a failed write advances the tracker, so the retry is refused and
+      `commit()` publishes a partial archive; proven with a 20-line OPFS stub,
+      which also shows this file *is* testable. F3: the generator's TileIDs
+      are wrong from z2 up. F1–F11 are Mike's under rule 3; the fix set earns
+      its own `⏳`.

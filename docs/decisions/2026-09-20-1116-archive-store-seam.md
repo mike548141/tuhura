@@ -1,7 +1,9 @@
 # The storage seam: an ArchiveStore interface over range-read tile archives
 
 **Status**: accepted • **Date**: 2026-09-20
-**Review**: queued — flagged in the board item this ADR ships against
+**Review**: done — cold pass 2026-09-20, FAIL-WITH-MAJORS
+(`../reviews/2026-09-20-2236-archive-store-seam.md`; findings are the
+principal's under rule 3). Was: queued — flagged in the board item this ADR ships against
 (`docs/roadmap/010-v1-committed-spine/014-p0-pmtiles-opfs-and-map-lifecycle.md`:
 "the storage seam's shape is direction, and it forecloses alternatives
 for every later region feature"). Filing the actual queued-review entry
