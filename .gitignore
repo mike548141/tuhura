@@ -15,8 +15,9 @@
 .claude/settings.local.json
 
 # --- add language litter as needed ---
-# Python:
-# __pycache__/
+# Python: the test suite imports tools/make_fixture_pmtiles.py as a module,
+# so every `node --test` run writes bytecode here.
+__pycache__/
 # *.pyc
 # .venv/
 # *.egg-info/
