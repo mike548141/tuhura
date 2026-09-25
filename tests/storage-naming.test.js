@@ -7,12 +7,14 @@ import assert from "node:assert/strict";
 import {
   ARCHIVE_EXT,
   assertValidArchiveId,
+  assertValidArchiveVersion,
   archiveFileName,
   stagingFileName,
   isStagingFileName,
   isArchiveFileName,
   archiveIdFromFileName,
   archiveIdFromStagingFileName,
+  parseStagingFileName,
 } from "../site/js/storage/naming.js";
 import { InvalidArchiveIdError } from "../site/js/storage/errors.js";
 
@@ -49,13 +51,20 @@ test("assertValidArchiveId rejects non-strings", () => {
   }
 });
 
-test("archiveFileName and stagingFileName round-trip through the id extractors", () => {
+test("assertValidArchiveVersion admits a bare lowercase token and nothing that could read as an id", () => {
+  for (const v of ["v1", "etag9f3a", "20260925", "a"]) assert.equal(assertValidArchiveVersion(v), v);
+  for (const v of ["", "V1", "v-1", "v.1", "v 1", "a".repeat(65), null, 7]) {
+    assert.throws(() => assertValidArchiveVersion(v), InvalidArchiveIdError, `expected ${JSON.stringify(v)} rejected`);
+  }
+});
+
+test("archiveFileName and stagingFileName round-trip through the extractors", () => {
   const id = "wairarapa-coast";
   const finalName = archiveFileName(id);
-  const staging = stagingFileName(id);
+  const staging = stagingFileName(id, "etag1");
 
   assert.equal(finalName, `wairarapa-coast${ARCHIVE_EXT}`);
-  assert.equal(staging, `.wairarapa-coast${ARCHIVE_EXT}.part`);
+  assert.equal(staging, `.wairarapa-coast.etag1${ARCHIVE_EXT}.part`);
 
   assert.equal(isArchiveFileName(finalName), true);
   assert.equal(isStagingFileName(finalName), false);
@@ -64,17 +73,20 @@ test("archiveFileName and stagingFileName round-trip through the id extractors",
 
   assert.equal(archiveIdFromFileName(finalName), id);
   assert.equal(archiveIdFromStagingFileName(staging), id);
+  assert.deepEqual(parseStagingFileName(staging), { id, version: "etag1" });
 });
 
-test("archiveFileName and stagingFileName reject an invalid id before touching the filesystem", () => {
+test("archiveFileName and stagingFileName reject an invalid id or version before touching the filesystem", () => {
   assert.throws(() => archiveFileName("Not Valid"), InvalidArchiveIdError);
-  assert.throws(() => stagingFileName("Not Valid"), InvalidArchiveIdError);
+  assert.throws(() => stagingFileName("Not Valid", "v1"), InvalidArchiveIdError);
+  assert.throws(() => stagingFileName("wellington", "Not-Valid"), InvalidArchiveIdError);
+  assert.throws(() => stagingFileName("wellington"), InvalidArchiveIdError); // version is required
 });
 
 test("archiveIdFromFileName returns null for anything that isn't a committed archive's name", () => {
   for (const name of [
     "readme.txt",
-    ".wellington.pmtiles.part", // a staging name, not a final one
+    ".wellington.v1.pmtiles.part", // a staging name, not a final one
     "wellington.PMTILES", // wrong case extension
     "wellington", // no extension at all
     ARCHIVE_EXT, // bare extension, empty id
@@ -83,15 +95,25 @@ test("archiveIdFromFileName returns null for anything that isn't a committed arc
   }
 });
 
-test("archiveIdFromStagingFileName returns null for anything that isn't a staging name", () => {
-  for (const name of ["wellington.pmtiles", "wellington", ".wellington.pmtiles", "readme.txt"]) {
-    assert.equal(archiveIdFromStagingFileName(name), null, `expected ${JSON.stringify(name)} to yield null`);
+test("parseStagingFileName returns null for anything that isn't a staging name", () => {
+  for (const name of [
+    "wellington.pmtiles",
+    "wellington",
+    ".wellington.pmtiles", // no .part
+    ".wellington.pmtiles.part", // the pre-version shape: no version token
+    ".Wellington.v1.pmtiles.part", // invalid id
+    ".wellington.V1.pmtiles.part", // invalid version
+    "readme.txt",
+  ]) {
+    assert.equal(parseStagingFileName(name), null, `expected ${JSON.stringify(name)} to yield null`);
+    assert.equal(archiveIdFromStagingFileName(name), null);
   }
 });
 
-test("archiveIdFromFileName and archiveIdFromStagingFileName reject non-string input without throwing", () => {
+test("the extractors reject non-string input without throwing", () => {
   for (const name of [null, undefined, 42, {}]) {
     assert.equal(archiveIdFromFileName(name), null);
     assert.equal(archiveIdFromStagingFileName(name), null);
+    assert.equal(parseStagingFileName(name), null);
   }
 });

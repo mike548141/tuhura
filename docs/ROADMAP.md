@@ -14,7 +14,7 @@ then `python3 "${ATELIER_TOOLS:-$(git config hooks.atelierTools)}"/board.py rebu
 - ✅ [P0-A — vendor the map stack and gate it. DONE 2026-09-20.](roadmap/010-v1-committed-spine/011-p0-vendor-the-map-stack.md)
 - [ ] 🎯 [P0-B — app shell, service worker, installable. BUILT](roadmap/010-v1-committed-spine/012-p0-app-shell-and-service-worker.md)
 - [ ] 🎯 [P0-C — online render against LINZ Basemaps.](roadmap/010-v1-committed-spine/013-p0-linz-basemaps-online-render.md)
-- [~] [P0-D — PMTiles in OPFS, and the map's lifecycle.](roadmap/010-v1-committed-spine/014-p0-pmtiles-opfs-and-map-lifecycle.md)
+- [ ] [P0-D — PMTiles in OPFS, and the map's lifecycle.](roadmap/010-v1-committed-spine/014-p0-pmtiles-opfs-and-map-lifecycle.md)
 - [ ] 🎯 [P0-E — the WKWebView spike.](roadmap/010-v1-committed-spine/015-p0-wkwebview-spike.md)
 - [ ] 🎯 [P0-F — the scale and soak rider.](roadmap/010-v1-committed-spine/016-p0-scale-and-soak-rider.md)
 - [ ] [Phase 1 — personal layer](roadmap/010-v1-committed-spine/020-phase-1-personal-layer.md)
@@ -55,6 +55,7 @@ then `python3 "${ATELIER_TOOLS:-$(git config hooks.atelierTools)}"/board.py rebu
 
 - ✅ [Rule-4 cold pass — the session-log split. DONE 2026-09-20](roadmap/040-queued-reviews/010-session-log-split.md)
 - ✅ [Rule-4 cold pass — the archive-store seam. DONE 2026-09-20](roadmap/040-queued-reviews/020-archive-store-seam.md)
+- ⏳ [Rule-4 cold pass queued — the seam fixes' application.](roadmap/040-queued-reviews/030-seam-fixes-application.md)
 
 ## Standing threads — options that may never open
 

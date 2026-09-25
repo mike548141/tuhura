@@ -1,7 +1,4 @@
-- [~] **P0-D — PMTiles in OPFS, and the map's lifecycle.**
-      (claimed 2026-09-25-0118, wt: p0d-seam-fixes — the cold pass's fix
-      set F1–F11, Mike's ruling 2026-09-25: accept all, apply now. The
-      runtime OPFS half stays open behind this claim.) Build one
+- [ ] **P0-D — PMTiles in OPFS, and the map's lifecycle.** Build one
       regional archive (Wellington / Wairarapa) with `pmtiles convert`,
       download it into OPFS from a worker using `createSyncAccessHandle`,
       and wire a `FileSource` behind the `pmtiles://` protocol so MapLibre
@@ -40,17 +37,18 @@
 
       The seam's read half duck-types the vendored pmtiles library's own
       `Source` contract, so an `ArchiveHandle` is handed straight to
-      `new pmtiles.PMTiles(handle)` with no adapter. 29 unit tests pass,
-      and one of them is genuine independent verification: it loads the
-      exact vendored library bytes and has *the library* parse the
-      generated fixture, rather than a second parser that could share the
-      generator's bugs.
+      `new pmtiles.PMTiles(handle)` with no adapter. *As first landed,
+      that sentence was never tested* — the one library-backed test parsed
+      the generated fixture through the library's own `FileSource`, which
+      verified the generator, not the seam (cold pass F1). Since 2026-09-25
+      the seam's handle itself is driven under `PMTiles` by
+      `tests/storage-opfs.test.js`.
 
       **What is still owed, and it is the runtime half.** OPFS does not
-      exist outside a browser — `getDirectory`, `createSyncAccessHandle`,
-      `move()` and `storage.estimate()` are all unavailable to a headless
-      session — so `site/js/storage/opfs-archive-store.js` carries **no
-      unit tests and is unverified by construction**. Also still open:
+      exist outside a browser, so what `tests/storage-opfs.test.js` proves
+      over its in-memory stand-in is the backend's *logic* (staging →
+      commit, the quota path, resume, the bounds rule under the real
+      parser), never the platform's behaviour. Also still open:
       wiring the `pmtiles://` protocol into MapLibre, WebGL context-loss
       recovery, the WebGL feature gate, and building a real regional
       archive (which needs P0-C's key question settled first).
@@ -70,3 +68,14 @@
       which also shows this file *is* testable. F3: the generator's TileIDs
       are wrong from z2 up. F1–F11 are Mike's under rule 3; the fix set earns
       its own `⏳`.
+
+      **The fix set landed 2026-09-25** on Mike's ruling (all eleven
+      accepted): F1 the header probe clamps at offset 0 and the handle is
+      tested under `PMTiles` both sides of 16 KiB; F2 the tracker counts
+      after the write and `commit()` cannot publish short; F3 the
+      generator's TileIDs are a proven bijection over z0–z4; F4 no copy
+      fallback; F5 every error carries a code and round-trips through
+      JSON; F6 writes are versioned and a mismatch is refused; F7 ten
+      typed errors, idempotent delete; F8/F9 in the ADR's addendum; F10
+      ARCHITECTURE names the seam; F11 tidied. 55 tests. The application
+      carries its own `⏳` (`../040-queued-reviews/030-seam-fixes-application.md`).

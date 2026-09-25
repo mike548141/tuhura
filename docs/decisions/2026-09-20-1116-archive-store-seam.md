@@ -224,3 +224,71 @@ Degradation stays visible, per this repo's standing rule
 - The store never deletes anything on its own initiative (not on quota
   pressure, not on eviction, not on a failed write) — every deletion is
   an explicit `delete()` call from a caller acting on a user decision.
+
+## Addendum 2026-09-25 — the cold pass's eleven findings, ruled and applied
+
+The accepted text above stands. Mike ruled on 2026-09-25 (rule 3): all
+eleven findings of the 2026-09-20 cold pass
+(`../reviews/2026-09-20-2236-archive-store-seam.md`) are accepted as
+counselled and applied. That ruling is also this record's **acceptance by
+the principal** (F8) — the worker that wrote it had marked it accepted on
+its own authority, which RECORD.md does not allow.
+
+**What changes in the decision, and why.**
+
+- **The bounds rule gains one exception (F1).** `getBytes(offset, length)`
+  clamps a read that starts at offset 0 and runs past EOF, and throws
+  everywhere else. pmtiles reads `[0, 16384)` unconditionally as its
+  first act on any archive and its own `FetchSource` special-cases that
+  probe; the seam now matches the library's own precedent. The
+  "thrown, never clamped" sentence above is otherwise unchanged. The
+  seam's handle is now tested under `new pmtiles.PMTiles()` on archives
+  both under and over 16 KiB — the test the original claim lacked.
+- **The write half counts after the write, not before (F2).** The
+  degradation paragraph above says a quota failure leaves `bytesWritten`
+  untouched; the code did the opposite, so the retry was refused and
+  `commit()` published a partial archive. Now `assertNext()` checks the
+  chunk, the write lands, then `accept()` counts it; a short write is
+  `ArchiveCorruptError`. The stub that proved the defect is
+  `tests/storage-opfs.test.js`, and "cannot be tested from this machine"
+  in Consequences is withdrawn: the module's logic is gated; only the
+  platform's behaviour still needs a browser.
+- **No copy fallback at commit (F4).** `move()` is required; where absent
+  the write stops with `ArchiveStoreUnsupportedError` and the staging file
+  stays resumable. Compat data has `move()` in Safari 15.2, Chrome 102,
+  Firefox 111.
+- **Every error survives postMessage (F5).** The write half is worker-only
+  and the UI is not, so each error carries a stable `code`, `toJSON()`, and
+  `archiveErrorFromJSON()` rebuilds the class and fields on the other side.
+  The worker-side downloader owns the message protocol; this seam owns
+  making its errors transportable.
+- **A write names its version (F6).** `write(id, totalBytes, version)`;
+  the staging file is `.<id>.<version>.pmtiles.part`, and a staging file
+  for a different version is refused with `ArchiveVersionMismatchError`
+  rather than spliced. `list()` reports a partial entry's `version`.
+- **The error set is ten, not five (F7).** `ArchiveNotFoundError`,
+  `ArchiveCorruptError`, `ArchiveQuotaExceededError`, `OutOfRangeReadError`,
+  `OutOfOrderWriteError`, `InvalidArchiveIdError` (always crossed the seam,
+  uncounted above), `ArchiveVersionMismatchError`,
+  `ArchiveWriterClosedError`, `ArchiveBusyError`,
+  `ArchiveStoreUnsupportedError`. `delete()` is idempotent: a missing id is
+  the state the caller asked for, not an error — the sentence above that
+  has it throw is corrected here.
+- **`getKey()` is `<id>@<lastModified>` (F11)**, not the bare id, so a
+  re-downloaded region is never served from a stale directory cache;
+  callers build the `pmtiles://<key>/…` URL from the handle.
+
+**Threats this design answers (F9), enumerated as REVIEW.md's lens 4 asks.**
+(i) An archive id becomes a filename: the kebab-case grammar admits no
+separator, dot or whitespace, so traversal is excluded by construction and
+tested. (ii) Archive bytes are untrusted network input parsed by pmtiles:
+the bounds rule stops reads past EOF; a crafted directory can still make
+the library request a tile of any in-bounds length, which matters only
+when archives come from somewhere other than the project's own bucket —
+noted for that day, not solved. (iii) No integrity check on a downloaded
+archive: the manifest checksum stays owed, as Consequences already says.
+(iv) Privacy: OPFS is origin-private, the data is public map tiles, and
+`list()` is local; nothing is exposed.
+
+The application is itself self-authored direction and carries its own
+`⏳` for a non-author to take (REVIEW.md § Applying decisions to doctrine).

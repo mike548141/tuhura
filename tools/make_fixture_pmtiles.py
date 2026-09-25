@@ -135,11 +135,14 @@ def _rotate(size: int, x: int, y: int, rx: int, ry: int) -> tuple[int, int]:
 def zxy_to_tile_id(z: int, x: int, y: int) -> int:
     """Hilbert-curve TileID for (z, x, y). `tile_id` starts at the count
     of tiles in every smaller zoom (4^0 + 4^1 + ... + 4^(z-1) = (4^z-1)/3),
-    then walks bit-by-bit from the top of the curve down, adding the
-    Hilbert-order contribution of each bit BEFORE rotating for the next
-    one — the multiply-by-(1<<i) has to use the bit's own weight, which
-    is why it happens ahead of `i -= 1`. `_self_check()` verifies this
-    against spec §4.1's worked TileID table before it's trusted."""
+    then walks the curve from its coarsest square down: at each level the
+    square has side `s`, holds `s*s` tiles, and the quadrant chosen
+    contributes `(3*rx ^ ry)` whole sub-squares — so the weight is `s*s`,
+    not `s` (the cold pass of 2026-09-20, F3, found the `s` form: it
+    passed the spec's six-row table, whose rows all have zero high-bit
+    contribution, while collapsing 341 tiles at z<=4 onto 83 ids).
+    `_self_check()` now verifies the whole z0..z4 range is a bijection
+    onto 0..340 and a z2 table with every quadrant taken."""
     if z > 26:
         raise ValueError("zoom exceeds the spec's max safe zoom (26)")
     if x >= (1 << z) or y >= (1 << z):
@@ -148,14 +151,12 @@ def zxy_to_tile_id(z: int, x: int, y: int) -> int:
     if z == 0:
         return tile_id  # the single z0 tile — no bits to walk
     a, b = x, y
-    i = z - 1
-    s = 1 << i
+    s = 1 << (z - 1)
     while s > 0:
         rx = 1 if (a & s) else 0
         ry = 1 if (b & s) else 0
-        tile_id += ((3 * rx) ^ ry) * (1 << i)
+        tile_id += ((3 * rx) ^ ry) * s * s
         a, b = _rotate(s, a, b, rx, ry)
-        i -= 1
         s >>= 1
     return tile_id
 
@@ -384,6 +385,18 @@ _SPEC_TABLE = [
     (2, 0, 0, 5),
 ]
 
+# The full z2 square in Hilbert order — every quadrant and rotation the
+# curve has, which the spec's own table does not reach. Transcribed from
+# the curve's definition (U-shape, rotated per quadrant), and cross-checked
+# against the vendored pmtiles.js's zxyToTileId for all of z0..z4 by
+# tests/pmtiles-fixture.test.js — the second, independent implementation.
+_Z2_TABLE = [
+    (0, 0, 5), (1, 0, 6), (1, 1, 7), (0, 1, 8),
+    (0, 2, 9), (0, 3, 10), (1, 3, 11), (1, 2, 12),
+    (2, 2, 13), (2, 3, 14), (3, 3, 15), (3, 2, 16),
+    (3, 1, 17), (2, 1, 18), (2, 0, 19), (3, 0, 20),
+]
+
 
 def _self_check() -> None:
     for z, x, y, expected_id in _SPEC_TABLE:
@@ -391,6 +404,17 @@ def _self_check() -> None:
         assert got == expected_id, (
             f"zxy_to_tile_id({z},{x},{y}) = {got}, spec §4.1's table says {expected_id}"
         )
+    for x, y, expected_id in _Z2_TABLE:
+        got = zxy_to_tile_id(2, x, y)
+        assert got == expected_id, f"zxy_to_tile_id(2,{x},{y}) = {got}, expected {expected_id}"
+    # Bijection over z0..z4: 341 tiles onto exactly the ids 0..340. This is
+    # the check the six-row table could not make — a wrong bit weight
+    # collides ids long before it disturbs the table's rows.
+    ids = sorted(
+        zxy_to_tile_id(z, x, y)
+        for z in range(5) for x in range(1 << z) for y in range(1 << z)
+    )
+    assert ids == list(range(341)), "TileIDs over z0..z4 are not a bijection onto 0..340"
 
     # Round-trip the directory codec through an independent decoder.
     entries = [
@@ -434,7 +458,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument(
         "--out", type=Path, default=ROOT / "tests" / "fixtures" / "synthetic.pmtiles",
-        help="output path (default: tests/fixtures/synthetic.pmtiles)",
+        help="output path (default: tests/fixtures/synthetic.pmtiles — gitignored; "
+        "the tests build their own copy in a temp dir and never read this one)",
     )
     parser.add_argument(
         "--seed", type=int, default=0,
