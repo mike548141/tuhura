@@ -1,4 +1,7 @@
-- [ ] **P0-D — PMTiles in OPFS, and the map's lifecycle.** Build one
+- [~] **P0-D — PMTiles in OPFS, and the map's lifecycle.**
+      (claimed 2026-09-25-0118, wt: p0d-seam-fixes — the cold pass's fix
+      set F1–F11, Mike's ruling 2026-09-25: accept all, apply now. The
+      runtime OPFS half stays open behind this claim.) Build one
       regional archive (Wellington / Wairarapa) with `pmtiles convert`,
       download it into OPFS from a worker using `createSyncAccessHandle`,
       and wire a `FileSource` behind the `pmtiles://` protocol so MapLibre
