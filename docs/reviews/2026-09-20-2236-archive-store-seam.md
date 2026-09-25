@@ -280,14 +280,39 @@ and is not gitignored (scanner note).
 | Quota figures 60/80 vs 15/20 | ✅ WebKit post |
 | Floor + CI green at head | ✅ both planes |
 
-### Follow-up checklist (Mike's under rule 3)
+### Decision — Mike, 2026-09-25: all eleven accepted as counselled
 
-- [ ] F1, F2 — code fixes + tests + ADR addendum; the application is
-      self-authored direction and earns its own `⏳` (two MAJORs).
-- [ ] F3 — one-token fix + the cross-check self-test.
-- [ ] F4, F5, F6, F7 — decide; small code and one addendum.
-- [ ] F8, F9 — the addendum records acceptance and the threat list.
-- [ ] F10, F11 — tidy on the next touch.
+Applied by the reviewing session on that ruling (a neutral applier was
+preferred and not available; the application carries its own `⏳`). Each
+fix is closed on a live proof, not on "addressed":
+
+- **F1 [fixed]** — offset-0 probe clamps, strict elsewhere; the seam's
+  handle runs under `PMTiles` on 680-byte and 18 KiB archives
+  (`tests/storage-opfs.test.js`).
+- **F2 [fixed]** — `assertNext` → write → `accept`; short write is
+  corrupt; the quota test asserts `bytesWritten` stays at the disk, the
+  retry lands, and `commit()` refuses until complete.
+- **F3 [fixed]** — weight `s*s`; self-check proves a bijection over z0–z4
+  and a full z2 table; the JS suite cross-checks all 341 ids against the
+  vendored library.
+- **F4 [fixed]** — fallback removed; absent `move()` is
+  `ArchiveStoreUnsupportedError` with the staging file intact (tested).
+- **F5 [fixed]** — `code`, `toJSON()`, `archiveErrorFromJSON()`; every
+  class round-trips through a JSON string (`tests/storage-errors.test.js`).
+- **F6 [fixed]** — `write(id, total, version)`; mismatch refused (tested).
+- **F7 [fixed]** — ten errors listed in the addendum; delete idempotent;
+  closed-writer, busy and over-long-staging paths typed (tested).
+- **F8 [fixed]** — the ruling is the acceptance; recorded in the addendum.
+- **F9 [fixed]** — threat enumeration in the addendum.
+- **F10 [fixed]** — ARCHITECTURE names the seam in its three passages.
+- **F11 [fixed]** — tautology test removed, snapshot comment corrected,
+  `getKey()` content-stable, jitter option with the corrected rationale,
+  `tests/fixtures/` gitignored.
+
+### Follow-up checklist
+
+- [x] F1–F11 applied 2026-09-25, each with its proof above.
+- [x] The application's own `⏳`: `docs/roadmap/040-queued-reviews/030-seam-fixes-application.md`.
 - [x] Reconcile against the 2026-08-08 and 2026-08-15 verdicts — done
       2026-09-20 23:05 UTC, below.
 

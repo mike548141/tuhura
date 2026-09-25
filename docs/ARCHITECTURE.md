@@ -24,12 +24,12 @@ E2E-encrypted blobs for cross-device sync and sharing.
   plugins are abandoned/maintenance-mode, OpenLayers is bundler-oriented.
   iOS Safari WebGL context loss is real and handled explicitly
   (`webglcontextlost` → recreate).
-- **Tiles: PMTiles archives in OPFS.** Single-file tile archives read via the
-  pmtiles library's `FileSource` over an OPFS file — byte-range reads become
-  `file.slice()`, so offline tile serving needs **no service-worker
-  byte-serving** (the Cache API cannot store 206 responses; that whole
-  problem is designed out). The service worker precaches only the app shell,
-  style, glyphs, sprites.
+- **Tiles: PMTiles archives in OPFS, behind the storage seam.** Single-file
+  archives read through `site/js/storage/` (ADR 2026-09-20-1116): an
+  `ArchiveHandle` duck-typing pmtiles' `Source`, so byte-range reads become
+  `file.slice()` on OPFS and offline tile serving needs **no service-worker
+  byte-serving** (the Cache API cannot store 206 responses; designed out).
+  The service worker precaches only the app shell, style, glyphs, sprites.
 - **Basemap: LINZ `topographic-v2` vector tiles (CC-BY 4.0).** Purpose-drawn
   NZ topo (Topo50 source data + 8 m-DEM hillshade), official whole-tileset
   MBTiles export → `pmtiles convert` → regional or full-NZ archives
@@ -121,7 +121,7 @@ the resulting lockstep rules live (`CLAUDE.md`); nowhere else states them.
   `SHELL_VERSION` via the same `ensureCache` seam `sw.js` already has, not
   folded into the shell cache. **A map tile or a PMTiles archive must
   never appear in `SHELL` or any future service-worker cache** — tiles are
-  read from OPFS via `pmtiles`' `FileSource`
+  read from OPFS through the storage seam's `ArchiveHandle`
   (`decisions/2026-08-08-0452-pmtiles-in-opfs.md`) and never touch
   `fetch()` or the Cache API at all; that boundary is the whole reason the
   OPFS decision exists, and a "just cache this one big style-adjacent
@@ -220,10 +220,11 @@ Three consequences are current truth regardless of how he rules:
 - **An embedded WebView's origin quota is 15% of disk against Safari's
   60%** (WebKit storage policy). A wrap that leaves tile archives in OPFS
   therefore *shrinks* capacity roughly fourfold — the storage-silo problem
-  is worse than "separate silos" implies. Archives belong behind a
-  **storage seam**: OPFS backend now, native filesystem later. PMTiles only
-  needs a source answering `getBytes(offset, length)`, so the native
-  backend is a small `Source` adapter, not a re-architecture.
+  is worse than "separate silos" implies. Archives sit behind the
+  **storage seam** (`site/js/storage/`, built 2026-09-20): OPFS backend now,
+  native filesystem later. PMTiles only needs a source answering
+  `getBytes(offset, length)`, so the native backend is a second
+  `ArchiveHandle`, not a re-architecture.
 - **That native backend is also the durability answer.** Native filesystem
   storage is guaranteed and never evicted, where `persist()` is a heuristic
   grant with no specification contract (see Offline data lifecycle above).

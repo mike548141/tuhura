@@ -127,18 +127,6 @@ test("fixture header decodes correctly by hand, against the spec's byte layout",
   }
 });
 
-test("fixture header rejects a bogus magic number if corrupted (sanity on the check itself)", () => {
-  let dir;
-  try {
-    dir = mkdtempSync(join(tmpdir(), "tuhura-pmtiles-"));
-    const bytes = Buffer.from(generateFixture(dir));
-    bytes[0] = 0x00; // corrupt the magic number
-    assert.notEqual(bytes.subarray(0, 7).toString("latin1"), "PMTiles");
-  } finally {
-    if (dir) rmSync(dir, { recursive: true, force: true });
-  }
-});
-
 // --------------------------------------------------------------------
 // Layer 2: load the ACTUAL vendored library
 // (site/vendor/pmtiles/pmtiles.js — the exact bytes site/index.html
@@ -214,6 +202,49 @@ test("the vendored library also round-trips a gzip-compressed fixture", async ()
 
     const tile = await archive.getZxy(0, 0, 0);
     assert.equal(Buffer.from(tile.data).toString("utf8"), expectedTilePayload(0, 0, 0));
+  } finally {
+    if (dir) rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+// --------------------------------------------------------------------
+// Layer 3: the generator's TileID arithmetic against the vendored
+// library's, for every tile z0..z4 (341 of them). The spec's own
+// worked table is six rows, all with zero high-bit contribution, and a
+// wrong bit weight passed it while collapsing 341 ids onto 83 (cold
+// pass 2026-09-20, F3). Two implementations that agree on the whole
+// range is the check that table could not make.
+// --------------------------------------------------------------------
+
+test("the generator's zxy_to_tile_id agrees with the vendored library's zxyToTileId for every tile z0..z4", () => {
+  const pmtiles = loadVendoredPmtiles();
+  const script = `
+import sys; sys.path.insert(0, ${JSON.stringify(join(ROOT, "tools"))})
+from make_fixture_pmtiles import zxy_to_tile_id
+for z in range(5):
+    for x in range(1 << z):
+        for y in range(1 << z):
+            print(z, x, y, zxy_to_tile_id(z, x, y))
+`;
+  const rows = execFileSync("python3", ["-c", script], { encoding: "utf8" }).trim().split("\n");
+  assert.equal(rows.length, 341);
+  const seen = new Set();
+  for (const row of rows) {
+    const [z, x, y, id] = row.split(" ").map(Number);
+    assert.equal(id, pmtiles.zxyToTileId(z, x, y), `z${z}/${x}/${y}`);
+    seen.add(id);
+  }
+  assert.equal(seen.size, 341, "341 tiles must map to 341 distinct ids");
+});
+
+test("the generator refuses tiles out of TileID order rather than writing a broken directory", () => {
+  let dir;
+  try {
+    dir = mkdtempSync(join(tmpdir(), "tuhura-pmtiles-"));
+    assert.throws(
+      () => generateFixture(dir, ["--tiles", "2/0/0,1/0/0"]),
+      /strictly ascending/
+    );
   } finally {
     if (dir) rmSync(dir, { recursive: true, force: true });
   }

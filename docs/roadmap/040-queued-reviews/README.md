@@ -6,7 +6,8 @@ the work cold; the evaluative account lives in the session record, never here.
 The pointer is queued **in the commit that lands the work** (landing = queuing),
 so no window exists where landed design sits unpointed.
 
-**None open** (2026-09-20). Both passes run and closed: the session-log split
+**One open** (2026-09-25): the application of the seam pass's findings. Two
+passes have run and closed: the session-log split
 (`../../reviews/2026-09-20-1058-session-log-split.md`) and the archive-store
 seam (`../../reviews/2026-09-20-2236-archive-store-seam.md`).
 The earlier platform-tier + marine-staging pass ran 2026-08-15

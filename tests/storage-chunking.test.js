@@ -91,6 +91,17 @@ test("SequentialWriteTracker accepts in-order chunks and reports completion", ()
   assert.equal(tracker.isComplete, true);
 });
 
+test("SequentialWriteTracker.assertNext checks without counting, so a failed write can be retried", () => {
+  const tracker = new SequentialWriteTracker(30);
+  tracker.assertNext("wellington", 0, 10);
+  assert.equal(tracker.bytesWritten, 0, "assertNext must not count");
+  tracker.assertNext("wellington", 0, 10); // the retry of the same chunk is still next
+  assert.throws(() => tracker.assertNext("wellington", 10, 10), OutOfOrderWriteError);
+  assert.throws(() => tracker.assertNext("wellington", 0, 31), RangeError);
+  tracker.accept("wellington", 0, 10);
+  assert.equal(tracker.bytesWritten, 10);
+});
+
 test("SequentialWriteTracker rejects an out-of-order chunk", () => {
   const tracker = new SequentialWriteTracker(30);
   tracker.accept("wellington", 0, 10);
@@ -136,6 +147,14 @@ test("nextRetryDelayMs doubles per attempt and is capped", () => {
 test("nextRetryDelayMs honours custom base/ceiling", () => {
   assert.equal(nextRetryDelayMs(1, { baseMs: 100, maxMs: 150 }), 100);
   assert.equal(nextRetryDelayMs(2, { baseMs: 100, maxMs: 150 }), 150); // 200 would exceed the ceiling
+});
+
+test("nextRetryDelayMs spreads the delay by ±jitter with an injectable random source", () => {
+  assert.equal(nextRetryDelayMs(3, { jitter: 0.5, random: () => 0.5 }), 2000); // centre
+  assert.equal(nextRetryDelayMs(3, { jitter: 0.5, random: () => 1 }), 3000); // +50 %
+  assert.equal(nextRetryDelayMs(3, { jitter: 0.5, random: () => 0 }), 1000); // −50 %
+  assert.equal(nextRetryDelayMs(1, { jitter: 1, random: () => 0 }), 0); // never below zero
+  assert.throws(() => nextRetryDelayMs(1, { jitter: 1.5 }), RangeError);
 });
 
 test("shouldRetryChunk allows exactly MAX_CHUNK_ATTEMPTS attempts", () => {
