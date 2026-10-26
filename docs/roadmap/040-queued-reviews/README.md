@@ -6,7 +6,8 @@ the work cold; the evaluative account lives in the session record, never here.
 The pointer is queued **in the commit that lands the work** (landing = queuing),
 so no window exists where landed design sits unpointed.
 
-**One open** (2026-09-25): the application of the seam pass's findings. Two
+**Two open** (2026-10-26): the application of the seam pass's findings, and
+the floor block re-stamped at atelier `0a2b7a7`. Two
 passes have run and closed: the session-log split
 (`../../reviews/2026-09-20-1058-session-log-split.md`) and the archive-store
 seam (`../../reviews/2026-09-20-2236-archive-store-seam.md`).

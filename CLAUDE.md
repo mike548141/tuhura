@@ -1,5 +1,5 @@
 <!-- stamp:begin source=docs/method/PROPAGATION.md region=floor -->
-## Doctrine — inherited from atelier (pinned `atelier@548b706`)
+## Doctrine — inherited from atelier (pinned `atelier@0a2b7a7`)
 
 This repo works by the atelier operating model. The safety floor here is
 **inlined so it binds even if atelier is never read**; all richer doctrine lives
@@ -78,16 +78,18 @@ in atelier and is read on demand — never wholesale.
   (`PROPAGATION.md` § *Pointing up*.)
 - **Source & drift:** canonical doctrine is `../atelier/docs/method/`. At
   session start run `git -C "../atelier" fetch -q` then `git -C
-  "../atelier" log --oneline 548b706..origin/main` — the parent's published
+  "../atelier" log --oneline 0a2b7a7..origin/main` — the parent's published
   mainline, never whatever branch its checkout is parked on; any output means
   the house doctrine moved — read it, then bump the pin above deliberately.
 - **Estate resources — point up, don't re-derive:** providers & account plans,
-  financial constraints & plan entitlements, licences, credentials, shared
-  estate tooling, and the estate inventory live in the operator's **private
-  estate-root repo** (atelier's private counterpart). Reference it for these;
-  never re-derive them locally or copy its contents down. If **this** repo is
-  public, reference the root by local-path convention, never by name — a public
-  repo naming the estate's credential/inventory root is reconnaissance.
+  financial constraints & plan entitlements, licences, credentials and the
+  estate inventory live in the operator's **private estate-root repo**
+  (atelier's private counterpart). Reference it for these; never re-derive
+  them locally or copy its contents down. The **expected toolbox** (which
+  tools to expect, and how to find them) is atelier's: `method/TOOLBOX.md`.
+  If **this** repo is public, reference the root by local-path convention,
+  never by name — a public repo naming the estate's credential/inventory root
+  is reconnaissance.
 - **This repo's visibility:** PUBLIC (Mike's decision, 2026-08-08) — every push
   is publication, instantly and irreversibly: assume anything committed is
   mirrored and archived the moment it lands. Narrowing back to private is a
@@ -201,6 +203,8 @@ Exercise changes in a real browser at 390 px, and offline (DevTools → Network
   (`docs/decisions/`); before finishing, append a one-line entry to the
   `docs/SESSIONS.md` index **and**, where the session was substantial, the
   matching `docs/sessions/<date>-<HHMM>-<slug>.md` detail file it points at.
+  A detail file ends with an identifiers block (session id, commits, PRs,
+  board items, worktrees, agents): atelier `RECORD.md` § *The session log*.
 - Commit messages: `area: imperative subject`, why-dense body. Areas in play:
   `map`, `layers`, `waypoints`, `tracks`, `offline`, `sync`, `css`, `pwa`/`sw`,
   `a11y`, `data`, `docs`, `tools`, `deploy`.
