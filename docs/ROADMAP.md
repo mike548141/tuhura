@@ -55,7 +55,7 @@ then `python3 "${ATELIER_TOOLS:-$(git config hooks.atelierTools)}"/board.py rebu
 
 - ✅ [Rule-4 cold pass — the session-log split. DONE 2026-09-20](roadmap/040-queued-reviews/010-session-log-split.md)
 - ✅ [Rule-4 cold pass — the archive-store seam. DONE 2026-09-20](roadmap/040-queued-reviews/020-archive-store-seam.md)
-- [~] [Rule-4 cold pass queued — the seam fixes' application.](roadmap/040-queued-reviews/030-seam-fixes-application.md)
+- ⏳ [Rule-4 cold pass queued — the seam fixes' application.](roadmap/040-queued-reviews/030-seam-fixes-application.md)
 
 ## Standing threads — options that may never open
 
