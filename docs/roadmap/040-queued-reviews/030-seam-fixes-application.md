@@ -1,4 +1,6 @@
-- ⏳ **Rule-4 cold pass queued — the seam fixes' application.** Refs only.
+- [~] **Rule-4 cold pass queued — the seam fixes' application.** Refs only.
+      (claimed 2026-10-26-0908, wt: brief-040-030 — brief-writing only, by a
+      headless Opus 5.5 session; it runs no review.)
       Delta: `22b4cde..` **the commit that adds this file** (resolve with
       `git log --diff-filter=A -- docs/roadmap/040-queued-reviews/030-seam-fixes-application.md`).
       Intent record: the 2026-09-25 addendum to
