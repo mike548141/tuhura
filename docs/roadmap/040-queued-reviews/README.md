@@ -9,7 +9,8 @@ so no window exists where landed design sits unpointed.
 **Two open** (2026-10-26), both briefed and waiting on Mike's approval of
 Fable work: the application of the seam pass's findings, and the floor block
 re-stamped at atelier `0a2b7a7` (briefed 2026-11-02). P0-C's design-time
-pass is queued on its own item (`010/013`), briefed 2026-11-02. Two
+pass is queued on its own item (`010/013`), and P0-B's pass on the built
+shell and service worker on `010/012`, both briefed 2026-11-02. Two
 passes have run and closed: the session-log split
 (`../../reviews/2026-09-20-1058-session-log-split.md`) and the archive-store
 seam (`../../reviews/2026-09-20-2236-archive-store-seam.md`).

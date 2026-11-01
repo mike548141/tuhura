@@ -19,6 +19,14 @@
       review: queued if the shell's offline-update rules end up stated here
       rather than in ARCHITECTURE — the lockstep rules have one home.
 
+      ⏳ review: queued — the built shell and service worker, regardless of
+      the condition above: first-of-kind here, and a service worker fails
+      silently. 📝 BRIEF WRITTEN 2026-11-02 by a brief-writing sub-agent
+      (Claude Opus 5.5) of session `2be3482c`, a non-author:
+      `docs/reviews/2026-11-02-1209-p0b-shell-service-worker-cold.md`, with
+      its `.deferred.md` sibling. Tier at selection: Fable. **Fable-gated:
+      it runs only on Mike's explicit approval.**
+
       **Built 2026-09-20 and deliberately not ticked.** The shell,
       manifest, generated icon set (`tools/gen_icons.py`, a stdlib-only
       PNG writer — no Pillow or ImageMagick on the machine, and real PNGs
