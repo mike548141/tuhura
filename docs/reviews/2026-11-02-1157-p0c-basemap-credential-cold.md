@@ -1,7 +1,10 @@
 # Cold pass — P0-C: where the basemap credential lives (design-time, refs-only)
 
-**Status:** BRIEF ONLY — the review has NOT run. Written 2026-11-02 1157
-UTC for board item `010/013` (P0-C), whose line reads *"review: queued"*.
+**Status:** ACT 1 WRITTEN 2026-11-02 — the cold pass ran on Fable 5.1 and
+its verdict is below the divider; act 2 (the held-back sibling, checked
+against act 1) follows once the orchestrator releases it. Brief written
+2026-11-02 1157 UTC for board item `010/013` (P0-C), whose line read
+*"review: queued"*.
 **Fable-gated:** the pass runs only on Mike's explicit approval of Fable
 work at the time. The verdict goes below a divider in this file (atelier
 `REVIEW.md` § *The lifecycle*).
@@ -162,3 +165,375 @@ finding.
 file, holds 7 entries. Open it only after your findings are durably written
 here; then fold it in below your verdict and delete it (`REVIEW.md`
 rule 1).
+
+---
+
+# Verdict — act 1 (cold pass, 2026-11-02)
+
+**PASS WITH MAJORS — 2 MAJOR, 5 MINOR, 5 NOTE.** The item's conclusion
+survives: the shipped product should carry no LINZ credential. The item's
+*framing* does not: it classifies the credential wrongly, and so puts the
+wrong question to Mike (F1); and the offline path it describes is one
+archive where the published style needs two sources (F2). Nothing here
+says build differently; it says decide on corrected facts. Rule 3: the
+item's last sentence (*"Settle this before wiring any key into `site/`"*)
+is a standing instruction to future sessions and so doctrine by function,
+narrowly; the item already marks both actions 🎯, so every finding below
+is counsel to Mike's decision, and nothing is applied by this pass.
+
+## Provenance (rule 4, V7)
+
+Reviewer: Fable 5.1, tier checked at selection. Spawned by a headless
+orchestrator session (Claude Opus 5.5) that was itself started by drain
+session `c87c4ee0` (Opus 5.5). Both are rule-4 off-tier orchestrators:
+they hold the context partition, form no finding and write no severity.
+The reviewer was not started or instructed by any barred session: not the
+2026-09-20 queue run that landed `828b0a2` or its workers, and not session
+`2be3482c` or its brief-writing sub-agent. The pass ran under Mike's drain
+approval of 2026-11-02 for Fable-dependent work, including cold reviews.
+
+Disclosures. (a) The brief's `../atelier` did not resolve from the
+review worktree; `coldsweep.py` and `datescan.py` were run from the
+atelier checkout by absolute path, with `--root .` at this repo's root.
+(b) The brief was read in full before the reviewer named its own
+assumptions, on the orchestrator's instruction; the list below was then
+written against the item text and is not blind to the brief's C1–C7.
+(c) Not read: `docs/SESSIONS.md`, `docs/sessions/`, `docs/ROADMAP-DONE.md`,
+any file under `docs/reviews/` other than this brief, the landing commit's
+message body, and the `.deferred.md` sibling (held by the orchestrator).
+(d) Beyond LINZ's published terms and documentation, the reviewer read
+LINZ's open-source tiler and style configuration on GitHub, which is the
+published behaviour behind the documentation; cited per finding. No key
+was minted, no account touched, no request carried a key.
+
+## The reviewer's own load-bearing assumptions (lens 1, first act)
+
+- **A1** The key gates every endpoint the online render needs. *False in
+  part:* fonts and sprites are keyless (N1).
+- **A2** The key is a secret in the ASVS sense. *False for Standard
+  access; a public-by-design token for Developer access* (F1).
+- **A3** "Public repo, no build step" is the right harm axis. *Wrong
+  axis* (F6).
+- **A4** The export endpoint exists, is on the free tier, and returns the
+  whole tileset. *Confirmed in code; `topographic-v2` specifically
+  unverified* (N2).
+- **A5** Style, glyphs and sprites are redistributable. *Fonts are OFL /
+  Apache; sprites' licence unverified; ADR 0546 process applies* (F5).
+- **A6** `topographic-v2` is one vector tileset. *False: two sources*
+  (F2).
+- **A7** The self-hosted style must be rewritten. *Confirmed* (F2).
+- **A8** Online render first is the cheapest proof. *Holds, and it needs
+  no account* (F7).
+- **A9** Two options is the whole option space. *No* (F1, options).
+- **A10** The online path's privacy cost is unnamed. *Confirmed* (F3).
+- **A11** Attribution must survive self-hosting. *Confirmed* (F5).
+- **A12** The 2026-08-08 research row is the item's factual base and is
+  dated. *Confirmed; partly overclaimed* (F4).
+
+## Evidence base (public reads, all accessed 2026-11-02)
+
+- **T1** LINZ Basemaps Terms of Use:
+  `https://www.linz.govt.nz/guidance/data-service/linz-basemaps-guide/linz-basemaps-terms-use`.
+  Clause 1: access *"for limited use without registration (Standard
+  Access)"* and *"for unlimited reasonable use with registration
+  (Developer Access)"*. Clause 4: *"Current limits are 1,000 tiles /
+  minute and 1,000,000 tiles / month."* Clause 5: *"We track use of our
+  APIs and may restrict use outside the current limits or any other
+  unreasonable use (in our sole discretion)."* Clause 13: *"You are
+  responsible for complying with licences applying to material on
+  Basemaps, including attribution requirements."* Clauses 17–18:
+  suspension on breach; *"We may also end our provision of Basemaps to
+  everyone, or just to you, for any reason at any time."* Clause 20:
+  terms may change, *"including introducing costs"*. The page carries no
+  clause on API-key sharing, caching, bulk download or export, and no
+  date or version.
+- **T2** LINZ Basemaps documentation:
+  `https://www.linz.govt.nz/data/linz-data/linz-basemaps/linz-basemaps-documentation`.
+  Standard: *"LINZ Basemap APIs at this level do not require
+  registration"*; *"A dynamic API key is allocated to you"*; *"Standard
+  API keys expire after 90 days"*. Developer: *"Developers can request
+  this access level by contacting us"*; *"Developer level access enables
+  the allocation of static API keys which we can restrict to your
+  nominated website"*; *"Developer keys do not expire"*. *"There is no
+  charge for either access level."* *"LINZ Basemaps use open data,
+  licensed for reuse under the Creative Commons 4.0 International
+  licence."* *"Your product must always visibly show attribution and link
+  to the LINZ Basemap custom attribution data and copyright text."*
+- **T3** Technical documentation:
+  `https://basemaps.linz.govt.nz/docs/user-guide/technical-documentation/`.
+  Standard is *"designed for use of our APIs in internal GIS applications
+  or web mapping tools"*; Developer supports *"public, high-volume web and
+  mobile apps"*. *"All use of your API key is your responsibility, whether
+  authorised or not."* *"Rate liming [sic] applies to all API clients, at
+  the API token and IP address level."* 429 on excess. Rate-limit table:
+  nominated-site restriction is Developer-only.
+- **T4** Vector-tile usage page:
+  `https://basemaps.linz.govt.nz/docs/user-guide/working-with-vector-tiles/usage/`.
+  Templates: `/v1/styles/{tileset}.json?api={api_key}`,
+  `/v1/tiles/{tileset}/{crs}/{z}/{x}/{y}.pbf?api={api_key}`,
+  `/v1/export/{tileset}/{crs}.mbtiles?api={api_key}`. No glyph or sprite
+  template; nothing on export size or limits; footer *"© CC BY 4.0 LINZ"*.
+- **T5** LINZ's own MapLibre example
+  (`https://basemaps.linz.govt.nz/docs/examples/maplibre.vector.3857/`)
+  embeds a literal key in a public page.
+- **T6** Published style
+  `https://raw.githubusercontent.com/linz/basemaps-config/master/config/style/topographic-v2.json`:
+  `sources` = `"LINZ Basemaps"` (`vector`,
+  `/v1/tiles/topographic-v2/{tileMatrix}/tile.json`, attribution
+  *"© 2022 Toitū Te Whenua - CC BY 4.0"*) and `"LINZ-Elevation-Hillshade"`
+  (`raster-dem`,
+  `/v1/tiles/elevation/{tileMatrix}/{z}/{x}/{y}.png?pipeline=terrain-rgb`);
+  `glyphs` = `/v1/fonts/{fontstack}/{range}.pbf`; `sprite` =
+  `/v1/sprites/topographic`. Font stacks used: Open Sans (Regular,
+  Italic, Bold, Bold Italic, Medium, Light Italic) and Roboto (Light,
+  Bold, Bold Italic, Italic, Black, Black Italic).
+- **T7** Tiler source, `https://github.com/linz/basemaps`,
+  `packages/lambda-tiler/src/routes/`: `tile.style.json.ts` prepends the
+  host to relative URLs and appends `api` to tile URLs only — `glyphs`
+  and `sprite` get no key; `fonts.ts` and `sprites.ts` make no key check;
+  `export.tileset.ts` calls `Validate.apiKey(req)`, requires a
+  single-layer tileset with a stored `.mbtiles` beside its `.tar.co`
+  source, and returns `302` to a presigned S3 URL. `src/util/validate.ts`:
+  format check plus a blocklist, no registry.
+  `packages/shared/src/api.ts`: `newApiKey` = `'c' + ulid()` stored in
+  `localStorage`; `isValidApiKey` accepts a `c` or `d` prefix whose
+  remainder decodes as a ULID; the age check is commented out; the
+  landing app regenerates its `c` key after about 30 days.
+- **T8** Font licences: Open Sans — SIL Open Font License 1.1
+  (`https://raw.githubusercontent.com/googlefonts/opensans/main/OFL.txt`);
+  Roboto — OFL 1.1 for `googlefonts/roboto-3-classic`, Apache 2.0 for
+  `googlefonts/roboto-2`. Which build LINZ's glyphs derive from is not
+  published.
+- **T9** OWASP ASVS 5.0.0 V13.3.1 (L2):
+  `https://raw.githubusercontent.com/OWASP/ASVS/v5.0.0/5.0/en/0x22-V13-Configuration.md`
+  — *"Secrets must not be included in application source code or
+  included in build artifacts"*, scoped to *"backend secrets"*; 13.3.4 <!-- spellscan:allow: verbatim OWASP quote -->
+  (L3) rotation. OWASP API Security Top 10 2023
+  (`https://api-security.owasp.org/editions/2023/en/0x11-t10`): API4
+  Unrestricted Resource Consumption, API8 Security Misconfiguration.
+
+## Findings
+
+### MAJOR
+
+**F1 — The item mis-classifies the credential and so asks the wrong
+question.** The item: *"an API key is a secret, and secrets are floor
+... creating it is an account action and a credential"*; and C3, whether
+LINZ issues *"deliberately-public, domain-restricted keys"*, is
+*"unverified"*. LINZ's documents and code settle both (T1–T3, T7):
+
+- A **Standard** key needs no registration, is minted in the requester's
+  own browser (`'c' + ulid()`), is validated by format alone, is
+  rate-limited per token *and* IP, and rots in 90 days. Nothing is
+  granted by holding it that is not granted by generating a fresh one.
+  It is a quota tag, not a secret; creating it is not an account action.
+- A **Developer** key is the deliberately-public kind: registered by
+  email, static, non-expiring, *"restrict[ed] to your nominated
+  website"*, meant for *"public, high-volume web and mobile apps"*. LINZ
+  itself embeds a key in a public example page (T5). C3's answer is
+  **yes, at Developer tier**.
+
+ASVS 13.3.1 bars *backend* secrets from source; a site-restricted public
+token is the pattern browser basemap keys use, and its risk is not
+confidentiality but **availability and liability**: a published key can
+be burned by anyone (API4), the site restriction is a Referer check that
+non-browser clients evade, and *"All use of your API key is your
+responsibility"* (T3) with suspension on breach (T1 cl. 17). Embedding a
+Developer key therefore risks the online path dying for every user at
+once, and LINZ's view of the project — not a leaked secret.
+
+So "where does the key live" is downstream of the question the item does
+not ask: **does the shipped app ever fetch LINZ tiles at runtime?** If
+no — the item's own insight — no key exists in the product and the
+Standard key is a dev-session tool. If yes (an in-coverage preview before
+a region download, say), the only honest options are a registered
+Developer key published on purpose, or a per-device Standard key minted
+at runtime exactly as LINZ's landing app does. The second is technically
+open but is what T3 steers *away* from (*"internal ... tools"* vs
+*"public ... apps"*), it fragments quota per device in a way LINZ may
+call unreasonable (T1 cl. 5), and the token becomes a 30-to-90-day
+per-device identifier sent to a third party (F3). A proxy (Cloudflare
+Worker) holding the key is ruled out by ARCHITECTURE's *"no server-side
+application logic"* and should be foreclosed on the record rather than
+left unnamed.
+
+**Owed ruling (Mike's), with recommendation.** (1) Treat a Standard key
+as a quota token, not a floor secret: a session may mint one for the
+online proof, never commits it (it rots and identifies the minter), and
+records in the session log that it did. (2) Rule that v1 has **no
+runtime LINZ tile path**: region choice and preview run off the national
+base archive ARCHITECTURE already names as the ~1 GB floor. Then the
+product carries no key and 🎯 1 shrinks to "a dev session mints one".
+(3) Only if a runtime path is ever wanted, register Developer access
+with site restriction and publish the key knowingly, accepting the
+availability risk and recording it in ECONOMICS' tripwire table.
+Recommendation: (1) and (2).
+
+**F2 — The scoping insight's offline path is one archive; the style
+needs two sources, and the second has no documented export.** The item:
+*"once a PMTiles archive is built and self-hosted, the running app reads
+tiles from OPFS, and glyphs and sprites can be vendored alongside the
+style"*. The published `topographic-v2` style (T6) draws its hillshade
+from a second, `raster-dem` source served through LINZ's
+`pipeline=terrain-rgb` processing. The export route (T7) serves a stored
+`.mbtiles` beside a `.tar.co` vector source; the elevation tileset is a
+COG pipeline product and no export is documented for it (T4). So the
+offline render is a **different map** — no hillshade — unless a second
+archive is built from the LINZ 8 m DEM (LDS, CC-BY, courier-ordered for
+full NZ per the research file) and the style's `LINZ-Elevation-Hillshade`
+source repointed at it. The style also needs its `sources`, `glyphs` and
+`sprite` URLs rewritten for self-hosting; the item does not say so.
+
+Consequence for the credential question: none — the insight still holds,
+no key is needed at runtime. Consequence for what rests on the item: P0-D
+says *"Build one regional archive"* and *"generating the archive needs
+the LINZ export endpoint (P0-C's key question)"*; Phase 0's accept-when
+is *"renders the region"*; and the item's stated purpose is to prove
+*"the style and the vendored renderer agree"* — a proof that transfers
+to the offline map only if the offline map is the same style. The
+hillshade gap would be discovered after the archive is built, which is
+the moment this review exists to move. MAJOR for that reason, not for
+the credential.
+
+Owed: P0-D's text to name the second source and choose (hillshade from a
+self-built terrain-RGB archive; or a v1 style without hillshade, said
+plainly in the item and in ARCHITECTURE's basemap bullet, whose
+*"8 m-DEM hillshade"* currently reads as included).
+
+### MINOR
+
+**F3 — The online path's privacy cost is unnamed, and SECURITY.md
+contradicts itself about it.** Every pan of an online render sends tile
+coordinates, the device IP and the key to LINZ, which *"track[s] use of
+our APIs"* (T1 cl. 5). For a hunting and fishing app a viewport is a
+location disclosure; under the per-device-key pattern the token is also
+a persistent identifier. The item frames the decision as credential
+exposure only; the stronger argument for its own insight is that the
+offline path removes a third-party location egress, and the strongest
+argument against any runtime tile path is the same. `SECURITY.md`
+§ Privacy says *"no third-party requests"* and in the next sentence
+*"Network access exists only to fetch map data and forecasts"* — map data
+from LINZ is a third-party request (V5). Owed: name the egress in the
+item's option analysis; reconcile SECURITY.md.
+
+**F4 — "Terms explicitly permit local copies" overclaims.**
+`ARCHITECTURE.md` (basemap bullet) and the research row both say it. The
+Basemaps Terms of Use (T1) say nothing about copies, caching, bulk
+download or export; what permits a local copy is the CC BY 4.0 licence on
+the *data* (T2), with cl. 13 placing licence compliance on the user. The
+Terms also let LINZ end the service or introduce costs at will (cl. 18,
+20), so the export pipeline's continuity is at LINZ's discretion — a
+tripwire ECONOMICS already owes a row for. V1. Owed: reword to "the data
+is CC BY 4.0; the service terms are silent on copies and revocable".
+
+**F5 — "Glyphs and sprites can be vendored" skips the house's own
+process and the licences.** Glyph PBFs are font software: Open Sans is
+OFL 1.1; Roboto is OFL 1.1 or Apache 2.0 depending on the build LINZ
+derived from, which is unpublished (T8). OFL permits bundling *"provided
+that each copy contains the above copyright notice and this license"*.
+ADR 0546 says any vendored dependency gets its own ADR and a `NOTICE`
+entry; `tools/vendor_check.py` pins `site/vendor/` bytes. The sprite
+sheet is LINZ-authored under a licence the style file does not state.
+And LINZ requires visible attribution linking to its copyright statement
+and the Basemap's custom attribution text (T2) — offline, that text must
+ship in the app, not be fetched from `/v1/attribution`. Owed: one ADR for
+the style assets (style JSON, glyphs, sprites, attribution text) under
+0546, with each licence verified and carried in `NOTICE`.
+
+**F6 — C2 picks the wrong axis.** *"This repo is public and has no build
+step, so an embedded key is published the moment it is committed"* is
+true and beside the point: anything the client-side app uses at runtime
+is handed to every user whatever the repo's visibility, and a private
+repo with build-time injection would change nothing. The brief's *"Why
+it earns a review"* has the same shape. The conclusion stands; the
+reasoning should be corrected so no future session reasons that a build
+step or a private mirror would make a runtime key safe. V1.
+
+**F7 — "Blocked on Mike" overstates.** The online proof needs a Standard
+key, which needs no registration (T2); the design question the item
+defers to *"LINZ's own terms"* is answered by reading them, which this
+pass has done. What remains Mike's is the ruling in F1, not a key. The
+leaf's blocker line should say so, so the board's "ready to go" read is
+honest (the Phase 0 parent split the leaves for exactly that reason).
+
+### NOTE
+
+**N1** Fonts and sprites are served without a key (T7): the key gates the
+style JSON and tiles only. An online render could fetch LINZ glyphs and
+sprites keylessly; offline wants them vendored regardless (F5).
+
+**N2** Export is one request answered by a `302` to a presigned S3 URL
+(T7); the research row's *"1M tiles/mo"* is a tile count and does not
+bear on export. Whether `topographic-v2` has a stored `.mbtiles` to
+export is unverified — probing it needs a key, which this pass did not
+mint. The export is the whole tileset; P0-D's regional archive is a
+`pmtiles extract` after `convert`.
+
+**N3** Grounding re-run: `coldsweep -i 'api.?key'` → the same 4 hits
+over 121 files, but **29** files barred, not the brief's 23 (review files
+landed between `da5259e` and this worktree's HEAD); `vendor_check.py`
+and `check_links.py` exit 0 with the quoted lines; the `--commit` line
+prints subject, a one-file `+29` stat and the diff, no body. The brief's
+*"unchanged since"* holds for the item's body; two stamps were appended
+(`c36eefb`, `d83b367`).
+
+**N4** Rotation: Standard keys expire at 90 days per docs and the landing
+app regenerates at about 30 (T2, T7); a Standard key committed anywhere
+rots. Developer keys never expire, so ASVS 13.3.4's rotation would be by
+asking LINZ. Neither is a reason to commit one.
+
+**N5** `ECONOMICS.md` owes a tripwire table naming *"the LINZ Basemaps
+key tier"*; T1–T3 are its source facts (two tiers, no cost, revocable,
+costs may be introduced).
+
+## Lens 4 — security and privacy
+
+Checked against ASVS 5.0 V13.3 and API Security Top 10 2023 (T9), not
+memory. Threats enumerated at design altitude: (i) credential
+confidentiality — moot for Standard keys, not the risk for Developer keys
+(F1); (ii) resource consumption / quota burn of a published key leading
+to suspension (API4, API8) — the real cost of embedding (F1); (iii)
+location egress to a third party via the online tile path (F3); (iv)
+supply-chain and licence integrity of vendored style assets (F5, under
+the existing `vendor_check.py` floor). `/security-review`: discharged in
+one line — there is no code in scope; the subject is a 29-line roadmap
+item and the scanner's exclusions bar markdown, so a clean pass would be
+definitionally empty.
+
+## Standing checklist V1–V7
+
+- **V1** F4, F6, F7 (claims stronger than their evidence).
+- **V2** All four grounding lines re-run (N3); the item's *"unverified"*
+  C3 verified (F1).
+- **V3** Records that change under the recommended ruling: the item
+  (blocker line, options, F2's second source); P0-D `014` (two archives
+  or a stated no-hillshade v1); `ARCHITECTURE.md` basemap bullet
+  (hillshade, "terms permit copies") and § App shell (STYLE axis already
+  anticipated — consistent); `WORKPLAN.md` Phase 0 line 2 (*"API key
+  (free tier)"* → "Standard key, no registration"); the research row
+  (F4); `SECURITY.md` § Privacy (F3); `ECONOMICS.md` tripwire table (N5);
+  a new ADR plus `NOTICE` entries for style assets (F5); `CONTRIBUTING`
+  dev-setup, if a session's minted key needs a documented home outside
+  the tree. `site/sw.js`'s comment and ADR 0452 already agree with the
+  no-key, own-version-axis shape — no change.
+- **V4** The key-tier facts should land once (ECONOMICS table or the
+  item) and be pointed at from ARCHITECTURE, not restated.
+- **V5** SECURITY.md internal contradiction (F3); ARCHITECTURE's
+  hillshade-included reading vs the single-archive plan (F2).
+- **V6** Above.
+- **V7** Provenance stated above and in the brief.
+
+## Non-goals, tested
+
+The non-goals fence off nothing the direction carries: obtaining a key is
+Mike's (and, per F1/F7, smaller than framed); the archive pipeline and
+`pmtiles` install belong to P0-D, whose text F2 asks to change; the
+storage seam has its own pass.
+
+## Follow-ups for the decision step
+
+1. Mike rules on F1 (1)–(3); recommendation (1) and (2).
+2. Apply F2's choice to P0-D and ARCHITECTURE before any archive is
+   built.
+3. F3–F7, N3, N5 are text corrections; one follow-ups item can carry
+   them.
