@@ -1,9 +1,11 @@
 # Cold pass — P0-B: the app shell and its service worker (rule 4, refs-only)
 
-**Status:** ACT 1 WRITTEN — the cold pass ran on 2026-11-02 (Fable 5.1,
-under Mike's 2026-11-02 drain approval); the verdict is below the divider.
-Brief written 2026-11-02 1209 UTC for board item `010/012` (P0-B). Act 2
-(the held sibling, judged against act 1) follows below act 1.
+**Status:** PASS COMPLETE — act 1 (the cold pass) ran on 2026-11-02 and
+was committed at `b378cb8`; act 2 (the held sibling judged against act 1)
+was written the same day, below act 1. Fable 5.1, under Mike's 2026-11-02
+drain approval. Brief written 2026-11-02 1209 UTC for board item `010/012`
+(P0-B). Final tally: 2 MAJOR, 7 MINOR, 7 NOTE. The held sibling is
+folded in at the end of this file.
 
 ## Provenance
 
@@ -165,6 +167,9 @@ finding.
 file, holds 7 entries. Open it only after your findings are durably written
 here; then fold it in below your verdict and delete it (`REVIEW.md`
 rule 1).
+
+*(Orchestrator, 2026-11-01: the sibling is folded below the verdict, under
+"Deferred sibling, folded below the verdict"; its file is deleted.)*
 
 ---
 
@@ -518,3 +523,113 @@ taken by emulation; the headless default rendered dark.
 - Cleanup: server and browser stopped; scratch worktree removed; the
   review worktree holds only this file's edit beside the pre-existing
   sibling deletion.
+
+---
+
+# Act 2 — the held sibling, judged against act 1 (2026-11-02)
+
+Act 1 was committed unedited at `b378cb8` before the sibling (seven
+entries, D1–D7) reached me. Each is judged against act 1 as written; act 1
+is not altered. The sibling's text is folded in by the orchestrator, not
+by me. **Verdict unchanged: PASS WITH MAJORS.** One act-1 finding is
+upgraded and two are added, all marked act-2; final tally **2 MAJOR,
+7 MINOR, 7 NOTE**.
+
+| Entry | Judgement | Where act 1 answers it |
+|---|---|---|
+| D1 — an update that never lands | Caught | C2/C3, A4, F1: the worker holds in `waiting` until a tap (P3) or the next cold start after the last client closes (P4); the banner is the visible sign, and F1 shows the one case where that sign is false. Confirmed detail not in act 1: after "Not now" the notice is not re-offered within that session — `registration.waiting && hadController` re-offers only on the next page load — so an app never closed and once dismissed stays one version behind until relaunch, which is the trade `ARCHITECTURE.md` states |
+| D2 — a half-finished install | Caught, with a sharpening | P4, A2, F13: a failed fetch fails the whole install (the READY sentinel is written last, `Promise.all` rejects, the worker goes `redundant`), the old shell keeps serving, the debris cache is rebuilt on the next attempt. The intermediary half is F6 restated more precisely: `cache: "reload"` bypasses only the browser's own HTTP cache; a CDN edge serves what its headers let it hold, so the only lever on the host side is `_headers` — the Faves incident F6 cites was exactly that layer |
+| D3 — the worker's reach | Caught | F9 and C8: every same-origin GET is proxied (`/does-not-exist.txt` → 404 through the worker); an offline deep link is the browser's error page; on `tools/serve.py` a missing path is a real 404, so the single-page-fallback guard is inert locally and was exercised by VM probe only; what Pages serves today is unverified (live host barred) |
+| D4 — the clean-up on activate | Damaged — new F15 | A5 held for today and F1's test spec names the keep-set, but act 1 did not state the trap: the keep-set is `new Set([SHELL_CACHE])`, and the rules say to add `STYLE_VERSION` "via the same `ensureCache` seam" without saying to add its cache to `keep` — so the first follow-through would build the style cache at install and delete it at activate |
+| D5 — the manifest's permanent fields | Partly caught — F11 upgraded | F11 noted the missing `id` as a detail. The sibling's framing is the right one: with no `id`, the app's identity defaults to `start_url`, and `start_url` is `./index.html`, a URL `sw.js` lines 111–115 document the host 308-redirecting to `./`. Pinning identity to a redirecting URL, and leaving it to default, is cheap to fix before the first install and costly after |
+| D6 — true-dark from the first paint | Caught, with a one-line hardening — new F16 | Dark is applied by the render-blocking stylesheet in `<head>` (no frame paints before it), by the two `theme-color` tags and by the manifest's `background_color`; offline the stylesheet comes from the cache. The ratios were computed from the tokens, and the browser's computed body colours in both themes matched the tokens exactly (P1, P2). Not run: a first-frame capture. The pre-stylesheet canvas is the one gap, below |
+| D7 — a check that writes | Caught | F12 and C7: `--check` compares the PNGs and the SVG in memory, writes the ICO to a `.check` sibling and unlinks it, never overwrites a real file, and `git status` was clean after both runs; `ICONS_DIR.mkdir` does run in check mode (harmless unless the directory is missing). Every glyph pixel of every PNG is inside the 80 % safe circle |
+
+## Act-2 changes to the findings
+
+**F11 — upgraded NOTE → MINOR (act 2).** `site.webmanifest` sets no `id`,
+so the installed app's identity is derived from `start_url`, which is
+`./index.html` — a URL the host redirects to `./` on navigation per
+`sw.js`'s own comment. Once a phone has installed the app, changing either
+value changes its identity (an installed copy stops matching the manifest
+it was installed from). Recommend, before the first deploy or install:
+`"id": "./"` and `"start_url": "./"`, keeping `"scope": "./"`; the
+`SHELL` entry `"./"` already precaches that URL, and D5's sub-path and
+new-origin cases are covered by everything staying relative (A10). The
+`any maskable` and `sizes="any"` points of F11 stay at NOTE weight.
+
+**F15 (act 2, NOTE) — the activate keep-set is a second lockstep site the
+rules do not name.** `sw.js` deletes every cache not in
+`new Set([SHELL_CACHE])`; the rules and the head comment say a future
+`tuhura-style-<STYLE_VERSION>` cache joins "via the same `ensureCache`
+seam", and neither says it must also join `keep`. Miss it and install
+builds the style cache, activate deletes it, and the first offline start
+has no style — no error on the way. Rule 3: Mike decides the wording.
+Recommend naming the keep-set in the rule, and making F1's shape test
+assert that every version-named cache the file builds is in the keep-set
+(Faves' "activate keeps exactly the three current caches" is the model).
+
+**F16 (act 2, NOTE) — declare `color-scheme` in the HTML head.**
+`color-scheme: light dark` lives only in `app.css`, so until the
+stylesheet applies the document canvas follows the browser default, which
+is light. The render-blocking link means no frame should paint before
+then, so this is belt-and-braces: the one-liner
+`<meta name="color-scheme" content="light dark">` in `<head>` lets the
+pre-stylesheet canvas honour the OS theme as well. Not a defect observed;
+a first-frame capture was not run.
+
+## Tally after act 2
+
+MAJOR: F1, F2 (2). MINOR: F3, F4, F5, F6, F7, F8, F11 (7). NOTE: F9,
+F10, F12, F13, F14, F15, F16 (7). Verdict: PASS WITH MAJORS, unchanged.
+
+## Deferred sibling, folded below the verdict (orchestrator, 2026-11-01)
+
+The text below is the brief-writer's held-back sibling,
+`2026-11-02-1209-p0b-shell-service-worker-cold.deferred.md`, carried in
+verbatim except that its heading sits two levels deeper so it nests under
+this one. The orchestrator held it outside the worktree until act 1 was
+committed at `b378cb8`, then released it to the reviewer for act 2; the
+reviewer's reconcile of it is the *Act 2* section above. The orchestrator
+(a headless Opus 5.5 session started by drain session `c87c4ee0`) formed
+no finding and edited none of the reviewer's text. The sibling's own
+words are hypotheses, never findings.
+
+### Held back — the brief-writer's angles for the P0-B shell pass
+
+For `2026-11-02-1209-p0b-shell-service-worker-cold.md`. **Open only after
+your own findings are durably written in the brief** (`REVIEW.md` rule 1).
+Then fold this in below the verdict and delete this file.
+
+Written by the brief-writing sub-agent (Claude Opus 5.5, of session
+`2be3482c`) from the commit file lists, the head of `site/sw.js` and the
+item; it did not read the rest of the code. Hypotheses, unproven; none was
+driven. Answer each: confirmed, damaged, or already covered by your
+finding N.
+
+- **D1 — an update that never lands.** If the new worker waits for a tap,
+  an installed app that is never fully closed may run the old shell for
+  ever. If it takes over without one, old page code may meet a new worker.
+  Which is it, and is either case visible to the person?
+- **D2 — a half-finished install.** If one precache fetch fails offline or
+  mid-download, does install fail cleanly and keep the old shell, or can a
+  partial cache become the active one? Does `cache: "reload"` hold through
+  every intermediary between the host and the phone?
+- **D3 — the worker's reach.** At the site root, what will the worker
+  answer for a path it does not know: a future API, a future fetched tile,
+  a 404? The single-page fallback is labelled unverified; what does it
+  serve today?
+- **D4 — the clean-up on activate.** Does deleting old caches match by
+  name in a way that will also delete the future style cache on its own
+  version axis, which `sw.js` says is coming?
+- **D5 — the manifest's permanent fields.** `id`, `start_url` and `scope`
+  are hard to change once a phone has installed the app. Are today's values
+  the ones the app can live with when hosting, sub-paths and sync arrive?
+- **D6 — "true-dark from the first paint".** Is the theme applied before
+  the first frame (no light flash at a campsite), and were the contrast
+  ratios computed from the colours the browser actually renders in both
+  themes?
+- **D7 — a check that writes.** `gen_icons.py` creates `site/icons/` and
+  writes files in its main path. Does `--check` ever write into the tree
+  before it compares, so a stale set is "fixed" rather than reported? Is
+  the maskable icon's art inside the safe zone?
