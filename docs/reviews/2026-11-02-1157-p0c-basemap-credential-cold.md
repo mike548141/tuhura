@@ -1,8 +1,10 @@
 # Cold pass — P0-C: where the basemap credential lives (design-time, refs-only)
 
-**Status:** ACT 1 WRITTEN 2026-11-02 — the cold pass ran on Fable 5.1 and
-its verdict is below the divider; act 2 (the held-back sibling, checked
-against act 1) follows once the orchestrator releases it. Brief written
+**Status:** VERDICT WRITTEN 2026-11-02 — the cold pass ran on Fable 5.1;
+act 1 (findings) and act 2 (the held-back sibling checked against them)
+are below the divider. PASS WITH MAJORS: 2 MAJOR, 6 MINOR, 7 NOTE. Act 1
+was committed as `158ef9a` before the sibling was released; the sibling
+is folded in at the end of this file. Brief written
 2026-11-02 1157 UTC for board item `010/013` (P0-C), whose line read
 *"review: queued"*.
 **Fable-gated:** the pass runs only on Mike's explicit approval of Fable
@@ -165,6 +167,9 @@ finding.
 file, holds 7 entries. Open it only after your findings are durably written
 here; then fold it in below your verdict and delete it (`REVIEW.md`
 rule 1).
+
+*(Orchestrator, 2026-11-02: the sibling is folded below the verdict, under
+"Deferred sibling, folded below the verdict"; its file is deleted.)*
 
 ---
 
@@ -430,7 +435,7 @@ is CC BY 4.0; the service terms are silent on copies and revocable".
 process and the licences.** Glyph PBFs are font software: Open Sans is
 OFL 1.1; Roboto is OFL 1.1 or Apache 2.0 depending on the build LINZ
 derived from, which is unpublished (T8). OFL permits bundling *"provided
-that each copy contains the above copyright notice and this license"*.
+that each copy contains the above copyright notice and this license"*. <!-- spellscan:allow: verbatim OFL quote -->
 ADR 0546 says any vendored dependency gets its own ADR and a `NOTICE`
 entry; `tools/vendor_check.py` pins `site/vendor/` bytes. The sprite
 sheet is LINZ-authored under a licence the style file does not state.
@@ -537,3 +542,142 @@ storage seam has its own pass.
    built.
 3. F3–F7, N3, N5 are text corrections; one follow-ups item can carry
    them.
+
+---
+
+# Act 2 — the held-back sibling, checked against act 1 (2026-11-02)
+
+Opened after act 1 was committed (`158ef9a`), released by the
+orchestrator holding the partition; read once. The sibling holds seven
+hypotheses, D1–D7, from the brief-writer's single read of the item. Each
+is answered below as caught (already a finding), missed (new), or
+damaging (changes a finding). **Verdict unchanged: PASS WITH MAJORS.**
+Tally moves from 2/5/5 to **2 MAJOR, 6 MINOR, 7 NOTE** — one MINOR and
+two NOTEs the reviewer's own pass did not reach.
+
+- **D1 — a public key is still the owner's quota.** Caught: F1. The
+  nominated-site restriction is a Referer check that non-browser clients
+  set at will; LINZ's words are *"All use of your API key is your
+  responsibility, whether authorised or not"* (T3) and suspension on
+  breach (T1 cl. 17). F1 names availability and liability, not
+  confidentiality, as the cost of embedding. Confirmed, nothing to add.
+- **D2 — self-hosting moves the dependency rather than removing it.**
+  Partly caught (F4: the export service is revocable; N2: export is one
+  request, so it fits the Standard limits), partly **missed → N6**. The
+  archives' host is ARCHITECTURE's R2 bucket with its own account, its
+  own credential and its own terms; the credential sits with whoever
+  publishes archives, at publish time, never in `site/` — the same shape
+  C6 claims for the LINZ key, and worth saying in the item so "the
+  product does not carry one" is read as "no credential at runtime", not
+  "no credential anywhere". The download host also learns which region a
+  device fetched, a coarse location egress that F3's reasoning applies
+  to; ECONOMICS already owes the R2 cost row. No verdict change.
+- **D3 — any runtime online path brings the key back.** Caught: F1's
+  central question, with the in-coverage preview named as the likely
+  path, and the recommendation that v1 run previews off the national base
+  archive so no runtime path exists. Confirmed.
+- **D4 — vendored glyphs and sprites carry their own licences.** Caught:
+  F5 (Open Sans OFL 1.1; Roboto OFL 1.1 or Apache 2.0 by build, unknown
+  which; sprite licence unstated; ADR 0546 and `NOTICE` apply). Confirmed.
+- **D5 — a vendored style drifts.** **Missed → F8 (MINOR).** The item
+  says glyphs and sprites are *"vendored alongside the style"* and stops.
+  A style is written against a tileset's layer schema; LINZ ships
+  quarterly, and the style and the archives it is rendered over must be
+  from editions whose schema agree, or layers silently vanish from the
+  map. ARCHITECTURE already gives the style its own `STYLE_VERSION` cache
+  axis and Phase 3's manifest two dates per layer, so the machinery for
+  noticing exists; what no record states is the **coupling**: a vendored
+  style version is pinned to the archive schema version it was tested
+  against, and the manifest carries that pin. The safety-adjacent rule's
+  "data may be out of date" is met by the manifest's currency date; a
+  schema mismatch is a different failure (a layer missing, not stale) and
+  belongs in the same manifest check. Owed: a sentence in ARCHITECTURE's
+  shell section and in P0-D. MINOR because the axes exist; only the lock
+  between them is unwritten.
+- **D6 — an online render tells a third party where the user is
+  looking.** Caught: F3, including the per-device token as a persistent
+  identifier under the client-minted pattern, and SECURITY.md's own
+  contradiction. The sibling's extra clause, *"is it disclosed to the
+  user?"*, sharpens F3's owed action: the disclosure belongs in
+  SECURITY.md § Privacy and in the in-app data-sources screen that ADR
+  0454 already requires, not only in the item's option analysis.
+- **D7 — is online-first still the cheapest proof?** Partly damaging to
+  A8/F7 → **N7**. The fixture generator's tiles are *"deterministic
+  synthetic bytes, not real map data"* with tile type `Unknown`
+  (`tools/make_fixture_pmtiles.py`, its own header), so a render over it
+  proves nothing about the style's data references. But the style JSON
+  is published keylessly on GitHub (T6) and glyphs and sprites are served
+  keylessly (N1), so a **partial proof exists with no key at all**: load
+  `topographic-v2` under the vendored MapLibre 6.10.0 and confirm the
+  style-spec v8 expressions parse and the fonts and sprites resolve. That
+  catches renderer/style incompatibility, which is most of what the item
+  wants, before anyone mints anything. The full proof over real tiles
+  still needs a Standard key, which F7 shows is not a blocker. F7 stands;
+  the item should order the two steps: keyless parse first, keyed render
+  second.
+
+## Updated findings index
+
+MAJOR F1, F2 · MINOR F3, F4, F5, F6, F7, **F8** · NOTE N1, N2, N3, N4,
+N5, **N6**, **N7**. Follow-ups for the decision step are unchanged except
+that item 3 now carries F8, N6 and N7 as well.
+
+---
+
+## Deferred sibling, folded below the verdict (orchestrator, 2026-11-02)
+
+The text below is the brief-writer's held-back sibling,
+`2026-11-02-1157-p0c-basemap-credential-cold.deferred.md`, carried in
+verbatim except that its headings sit two levels deeper so they nest under
+this one. The orchestrator held it outside the worktree until act 1 was
+committed at `158ef9a`, then released it to the reviewer for act 2; the
+reviewer's reconcile of it is the *Act 2* section above. The orchestrator
+(a headless Opus 5.5 session started by drain session `c87c4ee0`) formed
+no finding and edited none of the reviewer's text. The sibling's own
+words are hypotheses, never findings.
+
+### Held back — the brief-writer's angles for the P0-C credential pass
+
+For `2026-11-02-1157-p0c-basemap-credential-cold.md`. **Open only after your
+own findings are durably written in the brief** (`REVIEW.md` rule 1). Then
+fold this in below the verdict and delete this file.
+
+Written by the brief-writing sub-agent (Claude Opus 5.5, of session
+`2be3482c`) from one read of the item and the records it names. These are
+hypotheses, unproven; none was driven. Use them to check coverage against
+your own findings, never as findings. Answer each: confirmed, damaged, or
+already covered by your finding N.
+
+#### Seeded hypotheses
+
+- **D1 — a "public" key is still the owner's quota.** If LINZ does issue
+  domain-restricted keys, the restriction is a referrer check, which any
+  client outside a browser can set. Does a published key let a stranger
+  spend the owner's tile allowance, or get the key revoked, whatever its
+  label says?
+- **D2 — self-hosting moves the dependency rather than removing it.** C4
+  and C6 need archives hosted somewhere a phone can download them from.
+  Does that host need its own credential, cost money per byte served, or
+  carry terms of its own? Does bulk export through the free tier fit that
+  tier's published limits?
+- **D3 — any runtime online path brings the key back.** Connectivity is the
+  enhancement, not the mode. If any feature fetches LINZ tiles live (an
+  area not yet downloaded, a fresher edition, a preview before download),
+  the shipped app needs a key again. Does *"the product does not carry
+  one"* survive the features the strategy promises?
+- **D4 — vendored glyphs and sprites carry their own licences.** Glyph sets
+  are built from fonts, and sprites are artwork; their licences may differ
+  from the tiles' CC-BY 4.0. Do they fit the vendored-dependency rule's
+  sanctioned class, and does `NOTICE` cover them?
+- **D5 — a vendored style drifts.** LINZ updates quarterly. A vendored
+  `topographic-v2` style with rewritten sources can fall out of step with
+  newer archives. Who notices, and does the app say the data may be out of
+  date, as the safety-adjacent rule asks?
+- **D6 — an online render tells a third party where the user is looking.**
+  Tile requests carry coordinates and the device's address. Does the
+  item's online-first step square with the accountless, privacy-first
+  posture, and is it disclosed to the user?
+- **D7 — is online-first still the cheapest proof?** P0-D's fixture
+  generator makes a spec-valid archive with no key. Could a local render
+  prove the style and the renderer agree as cheaply, or does the online
+  step spend the one credential C6 sets out to avoid?

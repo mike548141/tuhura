@@ -1,4 +1,4 @@
-- [~] ⏳ **P0-C — online render against LINZ Basemaps.** Fetch the
+- [ ] 🎯 **P0-C — online render against LINZ Basemaps.** Fetch the
       `topographic-v2` style JSON plus glyphs and sprites, and render the
       LINZ vector topo online, before any offline path exists — the cheapest
       way to prove the style and the vendored renderer agree.
@@ -36,10 +36,60 @@
       runs only on Mike's explicit approval.** The taker reads the brief and
       runs the pass; it does not rewrite the brief.
 
-      [~] CLAIMED 2026-11-01T14:42Z — pass running. Orchestrator: a headless Opus 5.5
+      CLAIMED 2026-11-01T14:42Z — pass running. Orchestrator: a headless Opus 5.5
       session started by drain session `c87c4ee0` (Opus 5.5) inside this
       repo; both are rule-4 off-tier orchestrators that hold the context
       partition (the `.deferred.md` sibling is held back from the reviewer
       until act 1 is committed) and form no finding and write no severity.
       Reviewer tier: Fable 5.1, checked at selection. Neither orchestrator
       is barred by the brief. Runs under Mike's 2026-11-02 drain approval.
+
+      ✅ PASS RAN 2026-11-02 — **PASS WITH MAJORS: 2 MAJOR · 6 MINOR · 7
+      NOTE** (act 1 at `158ef9a`; act 2 reconciled the sibling, which is
+      now folded in). Verdict: below the divider in
+      `docs/reviews/2026-11-02-1157-p0c-basemap-credential-cold.md`.
+      Reviewer Fable 5.1; the orchestrators formed no finding. The item's
+      conclusion (the product carries no LINZ key) survives; its framing
+      does not.
+
+      Standing MAJORs: **F1** the item treats the key as a floor secret and
+      asks where it lives, but LINZ's own docs show a Standard key is a
+      browser-minted, 90-day quota tag and a Developer key is the
+      deliberately-public, site-restricted kind; the real question is
+      whether the shipped app fetches LINZ tiles at runtime at all ·
+      **F2** the offline path is one archive, but `topographic-v2` draws
+      its hillshade from a second `raster-dem` source with no documented
+      export, so the offline map loses hillshade unless a DEM archive is
+      built.
+
+      🎯 **Owed to Mike (rule 3 — every finding is counsel to his 🎯
+      choice above):**
+      1. **F1 ruling.** Options: (1) treat a Standard key as a quota token,
+         not a floor secret — a session mints one for the online proof,
+         never commits it, and logs that it did; (2) rule that v1 has no
+         runtime LINZ tile path, so the product carries no key; (3) only if
+         a runtime path is ever wanted, register a Developer key with site
+         restriction and publish it knowingly, recording the availability
+         risk. **Recommendation: (1) and (2)** — the shipped app then holds
+         no key, and 🎯 1 shrinks to "a dev session mints one" (the
+         reviewer's reasoning).
+      2. **F2 choice, for P0-D and ARCHITECTURE before any archive is
+         built:** hillshade from a self-built terrain-RGB archive off the
+         LINZ 8 m DEM, or a v1 style without hillshade, said plainly. The
+         reviewer names both and recommends neither.
+      3. **The text corrections** F3 (online rendering's privacy egress is
+         unnamed; SECURITY.md contradicts itself) · F4 ("terms explicitly
+         permit local copies" overclaims) · F5 (vendoring glyphs is
+         vendoring OFL/Apache fonts under the vendored-dependencies ADR
+         and NOTICE) · F6 (C2 picks the wrong axis) · F7 ("Blocked on
+         Mike" overstates) · F8 (pin the style version to the archive
+         schema edition it was tested against), with N3, N5, N6 and N7:
+         accept all into one follow-ups item, accept some, or decline.
+         **Recommendation: accept all and route them with F2 to P0-D.**
+      Asked on the board, not in a prompt, per Mike's 2026-11-02 drain
+      ruling.
+
+      Routing: the pass is design-time counsel and applies nothing. Once
+      Mike rules F1 and F2, the decision lands on this item, P0-D and
+      ARCHITECTURE; whether that decision earns its own cold pass is for
+      the session that applies it to judge (`REVIEW.md`).
