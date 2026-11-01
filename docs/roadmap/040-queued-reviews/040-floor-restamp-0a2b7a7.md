@@ -9,3 +9,10 @@
       the taker writes the brief. Tier at selection: Fable.
 
       **Not takeable by session `9172eab0`**, which authored the bump.
+
+      📝 BRIEF WRITTEN 2026-11-02 by a brief-writing sub-agent (Claude
+      Opus 5.5) of session `2be3482c`, a non-author:
+      `docs/reviews/2026-11-02-1159-floor-restamp-0a2b7a7-cold.md`, with its
+      `.deferred.md` sibling. **Fable-gated: the pass runs only on Mike's
+      explicit approval.** The taker reads the brief and runs the pass; it
+      does not rewrite the brief.

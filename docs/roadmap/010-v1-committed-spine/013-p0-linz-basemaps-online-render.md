@@ -27,3 +27,11 @@
 
       review: queued — this decides whether a credential exists in the
       deployed artefact at all, which is direction, not plumbing.
+
+      ⏳ 📝 BRIEF WRITTEN 2026-11-02 by a brief-writing sub-agent (Claude
+      Opus 5.5) of session `2be3482c`, a non-author:
+      `docs/reviews/2026-11-02-1157-p0c-basemap-credential-cold.md`, with its
+      `.deferred.md` sibling. A design-time pass on the direction above,
+      before the key exists. Tier at selection: Fable. **Fable-gated: it
+      runs only on Mike's explicit approval.** The taker reads the brief and
+      runs the pass; it does not rewrite the brief.
