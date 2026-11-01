@@ -1,9 +1,8 @@
 # Cold pass — the seam fixes' application (rule 4, refs-only)
 
-**Status:** BRIEF ONLY — the review has NOT run. Written 2026-10-26 09:10
-UTC for board item `040/030`. The pass is for a cold Fable session to run;
-the verdict goes below a divider in this file (atelier `REVIEW.md` § *The
-lifecycle*).
+**Status:** PASS — no MAJOR; 6 MINOR, 3 NOTE. The pass ran 2026-11-02
+(act 1); verdict below the divider. Brief written 2026-10-26 09:10 UTC for
+board item `040/030` (atelier `REVIEW.md` § *The lifecycle*).
 
 ## Provenance
 
@@ -193,3 +192,357 @@ them.
 file, holds the brief-writer's own angles. Open it only after your findings
 are durably written here; then fold it in below your verdict and delete it
 (`REVIEW.md` rule 1).
+
+---
+
+## Verdict — PASS, no MAJOR (act 1, 2026-11-02)
+
+Six MINOR, three NOTE, zero MAJOR. Every applied fix does what the
+addendum says it does, and the three defects the 2026-09-20 pass called
+MAJOR are closed on evidence I re-drove, not on the applier's word. What
+remains is a stale platform-confirm list, three untyped error paths beside
+a "ten errors, never a bare one" claim, one test whose name outruns its
+stub, and a mirror sweep that stopped one file short. Under `REVIEW.md`
+§ *Applying decisions* a pass with no MAJOR closes the cycle: the
+findings below are decided into the backlog, and their application does
+not spawn another full ceremony.
+
+### Provenance (rule 4, V7)
+
+Reviewer: Claude Fable 5.1, tier checked at selection. Spawned by a
+headless orchestrator session (Claude Opus 5.5), itself started by drain
+session `c87c4ee0` (Opus 5.5). Both are rule-4 off-tier orchestrators:
+they hold the context partition, form no finding and write no severity.
+The reviewer was not started or instructed by any session the brief
+bars: not the session that applied the fixes (the 2026-09-20 22:36 UTC
+cold-pass session, resumed 2026-09-25), not the 2026-09-20 orchestrated
+queue run or any worker it dispatched, and not the brief-writing session
+`49c917e1`. Run under the principal's drain approval of 2026-11-02.
+
+Run from a fresh worktree at `88f5a33` (detached, `origin/main`), Node
+v24.18.0, `/usr/bin/python3`. Doctrine read from the atelier checkout's
+`origin/main` (`6a16918`) after a fetch; the pinned doctrine was read at
+`548b706`.
+
+### Disclosures
+
+- Onramp: I did not open `docs/SESSIONS.md`, any `docs/sessions/` file,
+  `docs/ROADMAP-DONE.md` or the prior verdict. The P0-D item's 2026-09-25
+  paragraph is part of the delta and was read as a claim. The board item
+  `040/030` at HEAD was read for the claim's disclosure text only.
+- The held-back sibling was absent from the worktree (held by the
+  orchestrator); I did not look for it anywhere.
+- The landing commit was read body-free with `coldsweep.py --commit`.
+- Tree sweeps: my first two `grep` calls named non-barred paths
+  explicitly (`docs/ARCHITECTURE.md`, `docs/roadmap`, `docs/decisions`,
+  `CLAUDE.md`, `README.md`, `CONTRIBUTING.md`); they printed nothing from
+  a barred path. Rule 2 asks for the tool, not a hand exclusion, so the
+  sweep was repeated with `coldsweep.py` (`--also-exclude` on the item and
+  this brief; 31 files barred), which is what the mirror findings cite.
+- `/security-review` was NOT run, with grounds under lens 4 below.
+- No network beyond `gh run list -L 3`; no device, no browser.
+
+### Lens 1 — the assumptions I named first, and what broke
+
+Named before the C-list was read closely, then attacked:
+
+- **A1** pmtiles only reads past EOF at offset 0. Held: the vendored
+  4.5.0 reads `[0, 16384)` once in `getHeaderAndRoot`; every later read
+  is directory-driven. Its own `FetchSource` re-requests `bytes=0-(n-1)`
+  on a 416, so the clamp is the library's own precedent, as the addendum
+  says.
+- **A2** `File.lastModified` is a reliable change signal on OPFS. Not
+  provable here; the stub fixes it at a constant, so the suite cannot
+  see a platform that returns a constant either (G1, G3).
+- **A3** the stand-in models the platform rules the tests lean on. It
+  throws quota before writing, overwrites on `write(at)`, allows one sync
+  handle per file, and its `move()` silently replaces an existing
+  destination. The last is an assumption the ADR never states (G1).
+- **A4** every error crossing the seam is one of the ten. Broke in three
+  places (G2).
+- **A5** manifest fields are trusted. The enumeration treats only
+  archive bytes as untrusted (G6).
+- **A6** the tests' names match what their assertions prove. One does
+  not (G3).
+- **A7** the generator matches the library beyond z4. Held to z8
+  exhaustively and 3,000 random tiles to z26.
+- **A8** only uncompressed, root-directory-only archives have been driven
+  under `PMTiles`. True of the suite; I drove a gzip-compressed 341-tile
+  archive through the seam handle (header, tile and metadata reads) and
+  it held. Leaf directories remain ungenerated (the generator says so),
+  so that path is still exercised only by reasoning: it is `getBytes`
+  with other numbers.
+- **A9** every mirror of a changed rule was swept. Three were not (G4).
+- **A10** the floor block equals canonical at `548b706`. Held (C11).
+
+The brief's framing survived attack: the delta bound resolves to the one
+commit `21f48a6`; `e79742b` is in scope and benign (it ignores
+`tools/__pycache__/`, which `node --test` does create — verified by
+`git status --ignored` after the run); nothing after `e79742b` touches a
+delta file. The non-goal that fences off the device half is legitimate —
+OPFS, `move()` and quota genuinely need a browser — but the *content* of
+that fence is stale, which is G1.
+
+### The load-bearing claims, re-driven
+
+- **C1 — confirmed, and extended.** `tests/storage-opfs.test.js` drives
+  the handle under `new pmtiles.PMTiles()` at 680 bytes and at 17 KiB.
+  My probe added a gzip-compressed 341-tile archive (17,306 bytes) read
+  through the seam: 341 addressed tiles, `z4/15/15` payload correct,
+  `getMetadata()` returns the fixture's name. The clamp fires only at
+  offset 0 and only when `length > size`; `getBytes(1, 16384)`,
+  `getBytes(150, 51)` and `getBytes(200, 1)` on a 200-byte archive throw
+  `OutOfRangeReadError` (the suite's test, re-run).
+- **C2 — confirmed.** Quota failure leaves `bytesWritten` at 8 of 16, the
+  retry at offset 8 is accepted, `commit()` throws `ArchiveCorruptError`
+  until every byte lands, and the staging name is the only file on disk.
+  The caveat is the stand-in's: it throws before writing. A platform that
+  lands part of a chunk and then throws leaves the file ahead of the
+  tracker; a same-session retry at `at: offset` overwrites, and a fresh
+  session resumes from `getSize()`, so the bytes are a correct prefix
+  either way. Not a defect; it belongs on the device list (G1).
+- **C3 — confirmed, and extended.** The suite compares 341 tiles. I
+  compared 90,381: z0–z8 exhaustive (87,381 distinct ids, a bijection
+  onto 0..87380) plus 3,000 random tiles at z9–z26. Zero mismatches
+  against the vendored `zxyToTileId`.
+- **C4 — confirmed for the case tested; incomplete.** With no `move()`,
+  `commit()` throws `ArchiveStoreUnsupportedError` and the 4-byte staging
+  file stays. When `move()` exists and *rejects*, the rejection crosses
+  the seam as a bare `NoModificationAllowedError`, the writer is already
+  closed (`#closed = true` is set before the `await`), and the staging
+  file is intact and resumable at 4 by a fresh `write()` (G2a).
+- **C5 — confirmed for the ten.** `toJSON` → string → `fromJSON`
+  rebuilds class, message, fields and `instanceof` for every sample,
+  including `availableBytes: undefined`. An unknown code revives as a
+  plain `ArchiveError`. The gap is what is *not* one of the ten (G2).
+- **C6 — confirmed.** `.w.etag1.pmtiles.part` seeded; `write("w", 10,
+  "etag2")` throws `ArchiveVersionMismatchError` with both versions;
+  `write("w", 10, "etag1")` resumes at 6 and commits `[5×6, 6×4]`.
+- **C7 — code confirmed; docs partly.** Ten classes, ten distinct codes,
+  `delete()` idempotent on a missing id and a never-existing id. The ADR
+  addendum, ARCHITECTURE and the P0-D 2026-09-25 paragraph say what the
+  code does; the ADR's Decision block and the P0-D opening paragraph
+  still say what the old code did (G4).
+- **C8 — half confirmed.** `getKey()` is `k@<lastModified>` and stable
+  across `open()`. "Changes when the bytes change" is not shown: the
+  stand-in's `lastModified` is a constant, so a re-download under a
+  different version returned the identical key `k@1700000000000` in my
+  probe. With a ticking clock the key does change. The property rests on
+  the platform (G1, G3).
+- **C9 — the boundary is drawn in the right place; the far side is
+  under-described.** The stand-in proves the logic (staging → commit,
+  quota, resume, version refusal, bounds under the real parser). The
+  list of what the platform must confirm is stale and misses the two
+  platform assumptions the fixes themselves introduced (G1).
+- **C10 — present, not complete** (G6).
+- **C11 — confirmed.** The floor block at `21f48a6` differs from
+  `548b706:docs/method/PROPAGATION.md`'s `floor:` region only where the
+  template's placeholders (`<SHA>`, `<atelier-path>`, `<visibility
+  fact>`, `<owner/repo>`) are filled; the pin line and the drift command
+  both read `548b706`. The ADR addendum records the principal's ruling as
+  the record's acceptance. The `⏳` item was added by `21f48a6` itself,
+  refs only; its text is process, not evaluation. Doctrine at `548b706`
+  already held § *Applying decisions* and rules 3–4 in their present
+  wording; mainline has since added only the side-door paragraph and the
+  V1–V7 checklist, so the work meets both.
+
+### Findings
+
+**G1 — MINOR — the platform-confirm list is stale and misses the two
+assumptions the fixes added.** The P0-D item (lines 56–60) still asks a
+browser session to confirm "whether `FileSystemFileHandle.move()` exists
+on the target browsers or the copy-then-delete fallback is the live
+path"; F4 removed that fallback in this delta. ADR Consequences (line
+217) still names "the copy fallback". Neither names (a) `move()`
+*replacing an existing committed file* — the stand-in does it silently,
+the ADR never states it as a requirement of `commit()`, and no test in
+the suite commits a second version over a committed first (my probe
+did; the logic holds in the stub); nor (b) `File.lastModified` from OPFS
+`getFile()` as a change signal that survives `move()` — the whole of
+F11. Both are exactly "the platform's own behaviour" C9 says is still
+owed, and a device session reading the list as written would not test
+either. The addendum's compat claim for `move()` (Safari 15.2, Chrome
+102, Firefox 111) is NOT VERIFIED here: no network. Fix: rewrite the
+confirm paragraph; add a stub test for v2-over-v1 commit; consider
+carrying the version into the committed name (`<id>.<version>.pmtiles`)
+so `getKey()` can be `<id>@<version>`, platform-free, and `list()` can
+report what is installed — which also answers G5.
+
+**G2 — MINOR — three untyped paths beside "exactly these classes, never a
+bare Error or a platform-native one"** (`errors.js` lines 1–8; ADR F7
+"the error set is ten"). (a) `commit()`: a rejecting `move()` surfaces
+as the platform's DOMException (probe: `NoModificationAllowedError`,
+`toJSON` gives `{"name":…}` only) with the writer already closed; the
+addendum's "where absent the write stops typed" covers only the missing
+method. (b) `append()`: a chunk overrunning the declared total throws a
+bare `RangeError` from `assertNext` (probe: `JSON.stringify(err)` is
+`{}`, so it cannot cross `postMessage` as anything). The code calls this
+a caller bug, but a server that ignores `Range` and returns a whole body
+produces it from the network, not from `planChunks`. (c) `getBytes()`
+on a handle whose file was deleted or re-downloaded: the class comment
+says reads "start failing" with `NotReadableError`; nothing wraps it.
+Fix: wrap (a) and (c) in seam errors (busy/corrupt, or a stale-handle
+class), make (b) an `OutOfOrderWriteError`-class typed error, or narrow
+the header claim to say which paths are excluded. Nit on the same
+surface: on the quota path `availableBytes = est.quota - est.usage` is
+not null-checked (unlike `quota()`), so an `estimate()` returning no
+numbers yields `NaN`, which JSON turns into `null` and the revived
+message into "an unknown amount available" — the one case where the
+message does not round-trip.
+
+**G3 — MINOR (V1) — a test named for a property its stub cannot show.**
+`getKey changes when the committed bytes do` asserts the key's shape and
+its stability across `open()`; the stand-in's `lastModified` is
+`1_700_000_000_000` for every file, so a re-download yields the same key
+(probe above). Rename it to what it proves, or give the stand-in a
+clock and assert the change.
+
+**G4 — MINOR (V3) — F10's sweep stopped one file short of the delta and
+missed two outside it.** `FileSource` survives as the seam's read path
+in the P0-D item's opening paragraph (line 4, in a file the delta
+edited), in `docs/WORKPLAN.md:20` ("wire `FileSource` → `pmtiles://`")
+and in the `site/sw.js:14` comment ("read from OPFS via pmtiles'
+FileSource"). The ADR's Decision block — the thing a builder copies —
+still shows `store.write(id, totalBytes)` without `version`, `list()`
+without `version`, "the five typed errors below" and "Five typed errors",
+with no marker pointing at the addendum that supersedes each. The
+addendum pattern is sound; the superseded lines need an inline
+"superseded by addendum F6/F7" mark or a struck signature. The research
+notes and the 2026-08-08 ADR are historical records and are not mirror
+sites.
+
+**G5 — MINOR (harvest) — the committed archive forgets its version.** F6
+names the version on the staging file only; `commit()` moves it to
+`<id>.pmtiles` and the token is gone. `list()`'s `ready` entries carry no
+`version`, so the "expected regions" manifest ARCHITECTURE describes
+(§ Offline data lifecycle — "versioned resumable full re-downloads",
+ETag/If-Range) cannot tell from the seam which build is installed. A
+workaround exists — the archive's own JSON metadata `version` via
+`PMTiles.getMetadata()` — and is unstated. See G1's fix.
+
+**G6 — MINOR (lens 4) — the threat enumeration is incomplete.** It names
+archive bytes as the only untrusted input. The manifest's `totalBytes`
+and `version` arrive over the same network: `version` is grammar-checked
+(good, and tested against traversal shapes), `totalBytes` is bounded
+only by quota — acceptable while the manifest is the project's own, but
+that condition should be stated as (ii) states it for archives. Two
+boundaries are unnamed: the worker→main message, where
+`archiveErrorFromJSON()` builds an error from any `{code, message}`
+(same-origin, so acceptable — say so); and `storage.estimate()`'s
+numbers, never validated (the `NaN` in G2). Nothing here is exploitable
+as built; the enumeration is what the lens asks for and it is short.
+
+**G7 — NOTE — `InvalidArchiveIdError` carries a version in its `id`
+field.** `assertValidArchiveVersion("Bad-Version")` throws with
+`err.id === "Bad-Version"`; a consumer printing `err.id` as the archive
+name shows the version token. A `field` discriminator or a distinct
+class would fix it; the ten-count would then be eleven, and the ADR
+should say so.
+
+**G8 — NOTE — grounding drift since `e5c235f`.** `floor.py --plane ci`
+exits 0, but the advisory set differs from the brief's: secretscan
+reports five low-variety-entropy advisories (SHA pins in `ci.yml`, the
+spec revision in the generator, `tools/deploy.json`) — hashes, not
+secrets; the board line is clean; leakscan's advisory text changed. Not
+a finding on the delta; recorded so the next pass knows the brief's
+grounding line was already stale.
+
+**G9 — NOTE — the ADR's `**Review**:` line reads "done — cold pass
+2026-09-20"** while its addendum carries an open `⏳`. The record's own
+review line should name the application pass as queued/run.
+
+### Standing checklist (V1–V7)
+
+- **V1** — three overclaims, none load-bearing for safety: G2 (the
+  header's "never a bare Error"), G3 (the test name), and the P0-D
+  paragraph's "F3 … a proven bijection over z0–z4" is true as stated
+  (and holds to z8).
+- **V2** — every grounding line re-run; results under *Re-run lines*.
+  The addendum's "tested under `new pmtiles.PMTiles()` on archives both
+  under and over 16 KiB" re-run and extended; its "55 tests" re-run.
+- **V3** — G4.
+- **V4** — the write signature and the error count each have two homes
+  in the ADR (Decision block vs addendum) with no stamp between them: G4.
+- **V5** — the ADR body contradicts its addendum on `delete()`,
+  `write()`'s arity and the error count by design of the addendum
+  pattern, without markers (G4); `errors.js`'s header contradicts
+  `chunking.js`'s `RangeError`s (G2).
+- **V6** — below.
+- **V7** — provenance stated above; it matches the claim on the board
+  item.
+
+### Security & privacy (lens 4, V6)
+
+`/security-review` NOT RUN, with grounds: it scans pending changes on
+the current branch, and the only pending change in this worktree is the
+orchestrator's removal of the held-back sibling — a `git diff` of that
+deletion prints the barred text as `-` lines, which is the exact
+exposure the brief forbids. The landed delta is not a pending change and
+the skill takes no target. Discharged, not skipped: the code-altitude
+pass was done by hand.
+
+Catalogue: the online OWASP Top 10 / ASVS were out of reach under the
+network bar; I checked against atelier's recorded ASVS chapter map
+(`docs/sessions/2026-07-22-1025-security-canon-gap-map.md`, v4.0.3
+domains), which is a local copy of the catalogue, not memory.
+
+- *V5 validation / V12 files* — path traversal through the id or
+  version: excluded by grammar (`^[a-z0-9]+(?:-[a-z0-9]+)*$`,
+  `^[a-z0-9]+$`), tested against `../etc`, `/`, leading `.`, whitespace,
+  uppercase and the length cap. `list()` ignores strangers rather than
+  failing. Held.
+- *Untrusted bytes* — the bounds rule stops reads past EOF; the clamp is
+  offset-0-only and a crafted archive with `tileDataOffset = 0` could at
+  most read its own header back (the addendum's (ii) covers this and
+  defers it to the day archives come from elsewhere). Held.
+- *Resource exhaustion* — a hostile manifest can fill the origin quota;
+  user-driven and bounded by the platform (G6 asks for the condition to
+  be stated).
+- *Race / TOCTOU* — two `write()`s for one id both pass the version scan;
+  the second fails typed at `createSyncAccessHandle` (`ArchiveBusyError`,
+  re-run). `delete()` during a write is typed busy. Held.
+- *V7 error handling* — the untyped paths in G2; no secrets or paths in
+  any message beyond the archive id and a reason string.
+- *Privacy* — origin-private storage, public map tiles, no PII in any
+  name or error; `getKey()` embeds a timestamp that never leaves the
+  page. Nothing exposed.
+- *Repo hygiene* — the secretscan advisories (G8) are SHA pins and a spec
+  revision; no secret in the delta. `tests/fixtures/` and
+  `tools/__pycache__/` are ignored so a manual run cannot stage a blob.
+
+### Re-run lines (brief § Grounding)
+
+- `node --test` → 55 tests, 55 pass, 0.6 s, Node v24.18.0. Reproduces.
+- `floor.py --plane ci` → exit 0. Reproduces; advisory set drifted (G8).
+- `make_fixture_pmtiles.py --out <scratch>/fx.pmtiles` → 680 bytes, 5
+  tiles, spec revision `8b8ddea`. Reproduces.
+- `coldsweep.py --commit 21f48a6` → subject, 18-file stat, diff, no
+  body. Reproduces.
+- `gh run list -L 3` → `floor` and `CI` success at `88f5a33` (the brief
+  saw `e5c235f`; HEAD has moved). Reproduces.
+
+Probes beyond the brief were run from scratch copies in a scratch
+directory against the worktree's modules by absolute path; nothing was
+written under the repo, and the scratch directory was removed when done.
+
+### Not run, with grounds
+
+- OPFS under the installed PWA, `move()` and `lastModified` on target
+  browsers, real `estimate()`/`persist()` numbers: no device, and a
+  stated non-goal. G1 is what that session must now read.
+- Leaf-directory archives under the seam: the generator cannot produce
+  one; the read path is `getBytes` with different numbers and was
+  exercised for header, root directory, metadata and tile reads.
+- The compat claim for `move()`: network barred.
+
+### What this means for the cycle
+
+No MAJOR, so per `REVIEW.md` § *Applying decisions to doctrine* this is
+the terminal application review: G1–G9 are the principal's to decide
+under rule 3 (the addendum is self-authored direction), they go to the
+backlog once decided, and their application closes without a queued
+pointer. If the principal wants one thing fixed before the downloader is
+built, it is G1's confirm list, because a device session will otherwise
+test the wrong things.
+
+**Tally: MAJOR 0 · MINOR 6 (G1–G6) · NOTE 3 (G7–G9).**
