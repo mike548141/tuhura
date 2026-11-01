@@ -1,4 +1,4 @@
-- [ ] 🎯 **P0-B — app shell, service worker, installable. BUILT
+- [~] ⏳ **P0-B — app shell, service worker, installable. BUILT
       2026-09-20; acceptance owed to a human on a device.** A minimal shell
       (`site/index.html` + ES modules + CSS), a web app manifest, icons, and
       a service worker that precaches **the shell only** — never tiles, which
@@ -26,6 +26,14 @@
       `docs/reviews/2026-11-02-1209-p0b-shell-service-worker-cold.md`, with
       its `.deferred.md` sibling. Tier at selection: Fable. **Fable-gated:
       it runs only on Mike's explicit approval.**
+
+      [~] CLAIMED 2026-11-01T15:26Z — pass running. Orchestrator: a headless Opus 5.5
+      session started by drain session `c87c4ee0` (Opus 5.5) inside this
+      repo; both are rule-4 off-tier orchestrators that hold the context
+      partition (the `.deferred.md` sibling is held back from the reviewer
+      until act 1 is committed) and form no finding and write no severity.
+      Reviewer tier: Fable 5.1, checked at selection. Neither orchestrator
+      is barred by the brief. Runs under Mike's 2026-11-02 drain approval.
 
       **Built 2026-09-20 and deliberately not ticked.** The shell,
       manifest, generated icon set (`tools/gen_icons.py`, a stdlib-only
