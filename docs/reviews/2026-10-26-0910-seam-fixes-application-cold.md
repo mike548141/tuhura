@@ -1,8 +1,9 @@
 # Cold pass — the seam fixes' application (rule 4, refs-only)
 
-**Status:** PASS — no MAJOR; 6 MINOR, 3 NOTE. The pass ran 2026-11-02
-(act 1); verdict below the divider. Brief written 2026-10-26 09:10 UTC for
-board item `040/030` (atelier `REVIEW.md` § *The lifecycle*).
+**Status:** PASS — no MAJOR; 8 MINOR, 4 NOTE after act 2. The pass ran
+2026-11-02 (act 1 at `7f29272`, act 2 the same day); verdict below the
+divider. Brief written 2026-10-26 09:10 UTC for board item `040/030`
+(atelier `REVIEW.md` § *The lifecycle*).
 
 ## Provenance
 
@@ -189,9 +190,10 @@ them.
 ## The held-back sibling
 
 `2026-10-26-0910-seam-fixes-application-cold.deferred.md`, beside this
-file, holds the brief-writer's own angles. Open it only after your findings
+file, held the brief-writer's own angles. Open it only after your findings
 are durably written here; then fold it in below your verdict and delete it
-(`REVIEW.md` rule 1).
+(`REVIEW.md` rule 1). Folded 2026-11-02: its text is now the last section
+of this file, and the sibling file is deleted.
 
 ---
 
@@ -546,3 +548,207 @@ built, it is G1's confirm list, because a device session will otherwise
 test the wrong things.
 
 **Tally: MAJOR 0 · MINOR 6 (G1–G6) · NOTE 3 (G7–G9).**
+
+## Act 2 — the reconcile (2026-11-02, after act 1 landed at `7f29272`)
+
+Opened in this order, each after act 1 was committed: the held-back
+sibling (handed over by the orchestrator), then the prior verdict
+`2026-09-20-2236-archive-store-seam.md` with its `[fixed]` stamps, then
+the landing commit's message body. Nothing below changes a severity
+assigned in act 1; two findings and one note are added, and one act-1
+finding grows its list.
+
+### Rule 2 — the prior verdict's stamps and the commit body
+
+Each `[fixed]` stamp against what act 1 re-drove:
+
+- **F1–F6, F8, F9 [fixed]** — verified as stamped; the proofs named are
+  the ones act 1 re-ran (C1–C6, C11).
+- **F7 [fixed]** "closed-writer, busy and over-long-staging paths typed"
+  — true for those three paths; the stamp does not claim the three in
+  G2, which it never looked at.
+- **F10 [fixed]** "ARCHITECTURE names the seam in its three passages" —
+  true and narrower than the finding's intent: F10 was a mirror-site
+  miss, and the sweep stopped at ARCHITECTURE (G4).
+- **F11 [fixed]** "`getKey()` content-stable" — overclaims: the key is
+  modification-time-stable, not content-stable, and the test cannot tell
+  the two apart (G1, G3). The remaining F11 items verified.
+
+The commit body's account agrees with the diff on every point act 1
+tested. Its one claim act 1 had not checked — the pin range
+`2b29bb7..548b706` is "scanner file-walk refactor and board records
+only" — holds: three atelier commits, none under `docs/method/`. Reading
+the body after the findings changed nothing; its framing matches the
+addendum's, which was already a claim under test.
+
+### The sibling's angles against act 1
+
+Covered by act 1 without change: **D1** (G1, G3 — the constant
+`lastModified` and the throw-before-write stand-in), **D4** in part
+(lens 4), **D7** (G1, G2a), **D8** (G6), **D9** (G4), **D10** (C11: the
+block was re-synced to canonical, not SHA-only — verified by diff, not
+assumed). New angles were probed on a scratch copy of the stand-in:
+
+**H1 — MINOR — raised by D2 — the resume contract is unstated, and the
+short-write path leaves uncounted bytes on disk.** Probe: a stand-in
+that lands 4 of 8 bytes and then throws quota leaves the tracker at 8 and
+the file at 12 (the ADR's "`bytesWritten` untouched" holds; "equal to the
+disk" does not). A fresh session then resumes at 12 — mid-chunk against
+`planChunks(16, 8)`'s offsets `0, 8`. A downloader that drives from the
+plan gets `OutOfOrderWriteError` at 8: loud, typed, no splice — the
+right failure. One that drives from `writer.bytesWritten` commits a
+correct archive. Nothing in the ADR, the writer's doc or `planChunks`
+says which; and the short-write path throws `ArchiveCorruptError` "not a
+retry case" without truncating, so the next `write()` resumes into bytes
+the code itself calls unknown (a correct prefix in the stand-in; on a
+platform, whether a short or interrupted write lands a prefix is
+unverified — add to G1's list). Fix: state that resume offsets come from
+`bytesWritten`, never a plan index (and have `planChunks` take a start
+offset); on a short write or a thrown write, `truncate(bytesWritten)` on
+the sync handle before rethrowing, so "equal to the disk" is true by
+construction on every path and the resume question disappears.
+
+**H2 — MINOR — raised by D5 — a stale partial cannot be discarded
+without the committed archive.** Probe: with `w.pmtiles` (v1) committed
+and an abandoned `.w.v2.pmtiles.part` of 3 bytes, `write("w", 4, "v3")`
+is refused (`ArchiveVersionMismatchError`, correct). The only paths out:
+`delete("w")`, which also removes the working region; or `write("w", N,
+"v2")` then `abort()`, which works only for `N` at or above the stale
+size — `N = 2` throws `ArchiveCorruptError` — and `N` is nowhere in the
+error (it is in `list()`'s `sizeBytes`). The error's doc says "resume
+the old version and `abort()` it, or `delete(id)`", which is accurate and
+not enough: offline-first, a user days from coverage with a working
+region and a dead update must not be one wrong call from losing the
+region. Fix: a `discardPartial(id)` (or `delete(id, { partialOnly })`),
+and the recovery dance with its `totalBytes` constraint in the error's
+doc until then.
+
+**H3 — NOTE — raised by D4 — the clamp is wider than the probe.** It
+keys on `offset === 0` alone; `offset === 0 && length === 16384` is the
+narrowest rule that still matches the library's one unconditional read.
+Partial disagreement with the sibling: `FetchSource`'s precedent is
+itself offset-0-any-length (a 416 at offset 0 re-requests the whole
+file), so the addendum's "matches the library's own precedent" is exact.
+Narrowing is free hardening against the crafted-directory case the
+addendum's (ii) defers, not a correction.
+
+**G1 — grows (raised by D3, D6, D2).** Add to the platform-confirm list:
+(c) whether OPFS tracks a file's modification time at all — where the
+File API defaults `lastModified` to the `getFile()` call, the key
+changes on every `open()` (probe: two `open()` calls give `k@1000`,
+`k@1001`; one handle's key is stable, since the `File` is captured once),
+defeating pmtiles' header cache across re-opens and growing `Protocol`'s
+registry, which has no public remove; (d) whether `getFile()` on a
+staging file succeeds while a worker holds its sync access handle —
+`list()` depends on it, and the stand-in cannot say; (e) whether an
+interrupted or short write lands a prefix (H1).
+
+**G2 — grows (raised by D7).** Probe: after a rejecting `move()`, a
+fresh `write()` resumes at the full count and the retried `commit()`
+publishes cleanly. The path works; it is untested in the suite — add
+that test alongside the typed wrap.
+
+**G6 — grows (raised by D8).** Structured clone of an `Error` carries
+`name` and `message` only (HTML structured-serialise steps), so the JSON
+layer is not redundant; stated from the spec, not verified per browser.
+Whether a revived `message` or `reason` can reach the DOM as markup is
+the UI's to answer and there is no UI yet; the enumeration should name
+it so the UI inherits the question.
+
+### What changed, and what did not
+
+No severity moved. The sibling found no MAJOR either, and nothing in it
+contradicts a finding; where it disagreed (D4) the evidence is above.
+The cycle closes as act 1 said: G1–G9 and H1–H3 are the principal's
+under rule 3, then backlog; if one thing goes first, it is still G1's
+confirm list, now five items longer than the item carries.
+
+**Final tally: MAJOR 0 · MINOR 8 (G1–G6, H1, H2) · NOTE 4 (G7–G9, H3).**
+
+## Deferred sibling, folded below the verdict (orchestrator, 2026-11-02)
+
+The text below is the brief-writer's held-back sibling,
+`2026-10-26-0910-seam-fixes-application-cold.deferred.md`, carried in
+verbatim except that its headings sit two levels deeper so they nest under
+this one. The orchestrator held it outside the worktree until act 1 was
+committed at `7f29272`, then released it to the reviewer for act 2; the
+reviewer's reconcile of it is the *Act 2* section above. The orchestrator
+(a headless Opus 5.5 session started by drain session `c87c4ee0`) formed
+no finding and edited none of the reviewer's text. The sibling's own
+words are hypotheses, never findings.
+
+### Held back — the brief-writer's angles for the seam-fixes cold pass
+
+For `2026-10-26-0910-seam-fixes-application-cold.md`. **Open only after your
+own findings are durably written in the brief** (`REVIEW.md` rule 1). Then
+fold this in below the verdict and delete this file.
+
+Written by the brief-writing session (Opus 5.5, `49c917e1`) from one read of
+the code at HEAD. These are hypotheses, unproven; none was driven. Use them to
+check coverage against your own findings, never as findings.
+
+#### Seeded hypotheses
+
+- **D1 — the stand-in may confirm its author's model.** The in-memory OPFS
+  in `tests/storage-opfs.test.js` hard-codes `lastModified` to one constant
+  and appears to throw `QuotaExceededError` before any byte lands. If so, it
+  cannot exercise C8 (a re-download changing the key) or a platform that
+  writes part of a chunk and then throws. A test built on the same belief as
+  the code proves consistency, not correctness.
+- **D2 — a partial write on resume.** On reopen, `write()` resumes at
+  `syncAccess.getSize()`. If a quota failure or a short write left bytes past
+  the last accepted chunk, the resume offset falls mid-chunk and no longer
+  matches `planChunks`. Does that strand the download, or splice it? The
+  short-write path throws `ArchiveCorruptError` "not a retry case", but
+  nothing truncates the staging file, so the next `write()` may resume into
+  the unknown bytes.
+- **D3 — `lastModified` on the target platforms.** Where a browser does not
+  track a file's modification time, the File API defaults `lastModified` to
+  the time of `getFile()`. Then `getKey()` changes on every `open()`, which
+  defeats pmtiles' header and directory caches and may grow `Protocol`'s
+  registry. Does `move()` keep the staging file's mtime? Is a millisecond
+  enough to tell two downloads apart?
+- **D4 — the offset-0 clamp is wider than the probe.** It clamps any read at
+  offset 0 that runs past EOF, not only the 16 KiB header probe. A crafted or
+  truncated archive whose directory asks for `[0, n)` beyond EOF gets short
+  bytes instead of `OutOfRangeReadError`. Is "only at offset 0" the narrowest
+  rule that matches pmtiles' `FetchSource` precedent, or should it key on the
+  probe's length as well?
+- **D5 — a stale partial blocks a new version.** `write()` refuses when a
+  staging file for another version exists. The only removal path is
+  `delete(id)`, which also removes the committed archive, or `abort()`, which
+  needs a writer opened at the old version with a `totalBytes` at least the
+  stale file's size. So a user with a working region and an abandoned partial
+  update may have to lose the working region to update it. Offline-first,
+  that is a usability and safety question.
+- **D6 — `list()` during a live write.** `list()` calls `getFile()` on a
+  staging file that may have an open sync access handle in a worker. Does any
+  target browser reject that while the lock is held? If it does, `list()`
+  throws instead of reporting the partial, which is exactly the
+  degrade-visibly hook it exists for.
+- **D7 — `commit()` after a failed `move()`.** `#closed` is set before
+  `move()` resolves. If `move()` rejects (busy, quota, a target already
+  existing), the writer cannot retry and the caller must call `write()`
+  again. Does that path resume and commit cleanly, and is it tested? What
+  does `move()` do when a committed archive of the same name exists, under a
+  live read handle?
+- **D8 — reviving untrusted error JSON.** `archiveErrorFromJSON` builds an
+  `ArchiveError` from any object with a string `code`. Today the only sender
+  is the app's own worker. Check whether a revived field can reach the DOM
+  as markup, and whether structured clone already carries `Error` objects
+  across `postMessage` on the target browsers, which would make the JSON
+  layer partly redundant.
+- **D9 — one fact, one home.** The addendum says "the accepted text above
+  stands" and corrects it from below: "thrown, never clamped", the
+  five-error set, and `delete()` throwing on a missing id are still in the
+  body. A reader who stops at the decision text gets three rules the code no
+  longer follows. Are they marked where they stand?
+- **D10 — the pin bump in a feature commit.** The `CLAUDE.md` pin moved
+  `2b29bb7` → `548b706` inside an `offline:` commit. Did the inlined floor
+  block's text get re-synced to canonical at `548b706`, or only the SHA?
+  The 2026-09-20 run found the block had drifted from its source once
+  before.
+
+#### Facts the brief-writer held back
+
+None. Every fact gathered is in the brief's *Grounding* section.
