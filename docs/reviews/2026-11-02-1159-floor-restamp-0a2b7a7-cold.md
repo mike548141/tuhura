@@ -1,12 +1,15 @@
 # Cold pass — the floor block re-stamped at `0a2b7a7` (rule 4, refs-only)
 
-**Status:** ACT 1 WRITTEN 2026-11-01 (UTC) — the cold pass ran on Fable 5.1
-and its verdict is below the divider: **PASS — 0 MAJOR, 2 MINOR, 4 NOTE**.
-Act 2 (the held-back sibling, folded in beneath the verdict) follows on the
-orchestrator's release. Brief written 2026-11-02 1159 UTC for board item
-`040/040`, which queued the pass on 2026-10-26 and left the brief to its
-taker. **Fable-gated:** the pass runs only on Mike's explicit approval of
-Fable work at the time (this run: the 2026-11-02 drain approval).
+**Status:** ACT 2 WRITTEN 2026-11-01 (UTC) — the cold pass ran on Fable 5.1;
+act 1's verdict is below the divider and act 2 (the held-back sibling's three
+entries, tested against it) follows beneath. Final: **PASS — 0 MAJOR,
+3 MINOR, 5 NOTE** (act 1 read 0/2/4; act 2 raised F4 to MINOR and added F7).
+Act 1 was committed as `6a01f3a` before the sibling was released; the
+sibling is folded in at the end of this file. Brief written 2026-11-02 1159
+UTC for board item `040/040`, which queued the pass on 2026-10-26 and left
+the brief to its taker. **Fable-gated:** the pass runs only on Mike's
+explicit approval of Fable work at the time (this run: the 2026-11-02 drain
+approval).
 
 ## Provenance
 
@@ -118,6 +121,9 @@ reproduces is a finding.
 file, holds 3 entries. Open it only after your findings are durably written
 here; then fold it in below your verdict and delete it (`REVIEW.md`
 rule 1).
+
+*(Orchestrator, 2026-11-01: the sibling is folded below the verdict, under
+"Deferred sibling, folded below the verdict"; its file is deleted.)*
 
 ---
 
@@ -370,3 +376,121 @@ for a hand edit of a generated file.
 - Owner's call on F3 and F4; F5 and F6 need nothing.
 - Act 2: open the sibling, reconcile its 3 entries against the findings
   above, fold it in below, delete it.
+
+## Act 2 — the held sibling, tested against act 1
+
+Opened after act 1 was committed and pushed (`6a01f3a`), on the
+orchestrator's release; the sibling was the only file read in this act.
+Its three entries are the brief-writer's hypotheses; each is answered as
+confirmed, damaged, or already covered, with what act 1 caught and what it
+missed. The sibling's text is folded in below by the orchestrator.
+
+- **D1 — markers that promise a check nobody runs.** *Confirmed, and act 1
+  missed the sharp half.* F4 said no instrument can judge the copy; it did
+  not say that one prints a green. Measured in this act: `stampscan --root
+  <this repo>` with no paths — the invocation an adopter types, and the one
+  a hand step would carry — scans `docs/` only, never reaches `CLAUDE.md`,
+  and prints `✓ stampscan clean — no stamped blocks found.`, **exit 0**.
+  `--require-stamps` turns that into exit 2, but nothing in this repo or in
+  the floor passes it, and `floor.py` at atelier `origin/main` (what the CI
+  floor checks out) registers no stampscan at all, so no floor plane ever
+  prints a stamp verdict, true or false. The markers this delta re-asserted
+  therefore name a check that either errors (`CLAUDE.md` given explicitly)
+  or greens over nothing (bare). Atelier's `320/160` § *The new half*
+  records the default-scope defect with a different symptom in another
+  public child; this repo shows the plain false-green shape. **F4 is raised
+  from NOTE to MINOR** on that measurement: a silent-failure surface, not
+  merely an absent check. Its recommendation gains a line: until atelier
+  rules on `320/160`, any hand run of `stampscan` here must pass
+  `--require-stamps` and name `CLAUDE.md`, and should expect exit 2.
+- **D2 — the visibility bullet's attribution.** *Already covered by F1,
+  which left it open; still open.* F1 states that whether Mike ruled the
+  narrowing clause on 2026-08-08 is unverifiable from the unbarred tree.
+  The place to verify it is the founding review in `docs/reviews/`
+  (2026-08-08) and the two ADRs dated 2026-08-08, read for his words on
+  visibility; this act's grant was the sibling alone, so the check is
+  handed to the fold. Two outcomes, both already inside F1's
+  recommendation: his words with that date → the fact stands and the floor
+  clause is his to keep or lift; an agent's summary carried forward → the
+  attribution "Mike's decision" is itself a V1 overclaim inside the floor
+  and the fill should carry only the verifiable fact. No change to F1's
+  severity either way, because F1 is about doctrine in the slot, not about
+  who put it there.
+- **D3 — proportion.** *Confirmed as a question; answered here as asked.*
+  The byte comparison this pass made is mechanical and a tool could make it
+  at every bump: extract both regions by marker, fill the four placeholders
+  by script, compare, assert no residual `<placeholder>` and no over-wrap —
+  `320/160`'s corroboration describes exactly this, and act 1 ran it in a
+  scratch root in under a minute. What a tool cannot do is judge what a
+  fill *contains* (F1) or whether the canonical change itself is right;
+  those are the only two judgement calls a floor re-stamp carries. The
+  rule-4 pointer was still correctly queued: the floor is self-authored
+  doctrine by function, and `REVIEW.md` calibration puts doctrine text in
+  the cold-review class — the author had no discretion to skip it. But the
+  proportionate *standing* shape for this class is a tool for the
+  comparison on every bump and a cold pass only when the canonical region
+  changed in more than a substitution, or a fill changed. Recorded as
+  **F7 — NOTE** below for Mike, since it is a calibration of his doctrine's
+  ceremony, not this repo's to decide. This pass did pay for itself once:
+  F1 is a content judgement no comparison tool would have made.
+
+### F7 — NOTE — a floor re-stamp earns a tool at every bump and a cold pass only when the words moved
+
+The judgement content of this pass was two calls (F1's slot content; the
+one canonical bullet's change), and everything else was a comparison a
+script makes. *Recommendation, for Mike via atelier (`320/160`, `320/620`):*
+make the script-fill-and-diff the required step of every pin bump in every
+child, and reserve the rule-4 pointer for bumps where the canonical `floor`
+region changed beyond a substitution or the child's fills changed. Until
+that is ruled, the pointer stays mandatory here, as it was for this one.
+
+### Tally after act 2
+
+| Finding | Act 1 | Act 2 | Change |
+|---|---|---|---|
+| F1 visibility slot carries doctrine | MINOR | MINOR | D2 leaves it open; no change |
+| F2 brief's record date is local, not UTC | MINOR | MINOR | — |
+| F3 README hand count stale | NOTE | NOTE | — |
+| F4 no instrument judges the copy | NOTE | **MINOR** | D1: bare run prints a false green, measured |
+| F5 drift recipe fails in a worktree | NOTE | NOTE | — |
+| F6 ROADMAP churn is the generator | NOTE | NOTE | — |
+| F7 proportion of the ceremony | — | **NOTE** | D3, new |
+
+**Final verdict: PASS — 0 MAJOR, 3 MINOR, 5 NOTE.** The verdict is
+unchanged; the tally moved from 0/2/4 to 0/3/5. Zero MAJOR, so under
+`REVIEW.md` § *The lifecycle* the application of Mike's rulings closes
+without a further queued pointer.
+
+## Deferred sibling, folded below the verdict (orchestrator, 2026-11-01)
+
+The text below is the brief-writer's held-back sibling,
+`2026-11-02-1159-floor-restamp-0a2b7a7-cold.deferred.md`, carried in
+verbatim except that its headings sit two levels deeper so they nest under
+this one. The orchestrator held it outside the worktree until act 1 was
+committed at `6a01f3a`, then released it to the reviewer for act 2; the
+reviewer's reconcile of it is the *Act 2* section above. The orchestrator
+(a headless Opus 5.5 session started by drain session `c87c4ee0`) formed
+no finding and edited none of the reviewer's text. The sibling's own
+words are hypotheses, never findings.
+
+### Held back — the brief-writer's angles for the floor re-stamp pass
+
+For `2026-11-02-1159-floor-restamp-0a2b7a7-cold.md`. **Open only after your
+own findings are durably written in the brief** (`REVIEW.md` rule 1). Then
+fold this in below the verdict and delete this file.
+
+Written by the brief-writing sub-agent (Claude Opus 5.5, of session
+`2be3482c`). Hypotheses, unproven; none was driven. Answer each: confirmed,
+damaged, or already covered by your finding N.
+
+- **D1 — markers that promise a check nobody runs.** The block now sits
+  between `stamp:begin` / `stamp:end` markers naming its source region. If
+  the stamp check cannot judge a child's copy, does any tool read those
+  markers and print a green that a session will take as "verified"?
+- **D2 — the visibility bullet's attribution.** It reads *"Mike's decision,
+  2026-08-08"*. Is that decision on record in his words with that date, or
+  an agent's summary carried forward?
+- **D3 — proportion.** The comparison this pass makes is mechanical. Could
+  a tool make it at every bump, and is a cold pass the proportionate check
+  for a re-stamp whose only change is one bullet's wording (`REVIEW.md`
+  calibration)? Say so in the verdict if not.
