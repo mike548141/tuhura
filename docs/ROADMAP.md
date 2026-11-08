@@ -10,6 +10,7 @@ then `python3 "${ATELIER_TOOLS:-$(git config hooks.atelierTools)}"/board.py rebu
 
 *[Narrative](roadmap/010-v1-committed-spine/README.md)*
 
+- [ ] 🔥 [G3 blocks this repo's CI from 2026-11-18: strip or list 7 binaries.](roadmap/010-v1-committed-spine/005-g3-blocks-ci-from-2026-11-18-strip-or-list-binaries.md)
 - ✅ [Phase 0 — offline map proof + scale/soak rider.](roadmap/010-v1-committed-spine/010-phase-0-offline-map-proof.md)
 - ✅ [P0-A — vendor the map stack and gate it. DONE 2026-09-20.](roadmap/010-v1-committed-spine/011-p0-vendor-the-map-stack.md)
 - [ ] 🎯 [P0-B — app shell, service worker, installable. BUILT 2026-09-20;…](roadmap/010-v1-committed-spine/012-p0-app-shell-and-service-worker.md)
