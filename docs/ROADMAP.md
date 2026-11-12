@@ -24,6 +24,7 @@ then `python3 "${ATELIER_TOOLS:-$(git config hooks.atelierTools)}"/board.py rebu
 - [ ] [Phase 4 — activity heroes](roadmap/010-v1-committed-spine/050-phase-4-activity-heroes.md)
 - [ ] [Foreground sensor features](roadmap/010-v1-committed-spine/060-foreground-sensor-features.md)
 - [ ] [Land-status presentation study](roadmap/010-v1-committed-spine/070-land-status-presentation-study.md)
+- [ ] [Look at the tak.nz codebase: does it accelerate or enrich tūhura,…](roadmap/010-v1-committed-spine/080-evaluate-the-tak-nz-codebase.md)
 
 ## Post-v1 — evidence-gated
 
