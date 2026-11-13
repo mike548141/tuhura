@@ -1,0 +1,13 @@
+# tūhura's own app and favicon set, drawn by tools/gen_icons.py (stdlib-only
+# PNG writer, no external tool): a flat teal triangle-over-bar mark on a dark
+# ground. Looked at 2026-11-13: no people, photos, screenshots or text. Each
+# PNG carries only IHDR, IDAT and IEND chunks, and the ICO wraps one such PNG,
+# so there is no metadata set to keep. Regenerating the set changes these
+# digests; re-run `leakscan.py --binary-entries` and re-list.
+63f1baf2e9a11320  site/favicon.ico  # by=agent session=2402c2a3-01c6-40a8-ace8-212d4098f1b0 on=2026-11-13
+757743da4346d30b  site/icons/apple-touch-icon.png  # by=agent session=2402c2a3-01c6-40a8-ace8-212d4098f1b0 on=2026-11-13
+80dac69672de5a63  site/icons/favicon-16.png  # by=agent session=2402c2a3-01c6-40a8-ace8-212d4098f1b0 on=2026-11-13
+add57e6447c9b500  site/icons/favicon-32.png  # by=agent session=2402c2a3-01c6-40a8-ace8-212d4098f1b0 on=2026-11-13
+410eebfb7e9db608  site/icons/favicon-48.png  # by=agent session=2402c2a3-01c6-40a8-ace8-212d4098f1b0 on=2026-11-13
+68917ecb85a6e941  site/icons/icon-192.png  # by=agent session=2402c2a3-01c6-40a8-ace8-212d4098f1b0 on=2026-11-13
+365b63c0b9c4a62f  site/icons/icon-512.png  # by=agent session=2402c2a3-01c6-40a8-ace8-212d4098f1b0 on=2026-11-13

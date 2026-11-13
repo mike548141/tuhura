@@ -1,4 +1,4 @@
-- [ ] 🔥 **G3 blocks this repo's CI from 2026-11-18: strip or list 7 binaries.**
+- [x] **G3 blocks this repo's CI from 2026-11-18: strip or list 7 binaries.**
       DUE 2026-11-18, firm. Filed 2026-11-09 by atelier queue run 722ac2e2.
 
       **What.** atelier's `leakscan` rule G3 gates personal data inside tracked
@@ -17,8 +17,7 @@
       That is an *answer*, not a standing ruling; do not cite it as one.
 
       **Two ways to clear a file** (the format and command are in atelier's
-      `tools/README.md`, § *Binary files (G3)*, at
-      `<atelier>/tools/README.md`):
+      tools README, § *Binary files (G3)*, at `<atelier>/tools/README.md`):
       1. **Strip the metadata**, for example `exiftool -all= <file>` or
          re-export the image. Stripping changes the file's hash, so re-run.
       2. **List it in `.leakscanbinaries`** at the repo root: the first 16+ hex
@@ -52,3 +51,10 @@
 
       **Done when** `leakscan.py --root . .` reports no G3 findings, the
       manifest is committed alongside any stripped files, and CI is green.
+
+      **Done 2026-11-13** (estate health sweep). All 7 were tūhura's own icon
+      set from `tools/gen_icons.py`; each PNG holds only IHDR, IDAT and IEND
+      and the ICO wraps one such PNG, so nothing was stripped and all 7 are
+      listed in `.leakscanbinaries` (`by=agent`). `leakscan.py --root . .`
+      reports 0 G3 findings. Regenerating the icons changes their digests:
+      re-list them in the same commit.

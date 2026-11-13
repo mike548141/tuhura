@@ -33,10 +33,12 @@ to check a change on a real phone before it reaches the live hostname.
 `tools/deploy.py status` shows recent deployments;
 [`docs/DEPLOY.md`](docs/DEPLOY.md) has the rest.
 
-Once per clone. The hook itself is **tracked** (`.githooks/pre-commit`, so it
-travels with the repo and never goes stale), but git does not transport
-*config* — so a fresh clone commits **unscanned** until these two lines are run.
-Once wired, the hook fails closed rather than ever scanning nothing:
+Once per clone. The hooks themselves are **tracked** (`.githooks/pre-commit`,
+plus `commit-msg` for the commit-message checks and `pre-merge-commit` for a
+`--no-ff` merge, so they travel with the repo and never go stale), but git
+does not transport *config* — so a fresh clone commits **unscanned** until
+these two lines are run. Once wired, the hook fails closed rather than ever
+scanning nothing:
 
 ```sh
 git config core.hooksPath .githooks
