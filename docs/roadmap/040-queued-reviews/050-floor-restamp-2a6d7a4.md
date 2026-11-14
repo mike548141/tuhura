@@ -14,3 +14,12 @@
       **Not takeable by session `2402c2a3`**, which authored the bump.
       Mechanical evidence already in hand: atelier `pins.py` reads the copy
       `identical` to the canonical region at `2a6d7a4`.
+
+      📝 BRIEF WRITTEN 2026-11-14 by a headless Opus 5.5 brief-writer,
+      session `89a8835d`, a non-author, started by an estate health sweep
+      (orchestrator session `58027096`):
+      `docs/reviews/2026-11-14-0127-floor-restamp-2a6d7a4-cold.md`, with its
+      `.deferred.md` sibling. **Queued, waiting on Mike's explicit approval
+      of Fable work.** Session `89a8835d` and orchestrator `58027096` are
+      barred from taking the pass too. The taker reads the brief and runs the
+      pass; it does not rewrite the brief.
