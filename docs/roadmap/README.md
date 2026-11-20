@@ -12,8 +12,8 @@ hook; the `board` floor check blocks a commit whose index is stale, and after a
 merge conflict on the index, rebuilding *is* the resolution). The session-start
 read is the index; open item files on demand.
 Completed detail from before the split lives frozen in
-[`../ROADMAP-DONE.md`](../ROADMAP-DONE.md); a done item now simply stays in its
-file as `[x]` — there is no harvest step.
+[`990-done-before-the-split/README.md`](990-done-before-the-split/README.md);
+a done item now simply stays in its file as `[x]` — there is no harvest step.
 
 **Keep it honest, and keep it lean.** The board is the cross-session memory of
 what is *actually* left; tick an item in the commit that lands its work, and
@@ -32,7 +32,7 @@ queued** for a non-author to take; the pointer is **refs only** — name the del
 and the intent record, no evaluative account.
 
 The harvest-integrity gate holds archive stores to finished-state items only — a
-live `[ ]`/`[~]`/`⏳` item in `ROADMAP-DONE.md` reds the floor.
+live `[ ]`/`[~]`/`⏳` item in `990-done-before-the-split/` reds the floor.
 
 **Review lines.** An entry that records **design or direction** (a chosen
 approach, a scoped feature, a decision that forecloses alternatives) carries a

@@ -6,13 +6,27 @@ Board doctrine and the checkbox legend:
 [roadmap/README.md](roadmap/README.md). One item per file; edit the item,
 then `python3 "${ATELIER_TOOLS:-$(git config hooks.atelierTools)}"/board.py rebuild`.
 
+## Summary
+
+Only unfinished items are listed below; a finished item stays in its own file.
+A ✅ section has nothing owed and no list. 🎯 and ⏳ count items on the state
+line, so they overlap Open and Claimed.
+
+| Section | Open | Claimed | 🎯 Waiting | ⏳ Review |
+| :-- | --: | --: | --: | --: |
+| [v1 — the committed spine (zero external dependencies)](roadmap/010-v1-committed-spine/README.md) | 12 | 0 | 4 | 0 |
+| [Post-v1 — evidence-gated](roadmap/020-post-v1-evidence-gated/README.md) | 10 | 0 | 0 | 0 |
+| [Icebox — externally gated](roadmap/030-icebox-externally-gated/README.md) | 4 | 0 | 0 | 0 |
+| [Queued reviews — refs only](roadmap/040-queued-reviews/README.md) | 3 | 0 | 3 | 0 |
+| [Standing threads — options that may never open](roadmap/050-standing-threads/README.md) | 2 | 0 | 0 | 0 |
+| ✅ [Record-keeping — the board's own shape](roadmap/060-record-keeping/README.md) | 0 | 0 | 0 | 0 |
+| ✅ [Done before the split](roadmap/990-done-before-the-split/README.md) | 0 | 0 | 0 | 0 |
+| **All sections** | 31 | 0 | 7 | 0 |
+
 ## v1 — the committed spine (zero external dependencies)
 
 *[Narrative](roadmap/010-v1-committed-spine/README.md)*
 
-- ✅ [G3 blocks this repo's CI from 2026-11-18: strip or list 7 binaries.](roadmap/010-v1-committed-spine/005-g3-blocks-ci-from-2026-11-18-strip-or-list-binaries.md)
-- ✅ [Phase 0 — offline map proof + scale/soak rider.](roadmap/010-v1-committed-spine/010-phase-0-offline-map-proof.md)
-- ✅ [P0-A — vendor the map stack and gate it. DONE 2026-09-20.](roadmap/010-v1-committed-spine/011-p0-vendor-the-map-stack.md)
 - [ ] 🎯 [P0-B — app shell, service worker, installable. BUILT 2026-09-20;…](roadmap/010-v1-committed-spine/012-p0-app-shell-and-service-worker.md)
 - [ ] 🎯 [P0-C — online render against LINZ Basemaps.](roadmap/010-v1-committed-spine/013-p0-linz-basemaps-online-render.md)
 - [ ] [P0-D — PMTiles in OPFS, and the map's lifecycle.](roadmap/010-v1-committed-spine/014-p0-pmtiles-opfs-and-map-lifecycle.md)
@@ -35,7 +49,6 @@ then `python3 "${ATELIER_TOOLS:-$(git config hooks.atelierTools)}"/board.py rebu
 - [ ] [Whole-of-NZ offline ceiling](roadmap/020-post-v1-evidence-gated/030-whole-of-nz-offline-ceiling.md)
 - [ ] [Sound ID](roadmap/020-post-v1-evidence-gated/040-sound-id.md)
 - [ ] [E2E sync backend](roadmap/020-post-v1-evidence-gated/050-e2e-sync-backend.md)
-- ✅ [Marine layers — boating & diving.](roadmap/020-post-v1-evidence-gated/060-marine-layers-boating-and-diving.md)
 - [ ] [Māori land status layer](roadmap/020-post-v1-evidence-gated/070-maori-land-status-layer.md)
 - [ ] [UX + settings deep design pass](roadmap/020-post-v1-evidence-gated/080-ux-and-settings-deep-design-pass.md)
 - [ ] [Companion-mode docs page](roadmap/020-post-v1-evidence-gated/090-companion-mode-docs-page.md)
@@ -55,8 +68,6 @@ then `python3 "${ATELIER_TOOLS:-$(git config hooks.atelierTools)}"/board.py rebu
 
 *[Narrative](roadmap/040-queued-reviews/README.md)*
 
-- ✅ [Rule-4 cold pass — the session-log split. DONE 2026-09-20:…](roadmap/040-queued-reviews/010-session-log-split.md)
-- ✅ [Rule-4 cold pass — the archive-store seam. DONE 2026-09-20](roadmap/040-queued-reviews/020-archive-store-seam.md)
 - [ ] 🎯 [Rule-4 cold pass queued — the seam fixes' application.](roadmap/040-queued-reviews/030-seam-fixes-application.md)
 - [ ] 🎯 [Rule-4 cold pass queued — the floor block re-stamped at 0a2b7a7.](roadmap/040-queued-reviews/040-floor-restamp-0a2b7a7.md)
 - [ ] 🎯 [Rule-4 cold pass queued — the floor block re-stamped at 2a6d7a4.](roadmap/040-queued-reviews/050-floor-restamp-2a6d7a4.md)
@@ -67,10 +78,3 @@ then `python3 "${ATELIER_TOOLS:-$(git config hooks.atelierTools)}"/board.py rebu
 
 - [ ] [Outreach](roadmap/050-standing-threads/010-outreach.md)
 - [ ] [Data-ops](roadmap/050-standing-threads/020-data-ops.md)
-
-## Record-keeping — the board's own shape
-
-*[Narrative](roadmap/060-record-keeping/README.md)*
-
-- ✅ [Adopt the split board — one file per item, a generated index.](roadmap/060-record-keeping/010-adopt-the-split-board.md)
-- ✅ [Does SESSIONS.md want the same treatment as the board?](roadmap/060-record-keeping/020-sessions-log-relocation-question.md)
