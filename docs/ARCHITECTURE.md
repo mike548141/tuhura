@@ -246,8 +246,8 @@ Web ceiling detail: `research/2026-08-08-sensors-audio-companion.md`.
 ```
 site/          # the deployable artefact (no build step)
 site/vendor/   # pinned MapLibre GL JS + pmtiles ESM + licences (NOTICE'd)
-docs/          # this file, STRATEGY, SESSIONS (index), decisions/, reviews/
-docs/sessions/ # per-session detail; SESSIONS.md is the index over it
+docs/          # this file, STRATEGY, decisions/, reviews/
+docs/sessions/ # the session log: one file per session; the folder is the index
 docs/roadmap/  # the board — one file per item; ROADMAP.md is its generated index
 tools/         # dev/CI helpers (stdlib-only Python 3)
 ```

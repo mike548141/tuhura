@@ -133,12 +133,12 @@ other repos would want the rule, it belongs upstream in atelier instead.
 - **Record real decisions.** A short ADR in [`docs/decisions/`](docs/decisions/)
   when a choice rejects a plausible alternative or rests on hard-won
   evidence; a code comment for reversible ones.
-- **Log the session.** Before finishing, append a one-line entry to the
-  [`docs/sessions/README.md`](docs/sessions/README.md) **index**, and — where the session
-  was substantial — the [`docs/sessions/`](docs/sessions/) detail file that
-  line points at. The index is what every session reads at open, so a line
-  that carries the whole account defeats the split; the detail file is where
-  the account goes.
+- **Log the session.** Before finishing, write this session's own file in
+  [`docs/sessions/`](docs/sessions/), named
+  `<date>-<HHMM>-<slug>.md` for the session's start time in UTC. The folder
+  is the index: no file lists the sessions, and a session getting its
+  bearings reads the newest few files
+  ([`docs/sessions/README.md`](docs/sessions/README.md) explains the folder).
 
 ## Review
 

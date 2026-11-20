@@ -134,11 +134,12 @@ and with other users — the server must never be able to read user data.
    top (atelier's `board.py`, via the `hooks.atelierTools` wiring the scan hook
    already uses). The `board` floor check blocks a stale index, and after a merge
    conflict on it rebuilding *is* the resolution. Work from `docs/WORKPLAN.md`.
-4. Tail of `docs/SESSIONS.md` — where the last session left off. It is an
-   **index** (ADR 2026-08-17-1229): one line per session, with the detail in
-   `docs/sessions/<date>-<HHMM>-<slug>.md` — open a file only when its line
-   needs unpacking. A last commit
-   then silence with no closing entry means the last session either died
+4. The newest few files in `docs/sessions/` — where the last session left
+   off (`ls docs/sessions/[0-9]* | tail -5`). The folder is the session log
+   and its own index: one file per session, named
+   `<date>-<HHMM>-<slug>.md` so the names sort by start time; open an older
+   one only when a thread leads there. A last commit
+   then silence with no closing session file means the last session either died
    mid-flight or is still live — run the read-first recovery sweep
    (`../atelier/docs/method/CONCURRENCY.md` § Surviving an interrupted
    session) before assuming either. A cold reviewer skips this step: the log
@@ -214,11 +215,11 @@ Exercise changes in a real browser at 390 px, and offline (DevTools → Network
 
 - NZ English; macrons on te reo Māori.
 - Comments say *why*, not *what*; ADR the re-litigable decisions
-  (`docs/decisions/`); before finishing, append a one-line entry to the
-  `docs/SESSIONS.md` index **and**, where the session was substantial, the
-  matching `docs/sessions/<date>-<HHMM>-<slug>.md` detail file it points at.
-  A detail file ends with an identifiers block (session id, commits, PRs,
-  board items, worktrees, agents): atelier `RECORD.md` § *The session log*.
+  (`docs/decisions/`); before finishing, write this session's own file,
+  `docs/sessions/<date>-<HHMM>-<slug>.md`, `HHMM` the session's start time in
+  UTC (`date -u`); there is no index to append to. A session file ends
+  with an identifiers block (session id, commits, PRs, board items,
+  worktrees, agents): atelier `RECORD.md` § *The session log*.
 - Commit messages: `area: imperative subject`, why-dense body. Areas in play:
   `map`, `layers`, `waypoints`, `tracks`, `offline`, `sync`, `css`, `pwa`/`sw`,
   `a11y`, `data`, `docs`, `tools`, `deploy`.
