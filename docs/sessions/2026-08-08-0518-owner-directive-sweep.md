@@ -1,5 +1,11 @@
 # 2026-08-08 · 0518 UTC · Owner directive sweep
 
+**From the retired session log**, word for word; only its link paths were re-pointed for this folder:
+
+<!-- archivecut:log-entry docs/SESSIONS.md 19+1 -->
+- [2026-08-08 · owner directive sweep](2026-08-08-0518-owner-directive-sweep.md) — sensors, sound ID, companion mode, CarPlay, delta sync, whole-NZ cache, marine verticals, the Māori land ruling (ship it, toggleable) and settings; founding cold review's verdict integrated, ROADMAP re-tiered v1/post-v1/icebox with evidence gates.
+
+
 **2026-08-08 (second session, same day)**: Owner directive sweep —
 sensors, sound ID, companion mode, CarPlay, delta sync, whole-NZ cache,
 marine verticals, Māori land ruling (ship it, toggleable), settings

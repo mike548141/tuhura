@@ -1,5 +1,11 @@
 # 2026-08-17 · 0545 UTC · Board split, pin bump, and two owner rulings
 
+**From the retired session log**, word for word; only its link paths were re-pointed for this folder:
+
+<!-- archivecut:log-entry docs/SESSIONS.md 26+1 -->
+- [2026-08-17 · board split, pin bump, two rulings](2026-08-17-0545-board-split-pin-bump-and-two-rulings.md) — the roadmap became a per-item board with a generated 62-line index; atelier moved **mid-session** so the pin went `eef38be` → `0af3006` and all three handed-up findings came back fixed (on `faves`' report, not ours — the "first child" claim was corrected); then **Mike ruled R1 and R2**: marine joins v1 on the web side, the shell stays post-Phase-3 on a two-armed gate, and marine *instrument* integration is what stays post-v1. This session log split to index + detail files.
+
+
 *Three phases of one session, recorded as they landed.*
 
 ## Phase 1 — the board split

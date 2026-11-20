@@ -1,5 +1,11 @@
 # 2026-08-15 · 1412 UTC · The platform-tier + marine-staging cold pass RUN
 
+**From the retired session log**, word for word; only its link paths were re-pointed for this folder:
+
+<!-- archivecut:log-entry docs/SESSIONS.md 25+1 -->
+- [2026-08-15 · the cold pass RUN](2026-08-15-1412-platform-tier-marine-staging-pass.md) — run by a fresh Fable session that wrote none of the brief, research or ADRs. 2 MAJOR (F1 "maritime first-class" ≠ marine instruments in v1; F3 the over-the-air update claim unexamined). Recommendations **R1** (marine into v1, web side) and **R2** (shell post-Phase-3, two-armed gate) left with Mike, decoupled; pin bumped to `eef38be`.
+
+
 **2026-08-15 (second cold session, ~14:00 UTC)**: Mike's lane again —
 review work, Fable-dependent work, briefs for reviews that need them. One
 review run, one drift adopted, no new briefs owed.

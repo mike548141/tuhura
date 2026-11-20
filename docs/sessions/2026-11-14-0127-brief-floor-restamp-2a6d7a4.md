@@ -1,5 +1,11 @@
 # 2026-11-14 · 0127 UTC · `040/050` briefed
 
+**From the retired session log**, word for word; only its link paths were re-pointed for this folder:
+
+<!-- archivecut:log-entry docs/SESSIONS.md 35+1 -->
+- [2026-11-14 · `040/050` briefed](2026-11-14-0127-brief-floor-restamp-2a6d7a4.md) — headless Opus 5.5 brief-writer, started by an estate health sweep (orchestrator session `58027096`); no review run, no Fable used. The floor re-stamp at `2a6d7a4` now has a refs-only brief and a held-back sibling; Fable-gated on Mike's approval.
+
+
 A headless Opus 5.5 brief-writer (session `89a8835d`), started inside this
 repo by an estate health sweep (orchestrator session `58027096`). It wrote
 one brief and ran no review. No Fable model was used.

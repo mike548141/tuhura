@@ -1,5 +1,11 @@
 # 2026-08-09 · 0439 UTC · Auto-deploy closed out
 
+**From the retired session log**, word for word; only its link paths were re-pointed for this folder:
+
+<!-- archivecut:log-entry docs/SESSIONS.md 22+1 -->
+- [2026-08-09 · auto-deploy closed out](2026-08-09-0439-auto-deploy-closed-out.md) — push-to-deploy confirmed working end-to-end and the workaround removed; the repo granted to the Pages project.
+
+
 **2026-08-09**: Auto-deploy closed out. Mike granted the repo to the
 Cloudflare Workers and Pages GitHub App and flushed the stale local DNS
 entry; both verified rather than assumed. An empty commit produced a

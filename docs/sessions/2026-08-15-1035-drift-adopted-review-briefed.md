@@ -1,5 +1,11 @@
 # 2026-08-15 · 1035 UTC · Drift adopted, ADR pointers closed, the cold pass briefed
 
+**From the retired session log**, word for word; only its link paths were re-pointed for this folder:
+
+<!-- archivecut:log-entry docs/SESSIONS.md 24+1 -->
+- [2026-08-15 · drift adopted, cold pass briefed](2026-08-15-1035-drift-adopted-review-briefed.md) — atelier drift adopted (pin `b5da9e5`), two stale ADR review pointers closed and the ADRs indexed, and the platform-tier + marine-staging cold pass **briefed and queued refs-only** for a non-author to take.
+
+
 **2026-08-15**: Cold session, Mike's lane: review work, Fable-dependent
 work, and briefs for reviews that need them — write the brief, don't run
 it. Three things done, one queued.

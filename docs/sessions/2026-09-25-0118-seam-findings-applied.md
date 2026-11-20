@@ -1,5 +1,11 @@
 # 2026-09-25 · 0118 UTC · The seam's findings, ruled and applied
 
+**From the retired session log**, word for word; only its link paths were re-pointed for this folder:
+
+<!-- archivecut:log-entry docs/SESSIONS.md 29+1 -->
+- [2026-09-25 · findings applied](2026-09-25-0118-seam-findings-applied.md) — the cold-pass session resumed on Mike's instruction; he **ruled accept all, apply now** (rule 3; the ruling also accepts the ADR its author had self-accepted). All eleven landed with proofs: the header probe clamps at offset 0 and the seam's handle runs under the real `PMTiles` both sides of 16 KiB; the writer counts after the write so quota failure is resumable and `commit()` cannot publish short; no copy fallback; errors carry codes and round-trip JSON across the worker boundary; versioned writes refuse a mismatched staging file; the generator's TileIDs are a proven bijection. Tests 29 → 55 with an in-memory OPFS stand-in. ADR addendum, ARCHITECTURE updated, `[fixed]` stamps on the verdict; the application's own `⏳` queued for a non-author on Fable. Pin `2b29bb7` → `548b706`.
+
+
 Same Fable session as the cold pass, resumed four days later on Mike's
 instruction to complete the work. Nothing had moved in between.
 

@@ -1,5 +1,11 @@
 # 2026-09-20 · 2236 UTC · The archive-store seam's cold pass
 
+**From the retired session log**, word for word; only its link paths were re-pointed for this folder:
+
+<!-- archivecut:log-entry docs/SESSIONS.md 28+1 -->
+- [2026-09-20 · the seam's cold pass](2026-09-20-2236-archive-store-seam-cold-pass.md) — fresh Fable session, Mike's directed item. **FAIL-WITH-MAJORS**: F1 the seam's handle throws on pmtiles' own 16 KiB header probe and was never tested under `PMTiles` (the library verified the fixture, not the seam); F2 a failed write advances the tracker so the retry is refused and `commit()` publishes a partial archive — proven with a 20-line OPFS stub that also disproves "unverified by construction"; F3 the fixture generator's TileIDs collide from z2 up (341 tiles → 83 ids) and its self-check is blind to it. 2 MAJOR / 3 MODERATE / 4 minor / 2 note, all Mike's under rule 3. Time-capped by Mike at 11:00 NZST: the prior-verdict reconcile and the atelier pin bump were recorded as owed, then **both discharged** in a second commit once the cap lifted — no overlap with either prior verdict; pin `e9a6aae` → `2b29bb7`, template and floor block unchanged, tooling and CONCURRENCY moved.
+
+
 Fresh Fable session; Mike's directed first item. Independence held: this
 session authored none of the delta and was started by the principal.
 

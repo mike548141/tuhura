@@ -1,5 +1,11 @@
 # 2026-08-09 · 0445 UTC · Maritime made first-class; the platform question re-opened
 
+**From the retired session log**, word for word; only its link paths were re-pointed for this folder:
+
+<!-- archivecut:log-entry docs/SESSIONS.md 23+1 -->
+- [2026-08-09 · maritime first-class, platform re-opened](2026-08-09-0445-maritime-first-class-platform-reopened.md) — two owner directives: **maritime is a first-class half of tūhura, equal to land** (STRATEGY and CLAUDE.md now say so), and the platform question re-opened → `research/2026-08-09-0449-platform-pwa-vs-native.md`. The ADR's shape held; its *timing* did not, and the shell's tier became contested.
+
+
 **2026-08-09**: Two owner directives, one session. First, **maritime is a
 first-class half of tūhura** — boating, diving and fishing on the water
 rank equal with off-road driving, tramping, mountaineering, hunting and

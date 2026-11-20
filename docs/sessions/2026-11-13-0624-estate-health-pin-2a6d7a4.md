@@ -1,5 +1,11 @@
 # 2026-11-13 · 0624 UTC · estate health: pin `0a2b7a7` → `2a6d7a4`, G3 cleared
 
+**From the retired session log**, word for word; only its link paths were re-pointed for this folder:
+
+<!-- archivecut:log-entry docs/SESSIONS.md 34+1 -->
+- [2026-11-13 · pin `0a2b7a7` → `2a6d7a4`, G3 cleared](2026-11-13-0624-estate-health-pin-2a6d7a4.md) — headless Opus 5.5, dispatched by an estate health sweep (orchestrator session `e820bff5`); no review run, no Fable used. Floor block re-stamped verbatim (`pins.py`: current, identical); the 7 icons listed in `.leakscanbinaries` ahead of the 2026-11-18 G3 gate (`010/005` done); commit-msg and pre-merge-commit hooks added; visibility declared; `040/050` queues the re-stamp's cold pass.
+
+
 A headless Opus 5.5 session (`2402c2a3`), dispatched by an estate health
 sweep (orchestrator session `e820bff5`) to bring this repo to the latest
 atelier pin, green CI and current house conformance. No review was run and no

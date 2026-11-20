@@ -1,5 +1,11 @@
 # 2026-09-20 · 1051 UTC · Orchestrated queue run — Phase 0 starts shipping
 
+**From the retired session log**, word for word; only its link paths were re-pointed for this folder:
+
+<!-- archivecut:log-entry docs/SESSIONS.md 27+1 -->
+- [2026-09-20 · queue run, Phase 0 starts shipping](2026-09-20-1051-queue-run-phase-0-begins.md) — orchestrated queue run on Opus with four workers. The pin was **288 commits** stale and the inlined floor block had *drifted from its canonical text*, not just its SHA — two bullets missing (Asking; doctrine problems point up), and the old drift command read a local `HEAD`, so the check meant to catch staleness was concealing it; pinned to `e9a6aae`. Phase 0 split into six claimable leaves, three of them 🎯 blocked on Mike. **P0-A done** (maplibre-gl 6.10.0 + pmtiles 4.5.0 vendored, integrity-verified; its ESM entry is unusable without a bundler, so the global build is pinned with the reason recorded) and its guard wired into the floor's `local` seam — the suppressions it added were *tested*, and had left `site/vendor/` scanned by nothing that ran automatically. **P0-B built but deliberately not ticked** — no browser, and its accept bar is a phone. **P0-D's browser-free half** landed the archive-store seam (ADR `2026-09-20-1116`), which duck-types pmtiles' own `Source` so it needs no adapter, plus a spec-valid fixture generator; 29 tests, one of them real independent verification against the vendored bytes. The queued **cold pass closed PASS-WITH-FINDINGS** (Fable reviewer, Opus orchestrator forming no finding, disclosed) — F1 found the ADR's quantitative grounds were never counted, and F1–F4 are Mike's under rule 3. Its pointer said `..HEAD`, which had already drifted four commits into a later session's work; that and the orphan-detail-file gap went up to atelier as **PR #86**.
+
+
 *An orchestrated queue run (atelier `CONCURRENCY.md` § Orchestrated queue
 runs). Orchestrator on Opus 5, tier stated at open and not put to the
 principal, per the 2026-09-19 ruling. Four workers dispatched: one Fable

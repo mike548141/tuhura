@@ -38,7 +38,7 @@ python3 tools/serve.py    # serves site/ on laptop + phone (same Wi-Fi)
 - Comments explain **why**, not what.
 - Contestable decisions get a short ADR in [`docs/decisions/`](docs/decisions/).
 - Session context: [`CLAUDE.md`](CLAUDE.md), [`docs/ROADMAP.md`](docs/ROADMAP.md),
-  tail of [`docs/SESSIONS.md`](docs/SESSIONS.md).
+  tail of [`docs/sessions/README.md`](docs/sessions/README.md).
 
 ## Licence
 

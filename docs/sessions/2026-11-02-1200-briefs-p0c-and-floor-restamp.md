@@ -1,5 +1,11 @@
 # 2026-11-02 · 1200 UTC · P0-C and 040/040, briefed
 
+**From the retired session log**, word for word; only its link paths were re-pointed for this folder:
+
+<!-- archivecut:log-entry docs/SESSIONS.md 32+1 -->
+- [2026-11-02 · P0-C and 040/040 briefed](2026-11-02-1200-briefs-p0c-and-floor-restamp.md) — Opus 5.5 brief-writer, no review run, no Fable used. P0-C's design-time pass on where the basemap credential lives, and the floor re-stamp's pass (`040/040`), now have refs-only briefs and held-back siblings; both Fable-gated on Mike's approval.
+
+
 A brief-writing sub-agent on Opus 5.5, of session `2be3482c`, on Mike's
 instruction of 2026-11-02, verbatim: *"Write briefs for anything that needs
 a review in any of the repos, where a brief is not ready"*. It wrote two
